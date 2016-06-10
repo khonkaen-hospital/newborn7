@@ -5,3 +5,5 @@
 192.168.83.1 - - [10/Jun/2016:10:23:09 +0700] "GET / HTTP/1.1" 404 122 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36"
 192.168.83.1 - - [10/Jun/2016:10:23:16 +0700] "GET /v1/users HTTP/1.1" 200 273 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36"
 192.168.83.1 - - [10/Jun/2016:11:09:50 +0700] "GET /v1/users HTTP/1.1" 200 273 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36"
+192.168.83.1 - - [10/Jun/2016:16:56:56 +0700] "GET / HTTP/1.1" 404 122 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36"
+192.168.83.1 - - [10/Jun/2016:16:56:56 +0700] "GET /favicon.ico HTTP/1.1" 200 318 "http://newborn7-api.dev/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36"

@@ -2,9 +2,9 @@ require 'yaml'
 require 'fileutils'
 
 domains = {
-  api: 'y2aa-api.dev',
-  frontend: 'y2aa-frontend.dev',
-  backend:  'y2aa-backend.dev'
+  api: 'newborn7-api.dev',
+  frontend: 'newborn7-frontend.dev',
+  backend:  'newborn7-backend.dev'
 }
 
 config = {
