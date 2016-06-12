@@ -30,6 +30,6 @@ Newborn7
    ```
 
 That's all. You just need to wait for completion! After that you can access project locally by URLs:
-* Api: http://y2aa-api.dev
-* Frontend: http://y2aa-frontend.dev
-* Backend: http://y2aa-backend.dev
+* Api: http://newborn7-api.dev
+* Frontend: http://newborn7-frontend.dev
+* Backend: http://newborn7-backend.dev
