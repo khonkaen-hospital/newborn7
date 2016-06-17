@@ -1,6 +1,7 @@
 <?php
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+    'timeZone'=>'Asia/Bangkok',
     'components' => [
       'authManager' => [
               'class' => 'yii\rbac\DbManager',
@@ -19,13 +20,6 @@ return [
     'modules' => [
         'rbac' => [
             'class' => 'dektrium\rbac\Module',
-        ],
-        'user' => [
-            'class' => 'dektrium\user\Module',
-             'admins' => ['dixon'],
-             'modelMap' => [
-                  'Profile' => 'common\models\Profile',
-              ],
         ],
     ],
 ];
