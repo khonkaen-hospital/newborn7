@@ -54,24 +54,6 @@ class PatientVisit extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
-
-//            'timestamp' => [
-//                'class' => TimestampBehavior::className(),
-//                'attributes' => [
-//
-//                    ActiveRecord::EVENT_BEFORE_INSERT => ['tsh_pku_date', 'oae_date', 'ivh_date', 'oae_abr', 'rop_date'],
-//                    ActiveRecord::EVENT_BEFORE_UPDATE => ['tsh_pku_date', 'oae_date', 'ivh_date', 'oae_abr', 'rop_date'],
-//                ],
-//                'value' => function () {
-//
-//                    return date('Y-m-d', strtotime(str_replace("/", "-", $this->tsh_pku_date)));
-//                    return date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_date)));
-//                    return date('Y-m-d', strtotime(str_replace("/", "-", $this->ivh_date)));
-//                    return date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_abr)));
-//                    return date('Y-m-d', strtotime(str_replace("/", "-", $this->rop_date)));
-//
-//                },
-//            ],
         ];
     }
 
