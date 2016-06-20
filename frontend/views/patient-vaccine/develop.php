@@ -18,18 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'items' => [
             [
                 'label' => 'Newborn Clinic',
-                'content' => $this->render('_vaccine-form', ['model' => $model]),
                 'options' => ['id' => 'vaccine-id'],
                 'url' => Url::to(['create', 'id' => $model->id]),
-                'active' => true
 
             ],
             [
                 'label' => 'พัฒนาการเทียบเท่าอายุ',
-                'content' => '',
+                'content' => $this->render('_dev-form', ['model' => $model]),
                 'headerOptions' => [],
                 'options' => ['id' => ''],
                 'url' => Url::to(['develop', 'id' => $model->id]),
+                'active' => true
 
             ],
         ]

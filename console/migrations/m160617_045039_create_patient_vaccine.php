@@ -14,6 +14,7 @@ class m160617_045039_create_patient_vaccine extends Migration
     {
         $this->createTable('patient_vaccine', [
             'id' => $this->primaryKey(),
+            'visit_id' => $this->string(20),
             'current_weight' => $this->decimal(5,2),
             'hc' => $this->decimal(5,2),
             'length' => $this->decimal(5,2),
@@ -26,7 +27,7 @@ class m160617_045039_create_patient_vaccine extends Migration
             'ear' => $this->string(2),
             'ear_other' => $this->string(),
             'ult_brain' => $this->string(2),
-            'ref' => $this->string(),
+            'ref' => $this->integer(),
 
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
@@ -35,9 +36,19 @@ class m160617_045039_create_patient_vaccine extends Migration
         ]);
 
         $this->createIndex(
-            'idx-patient-vaccine_visit-id',
-            'patient_visit',
+            'idx-patient-vaccine',
+            'patient_vaccine',
             'visit_id'
+        );
+
+        // add foreign key for table patient_visit
+        $this->addForeignKey(
+            'fk-patient_vaccine-ref',
+            'patient_vaccine',
+            'ref',
+            'patient_visit',
+            'id',
+            'CASCADE'
         );
 
     }

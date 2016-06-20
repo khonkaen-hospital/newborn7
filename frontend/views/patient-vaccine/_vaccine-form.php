@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\ItemAlias;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\PatientVaccine */
@@ -9,7 +10,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="patient-vaccine-form">
-
+    <br>
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row">
@@ -27,9 +28,16 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'milk')->checkboxList($model->getItemMilk(), [
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <?= $form->field($model, 'milk')->checkboxList(ItemAlias::getItemMilk(), [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, [
@@ -47,10 +55,17 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <hr>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12 col-xs-12">
 
-            <?= $form->field($model, 'vaccine')->checkboxList($model->getItemVaccine(), [
+            <?= $form->field($model, 'vaccine')->checkboxList(ItemAlias::getItemVaccine(), [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, [
@@ -76,8 +91,15 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-12 col-xs-12">
+            <hr>
+        </div>
+    </div>
 
-            <?= $form->field($model, 'eye')->checkboxList($model->getItemEye(), [
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+
+            <?= $form->field($model, 'eye')->checkboxList(ItemAlias::getItemEye(), [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, [
@@ -95,6 +117,7 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+
     <div class="row">
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'eye_other')->textInput(['maxlength' => true]) ?>
@@ -103,8 +126,21 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-12 col-xs-12">
+            <hr>
+        </div>
+    </div>
 
-            <?= $form->field($model, 'ear')->checkboxList($model->getItemEar(), [
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+
+            <?= $form->field($model, 'ear')->checkboxList(ItemAlias::getItemEar(), [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, [
@@ -128,10 +164,17 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <hr>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12 col-xs-12">
 
-            <?= $form->field($model, 'ult_brain')->checkboxList($model->getItemUlt(), [
+            <?= $form->field($model, 'ult_brain')->checkboxList(ItemAlias::getItemUlt(), [
                 'item' =>
                     function ($index, $label, $name, $checked, $value) {
                         return Html::checkbox($name, $checked, [
@@ -150,7 +193,7 @@ use yii\widgets\ActiveForm;
     </div>
     <hr>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'บันทึก' : 'บันทึก', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

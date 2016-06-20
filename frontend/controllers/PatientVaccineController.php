@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\PatientDevelopment;
 use Yii;
 use common\models\PatientVaccine;
 use common\models\PatientVaccineSearch;
@@ -69,6 +70,19 @@ class PatientVaccineController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionDevelop($id = null)
+    {
+        $model = $id != null ? $this->findModel($id) : new PatientDevelopment();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['create', 'id' => $model->id]);
+        } else {
+            return $this->render('develop', [
                 'model' => $model,
             ]);
         }
