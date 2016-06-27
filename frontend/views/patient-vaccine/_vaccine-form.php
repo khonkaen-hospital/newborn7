@@ -130,13 +130,6 @@ use common\models\ItemAlias;
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <hr>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-12 col-xs-12">
 

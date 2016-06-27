@@ -5,6 +5,8 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "patient_vaccine".
@@ -46,6 +48,61 @@ class PatientVaccine extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
+
+            'milk' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['milk'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['milk'],
+                ],
+                'value' => function ($event) {
+                    return $this->milk != null ? implode(',', $this->milk) : null;
+                }
+            ],
+
+            'vaccine' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['vaccine'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['vaccine'],
+                ],
+                'value' => function ($event) {
+                    return $this->vaccine != null ? implode(',', $this->vaccine) : null;
+                }
+            ],
+
+            'eye' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['eye'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['eye'],
+                ],
+                'value' => function ($event) {
+                    return $this->eye != null ? implode(',', $this->eye) : null;
+                }
+            ],
+
+            'ear' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['ear'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['ear'],
+                ],
+                'value' => function ($event) {
+                    return $this->ear != null ? implode(',', $this->ear) : null;
+                }
+            ],
+
+            'ult_brain' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['ult_brain'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['ult_brain'],
+                ],
+                'value' => function ($event) {
+                    return $this->ult_brain != null ? implode(',', $this->ult_brain) : null;
+                }
+            ],
         ];
     }
 
@@ -59,12 +116,11 @@ class PatientVaccine extends \yii\db\ActiveRecord
             [['current_weight', 'hc', 'length', 'af'], 'number'],
             [['ref', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['visit_id'], 'string', 'max' => 20],
-            [['milk', 'vaccine', 'eye', 'ear', 'ult_brain'], 'string', 'max' => 2],
             [['vaccine_other', 'eye_other', 'ear_other'], 'string', 'max' => 255],
             [['ref'], 'exist', 'skipOnError' => true, 'targetClass' => PatientVisit::className(), 'targetAttribute' => ['ref' => 'id']],
+            [['milk', 'vaccine', 'eye', 'ear', 'ult_brain'], 'safe'],
         ];
     }
-
 
 
     /**
@@ -94,6 +150,44 @@ class PatientVaccine extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
+
+//    public function afterFind()
+//    {
+//        parent::afterFind();
+//        $this->milk = $this->milkToArray();
+//        $this->vaccine = $this->vaccineToArray();
+//        $this->eye = $this->eyeToArray();
+//        $this->ear = $this->earToArray();
+//        $this->ult_brain = $this->ult_brainToArray();
+//        return true;
+//    }
+
+
+    public function milkToArray()
+    {
+        return $this->milk = $this->milk != null ? explode(',', $this->milk) : null;
+    }
+
+    public function vaccineToArray()
+    {
+        return $this->vaccine = $this->vaccine != null ? explode(',', $this->vaccine) : null;
+    }
+
+    public function eyeToArray()
+    {
+        return $this->eye = $this->eye != null ? explode(',', $this->eye) : null;
+    }
+
+    public function earToArray()
+    {
+        return $this->ear = $this->ear != null ? explode(',', $this->ear) : null;
+    }
+
+    public function ult_brainToArray()
+    {
+        return $this->ult_brain = $this->ult_brain != null ? explode(',', $this->ult_brain) : null;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

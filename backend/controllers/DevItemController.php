@@ -1,19 +1,18 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use common\models\PatientDevelopment;
 use Yii;
-use common\models\PatientVaccine;
-use common\models\PatientVaccineSearch;
+use common\models\DevItem;
+use common\models\DevItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PatientVaccineController implements the CRUD actions for PatientVaccine model.
+ * DevItemController implements the CRUD actions for DevItem model.
  */
-class PatientVaccineController extends Controller
+class DevItemController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class PatientVaccineController extends Controller
     }
 
     /**
-     * Lists all PatientVaccine models.
+     * Lists all DevItem models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PatientVaccineSearch();
+        $searchModel = new DevItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,59 +45,37 @@ class PatientVaccineController extends Controller
     }
 
     /**
-     * Displays a single PatientVaccine model.
+     * Displays a single DevItem model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $model->milkToArray();
-        $model->vaccineToArray();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new PatientVaccine model.
+     * Creates a new DevItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id = null)
+    public function actionCreate()
     {
-        $model = $id != null ? $this->findModel($id) : new PatientVaccine();
-
-        $model->milkToArray();
-        $model->vaccineToArray();
-        $model->eyeToArray();
-        $model->earToArray();
-        $model->ult_brainToArray();
+        $model = new DevItem();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['develop', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('vaccine', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionDevelop($id = null)
-    {
-        $model = new PatientDevelopment();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['develop', 'id' => $model->id]);
-        } else {
-            return $this->render('develop', [
+            return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
 
     /**
-     * Updates an existing PatientVaccine model.
+     * Updates an existing DevItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -108,16 +85,16 @@ class PatientVaccineController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['develop', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->render('update', [
                 'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing PatientVaccine model.
+     * Deletes an existing DevItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -130,15 +107,15 @@ class PatientVaccineController extends Controller
     }
 
     /**
-     * Finds the PatientVaccine model based on its primary key value.
+     * Finds the DevItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PatientVaccine the loaded model
+     * @return DevItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PatientVaccine::findOne($id)) !== null) {
+        if (($model = DevItem::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
