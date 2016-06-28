@@ -5,6 +5,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'app.brandLabel'=>'ระบบข้อมูลเขตสุขภาพที่ 7',
     'app.copyright'=>'เขตสุขภาพที่ 7 กระทรวงสาธารณสุข',
+    'app.secretKey'=>'*Area7@#',
     'profile.province'=>[
       '40'=>'ขอนแก่น',
       '44'=>'มหาสารคาม',

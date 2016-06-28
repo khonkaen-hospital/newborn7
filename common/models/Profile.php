@@ -43,6 +43,11 @@ class Profile extends \dektrium\user\models\Profile
             'gravatarEmailLength'  => ['gravatar_email', 'string', 'max' => 255],
             'locationLength'       => ['location', 'string', 'max' => 255],
             'websiteLength'        => ['website', 'string', 'max' => 255],
+            [[ 'fname', 'lname', 'position'], 'string', 'max' => 255],
+            [['province_code', 'hcode'], 'string', 'max' => 6],
+            [['title'], 'string', 'max' => 50],
+            [['position_level'], 'string', 'max' => 150],
+            [['tel', 'mobile'], 'string', 'max' => 20]
         ];
     }
 
@@ -71,6 +76,22 @@ class Profile extends \dektrium\user\models\Profile
             'website'        => \Yii::t('user', 'Website'),
             'bio'            => \Yii::t('user', 'Bio'),
         ];
+    }
+
+    public function getItemAilas($key){
+      $items = [
+        'province' => [
+          '40' => 'ขอนแก่น',
+          '44' => 'มหาสารคาม',
+          '45' => 'ร้อยเอ็ด',
+          '46' => 'กาฬสินธุ์'
+        ]
+      ];
+      return array_key_exists($key, $items) ? $items[$key] : [];
+    }
+
+    public function getItemProvince(){
+      return $this->getItemAilas('province');
     }
 
 }
