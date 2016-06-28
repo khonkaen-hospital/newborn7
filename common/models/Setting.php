@@ -28,7 +28,7 @@ class Setting extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'value',
                 ],
                 'value' => function ($event) {
-                    return utf8_encode(Yii::$app->getSecurity()->encryptByPassword($this->value , Yii::$app->params['app.secretKey']));
+                    return $this->encryptValue($this->value);
                 },
             ],
             [
@@ -37,7 +37,7 @@ class Setting extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_AFTER_FIND => 'value',
                 ],
                 'value' => function ($event) {
-                    return Yii::$app->getSecurity()->decryptByPassword(utf8_decode($this->value), Yii::$app->params['app.secretKey']);
+                    return $this->decryptValue($this->value);
                 },
             ],
         ];
@@ -109,21 +109,39 @@ class Setting extends \yii\db\ActiveRecord
     }
 
     public static function loadConfig($hcode){
-        $connectDsnTemplage = '{driver}:host={host};dbname={database};port={port}';
+        $connectDsnTemplate = '{driver}:host={host};dbname={database};port={port}';
         $connection = [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => '{driver}:host={host};dbname={database};port={port}',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
         ];
-        $settings =   static::find()
-                      ->select('key','value')
-                      ->indexBy('id')
-                      ->where(['hcode'=>$hcode])
-                      ->column();
-                      print_r($settings);
+        $settings =   static::find()->where(['hcode'=>$hcode])->all();
+        if(count($settings)>1){
+          $temp = [];
+          foreach ($settings as $key => $value) {
+            $temp[$value->key] = $value->attributes['value'];
+          }
+          $dsn =  strtr($connection['dsn'],[
+            '{driver}'=>$temp['driver'],
+            '{host}'=>$temp['host'],
+            '{database}'=>$temp['database'],
+            '{port}'=>isset($temp['port'])?$temp['port']:'3306',
+          ]);
+          $connection['dsn'] = $dsn;
+          $connection['username'] = $temp['username'];
+          $connection['password'] = $temp['password'];
+        }
 
         return $connection;
+    }
+
+    public function encryptValue($value){
+      return utf8_encode(Yii::$app->getSecurity()->encryptByPassword($value , Yii::$app->params['app.secretKey']));
+    }
+
+    public function decryptValue($value){
+      return Yii::$app->getSecurity()->decryptByPassword(utf8_decode($value), Yii::$app->params['app.secretKey']);
     }
 }
