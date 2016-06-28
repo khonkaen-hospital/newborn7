@@ -43,14 +43,21 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
+
+
+
+       $menuItems[] = ['label' => 'Account('.Yii::$app->user->identity->username .')', 'items' => [
+            ['label' => 'Profile', 'url' => ['/user/settings/profile']],
+            ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
+            '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link']
+                )
+                . Html::endForm()
+                . '</li>'
+        ]];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

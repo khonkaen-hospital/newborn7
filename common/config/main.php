@@ -20,12 +20,5 @@ return [
         'rbac' => [
             'class' => 'dektrium\rbac\Module',
         ],
-        'user' => [
-            'class' => 'dektrium\user\Module',
-             'admins' => ['dixon'],
-             'modelMap' => [
-                  'Profile' => 'common\models\Profile',
-              ],
-        ],
     ],
 ];

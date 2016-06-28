@@ -12,6 +12,13 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+       'view' => [
+          'theme' => [
+              'pathMap' => [
+                  '@app/views' => '@common/views',
+              ],
+          ],
+        ],
         'user' => [
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
@@ -38,4 +45,24 @@ return [
         */
     ],
     'params' => $params,
+    'modules'=>[
+      'user'=>[
+              'class' => 'dektrium\user\Module',
+              'enableFlashMessages'   => false,
+               'admins' => ['admin'],
+               'modelMap' => [
+                    'Profile' => 'common\models\Profile',
+               ],
+              'mailer' => [
+                  'sender'                => ['ihospitallog@gmail.com' => 'ระบบข้อมูลสุขภาพที่ 7'],
+                  'welcomeSubject'        => 'ยินดีต้อนรับสู่ระบบข้อมูลสุขภาพที่ 7',
+                  'confirmationSubject'   => 'ยืนยันการลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
+                  'reconfirmationSubject' => 'ส่งข้อมูลรหัสยืนยันเพื่อลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
+                  'recoverySubject'       => 'กู้คืนระหัสผ่านระบบข้อมูลสุขภาพที่ 7'
+              ],
+              'controllerMap' => [
+                  'settings' => 'frontend\controllers\user\SettingsController'
+              ],
+          ]
+    ]
 ];

@@ -10,6 +10,10 @@
  */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use common\models\Hospital;
+use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
 
 /**
  * @var yii\web\View $this
@@ -33,37 +37,74 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::encode($this->title) ?>
             </div>
             <div class="panel-body">
-                <?php $form = \yii\widgets\ActiveForm::begin([
+                <?php $form = \yii\bootstrap\ActiveForm::begin([
                     'id' => 'profile-form',
-                    'options' => ['class' => 'form-horizontal'],
-                    'fieldConfig' => [
-                        'template' => "{label}\n<div class=\"col-lg-9\">{input}</div>\n<div class=\"col-sm-offset-3 col-lg-9\">{error}\n{hint}</div>",
-                        'labelOptions' => ['class' => 'col-lg-3 control-label'],
-                    ],
+                    //'options' => ['class' => 'form-horizontal'],
+                    // 'fieldConfig' => [
+                    //     'template' => "{label}\n<div class=\"col-lg-9\">{input}</div>\n<div class=\"col-sm-offset-3 col-lg-9\">{error}\n{hint}</div>",
+                    //     'labelOptions' => ['class' => 'col-lg-3 control-label'],
+                    // ],
                     'enableAjaxValidation'   => true,
                     'enableClientValidation' => false,
                     'validateOnBlur'         => false,
                 ]); ?>
 
-                <?= $form->field($model, 'name') ?>
-
-                <?= $form->field($model, 'public_email') ?>
-
-                <?= $form->field($model, 'website') ?>
-
-                <?= $form->field($model, 'location') ?>
-
-                <?= $form->field($model, 'gravatar_email')->hint(\yii\helpers\Html::a(Yii::t('user', 'Change your avatar at Gravatar.com'), 'http://gravatar.com')) ?>
-
-                <?= $form->field($model, 'bio')->textarea() ?>
-
-                <div class="form-group">
-                    <div class="col-lg-offset-3 col-lg-9">
-                        <?= \yii\helpers\Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-block btn-success']) ?><br>
-                    </div>
+                <div class="row">
+                  <div class="col-md-4">
+                      <?= $form->field($model, 'title') ?>
+                  </div>
+                  <div class="col-md-4">
+                        <?= $form->field($model, 'fname') ?>
+                  </div>
+                  <div class="col-md-4">
+                      <?= $form->field($model, 'lname') ?>
+                  </div>
                 </div>
 
-                <?php \yii\widgets\ActiveForm::end(); ?>
+                <div class="row">
+                  <div class="col-md-6">
+                    <?= $form->field($model, 'position') ?>
+                  </div>
+                  <div class="col-md-6">
+                          <?php $form->field($model, 'position_level') ?>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <?= $form->field($model, 'tel') ?>
+                  </div>
+                  <div class="col-md-6">
+                          <?= $form->field($model, 'mobile') ?>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                      <?= $form->field($model, 'province_code')->dropdownList($model->getItemProvince(),[
+                                'id'=>'ddl-province',
+                                'prompt'=>'เลือกจังหวัด'
+                       ]) ?>
+                  </div>
+                  <div class="col-md-6">
+                    <?= $form->field($model, 'hcode')->widget(DepDrop::classname(), [
+                       'options'=>['id'=>'ddl-hcode'],
+                       'type'=>DepDrop::TYPE_SELECT2,
+                       'data'=> $hospital,
+                       'pluginOptions'=>[
+                           'depends'=>['ddl-province'],
+                           'placeholder'=>'เลือกจังหวัด...',
+                           'url'=>Url::to(['/user/settings/get-hospital'])
+                       ]
+                   ]); ?>
+                  </div>
+                </div>
+
+                <div class="form-group">
+
+                        <?= \yii\helpers\Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-block btn-success']) ?><br>
+
+                </div>
+
+                <?php \yii\bootstrap\ActiveForm::end(); ?>
             </div>
         </div>
     </div>
