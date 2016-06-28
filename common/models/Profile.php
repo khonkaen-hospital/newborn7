@@ -10,7 +10,7 @@
  */
 
 namespace common\models;
-
+use common\models\Hospitals;
 /**
  * This is the model class for table "profile".
  *
@@ -90,8 +90,17 @@ class Profile extends \dektrium\user\models\Profile
       return array_key_exists($key, $items) ? $items[$key] : [];
     }
 
+
     public function getItemProvince(){
       return $this->getItemAilas('province');
+    }
+
+    public function getHospital(){
+      return $this->hasOne(Hospitals::className(),['Off_id'=>'hcode']);
+    }
+
+    public function getHospitalName(){
+      return isset($this->hospital) ? $this->hospital->Off_name : '';
     }
 
 }

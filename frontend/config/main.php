@@ -24,7 +24,7 @@ return [
        'view' => [
           'theme' => [
               'pathMap' => [
-                  '@app/views' => '@common/views',
+                  '@app/views/user' => '@common/views/user',
               ],
           ],
         ],

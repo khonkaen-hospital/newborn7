@@ -6,12 +6,13 @@ use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use yii\widgets\MaskedInput;
 
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Patient */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="patient-form">
+<div class="patient-form" style="padding:20px 20px;">
     <?php $form = ActiveForm::begin(); ?>
     <br>
     <fieldset>
@@ -20,7 +21,12 @@ use yii\widgets\MaskedInput;
                 <?= $form->field($model, 'dead')->radioList(['1'=>'มีชีวิต', '2' => 'เสียชีวิต'])->label(false) ?>
             </div>
             <div class="col-md-3 col-xs-12">
-                <?= $form->field($model, 'hospcode')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+                <div class="form-group field-patient-hospcodeName">
+                <label class="control-label" for="patient-hospcodeName">สถานพยาบาล</label>
+                <input type="text" id="patient-hospcodeName" value="<?=Yii::$app->user->identity->profile->hospital->Off_name?>" class="form-control" name="hospcodeName" readonly="" maxlength="20">
+
+                </div>
+                <?= $form->field($model, 'hospcode')->hiddenInput()->label(false) ?>
             </div>
             <div class="col-md-3 col-xs-12">
                 <?= $form->field($model, 'hn')->textInput(['maxlength' => true]) ?>
@@ -102,7 +108,7 @@ use yii\widgets\MaskedInput;
         </div>
 
     </fieldset>
-
+<br>
     <fieldset>
         <div class="row">
             <div class="col-md-12 col-xs-12">
@@ -135,6 +141,7 @@ use yii\widgets\MaskedInput;
         </div>
     </fieldset>
 
+<br>
     <fieldset>
         <div class="row">
             <div class="col-md-12 col-xs-12">

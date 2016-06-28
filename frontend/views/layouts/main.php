@@ -37,8 +37,8 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
         ['label' => 'ข้อมูล New Born', 'items' => [
-          ['label' => 'บันทึก KPI', 'url' => ['/site/about']],
-          ['label' => 'ข้อมูล New Born', 'url' => ['/site/about']],
+          ['label' => 'บันทึก KPI', 'url' => ['/patient/create']],
+          ['label' => 'ข้อมูล New Born', 'url' => ['/patient/index']],
         ]],
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
