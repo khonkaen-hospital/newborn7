@@ -105,7 +105,7 @@ class Patient extends \yii\db\ActiveRecord
             'refer_to' => 'ส่งต่อ',
             'dead' => 'ตาย',
             'exp' => 'วันที่จำหน่าย',
-            'exp_age' => 'อายุที่จำหยน่าย',
+            'exp_age' => 'อายุที่จำหน่าย',
             'los' => 'Los',
             'address' => 'ที่อยู่',
             'province' => 'จังหวัด',

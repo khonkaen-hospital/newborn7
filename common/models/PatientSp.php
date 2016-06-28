@@ -108,9 +108,9 @@ class PatientSp extends \yii\db\ActiveRecord
         return [
             [['calve_status', 'ga', 'lr_type', 'dexa', 'dose_brufen', 'dose_bt', 'htc', 'dtx', 'resuscltate', 'ppv', 'cpr', 'et_tube_status', 'uvc', 'et_tube', 'o2', 'pdx', 'patient_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['weigh'], 'number'],
-            [['apgar', 'date_of_resuscltate', 'time_of_resuscltate'], 'safe'],
+            [['apgar', 'date_of_resuscltate', 'time_of_resuscltate', 'dx', 'comp', 'proc'], 'safe'],
             [['patient_sp_code', 'hospcode'], 'string', 'max' => 20],
-            [['dx', 'dx_other', 'comp', 'comp_other', 'proc', 'proc_other'], 'string', 'max' => 255],
+            [['dx_other', 'comp_other', 'proc_other'], 'string', 'max' => 255],
             [['hospcode'], 'exist', 'skipOnError' => true, 'targetClass' => Patient::className(), 'targetAttribute' => ['hospcode' => 'hospcode']],
             [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => Patient::className(), 'targetAttribute' => ['patient_id' => 'id']],
         ];
@@ -173,6 +173,10 @@ class PatientSp extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
+        $this->dx = $this->dx != null ? explode(',', $this->dx): null;
+        $this->comp = $this->comp != null ? explode(',', $this->comp): null;
+        $this->proc = $this->proc != null ? explode(',', $this->proc): null;
+
         $this->date_of_resuscltate = date('d/m/Y', strtotime($this->date_of_resuscltate));
         return true;
     }
