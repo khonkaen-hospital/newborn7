@@ -69,12 +69,14 @@ class PatientSpController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
-        else{
+        } else {
             $model = new PatientSp();
             $model->calve_status = 1;
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                $model->patient_id = $id;
+                if ($model->save()) {
+                    return $this->redirect(['patient/index']);
+                }
             } else {
                 return $this->render('create', [
                     'model' => $model,

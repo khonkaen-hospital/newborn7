@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Newborn Clinic',
                 'options' => ['id' => 'vaccine-id'],
-                'url' => Url::to(['create', 'id' => $model->id]),
+                'url' => Url::to(['update', 'id' => $model->ref]),
 
             ],
             [
@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'content' => $this->render('_dev-form', ['model' => $model]),
                 'headerOptions' => [],
                 'options' => ['id' => ''],
-                'url' => Url::to(['develop', 'id' => $model->id]),
-                'active' => true
-
+                //'url' => Url::to(['develop', 'id' => $model->id]),
+                'active' => true,
+                'url' => '#'
             ],
         ]
     ]);

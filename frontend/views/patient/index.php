@@ -62,7 +62,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{visit} {view} {update} {delete}',
+                'buttons'=>[
+                    'visit' => function($url,$model,$key){
+                        return Html::a('<i class=""></i> >>Visit',['screening-of-newbron/pku-screening', 'id' => $model->id], ['class' => 'btn btn-xs btn-success']);
+                    }
+                ]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

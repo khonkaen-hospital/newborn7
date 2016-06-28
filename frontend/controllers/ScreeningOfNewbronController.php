@@ -89,7 +89,7 @@ class ScreeningOfNewbronController extends controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['patient-visit/view', 'id' => $model->id]);
+            return $this->redirect(['patient-vaccine/create', 'id' => $model->id]);
         } else {
             return $this->render('rop-screening', [
                 'model' => $model,
@@ -109,7 +109,7 @@ class ScreeningOfNewbronController extends controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['patient-visit/view', 'id' => $model->id]);
         } else {
             return $this->render('pku-screening', [
                 'model' => $model,

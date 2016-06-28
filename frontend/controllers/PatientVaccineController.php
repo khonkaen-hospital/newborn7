@@ -83,15 +83,17 @@ class PatientVaccineController extends Controller
         $model = new PatientDevelopment();
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
+            $model->ref = $id;
+            if ($model->save()) {
                 return $this->redirect(['patient-vaccine/view', 'id' => $id]);
-            }else{
+            } else {
                 print_r($model->getErrors());
                 die();
             }
         } else {
             return $this->render('develop', [
                 'model' => $model,
+                'id' => $id
             ]);
         }
     }
@@ -111,6 +113,7 @@ class PatientVaccineController extends Controller
         } else {
             return $this->render('vaccine', [
                 'model' => $model,
+                'id' => $id
             ]);
         }
     }

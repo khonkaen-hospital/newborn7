@@ -126,10 +126,10 @@ class PatientVisit extends \yii\db\ActiveRecord
     {
         parent::afterFind();
         $this->tsh_pku_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->tsh_pku_date)) : null;
-        $this->oae_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->oae_date)) : null;
-        $this->ivh_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->ivh_date)) : null;
-        $this->oae_abr = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->oae_abr)) : null;
-        $this->rop_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->rop_date)) : null;
+        $this->oae_date = $this->oae_date != null ? date('d/m/Y', strtotime($this->oae_date)) : null;
+        $this->ivh_date = $this->ivh_date != null ? date('d/m/Y', strtotime($this->ivh_date)) : null;
+        $this->oae_abr = $this->oae_abr != null ? date('d/m/Y', strtotime($this->oae_abr)) : null;
+        $this->rop_date = $this->rop_date != null ? date('d/m/Y', strtotime($this->rop_date)) : null;
         return true;
     }
 }
