@@ -63,7 +63,7 @@ class PatientVisit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['visit_date', 'tsh_pku_result', 'ivh_result', 'created_at', 'updated_at', 'created_by', 'updated_by', 'appointment_no'], 'integer'],
+            [['visit_date', 'tsh_pku_result', 'ivh_result', 'created_at', 'updated_at', 'created_by', 'updated_by', 'appointment_no', 'patient_id'], 'integer'],
             [['tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date'], 'safe'],
             [['visit_id', 'hospcode_seq', 'hospcode_hn'], 'string', 'max' => 20],
             [['tsh_pku', 'oae', 'ivh_ult_brain', 'rop'], 'string', 'max' => 3],
@@ -111,11 +111,11 @@ class PatientVisit extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->tsh_pku_date = date('Y-m-d', strtotime(str_replace("/", "-", $this->tsh_pku_date)));
-            $this->oae_date = date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_date)));
-            $this->ivh_date = date('Y-m-d', strtotime(str_replace("/", "-", $this->ivh_date)));
-            $this->oae_abr = date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_abr)));
-            $this->rop_date = date('Y-m-d', strtotime(str_replace("/", "-", $this->rop_date)));
+            $this->tsh_pku_date = $this->tsh_pku_date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->tsh_pku_date))) : null;
+            $this->oae_date = $this->oae_date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_date))) : null;
+            $this->ivh_date = $this->ivh_date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->ivh_date))) : null;
+            $this->oae_abr = $this->oae_abr != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->oae_abr))) : null;
+            $this->rop_date = $this->rop_date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->rop_date))) : null;
             return true;
         } else {
             return false;
@@ -125,11 +125,11 @@ class PatientVisit extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
-        $this->tsh_pku_date = date('d/m/Y', strtotime($this->tsh_pku_date));
-        $this->oae_date = date('d/m/Y', strtotime($this->oae_date));
-        $this->ivh_date = date('d/m/Y', strtotime($this->ivh_date));
-        $this->oae_abr = date('d/m/Y', strtotime($this->oae_abr));
-        $this->rop_date = date('d/m/Y', strtotime($this->rop_date));
+        $this->tsh_pku_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->tsh_pku_date)) : null;
+        $this->oae_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->oae_date)) : null;
+        $this->ivh_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->ivh_date)) : null;
+        $this->oae_abr = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->oae_abr)) : null;
+        $this->rop_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->rop_date)) : null;
         return true;
     }
 }

@@ -52,11 +52,8 @@ class PatientVaccineController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $model->milkToArray();
-        $model->vaccineToArray();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id)
         ]);
     }
 
@@ -67,16 +64,13 @@ class PatientVaccineController extends Controller
      */
     public function actionCreate($id = null)
     {
-        $model = $id != null ? $this->findModel($id) : new PatientVaccine();
+        $model = new PatientVaccine();
 
-        $model->milkToArray();
-        $model->vaccineToArray();
-        $model->eyeToArray();
-        $model->earToArray();
-        $model->ult_brainToArray();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['develop', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->ref = $id;
+            if ($model->save()) {
+                return $this->redirect(['develop', 'id' => $model->id]);
+            }
         } else {
             return $this->render('vaccine', [
                 'model' => $model,
@@ -88,8 +82,13 @@ class PatientVaccineController extends Controller
     {
         $model = new PatientDevelopment();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['develop', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                return $this->redirect(['patient-vaccine/view', 'id' => $id]);
+            }else{
+                print_r($model->getErrors());
+                die();
+            }
         } else {
             return $this->render('develop', [
                 'model' => $model,
@@ -110,7 +109,7 @@ class PatientVaccineController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['develop', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->render('vaccine', [
                 'model' => $model,
             ]);
         }

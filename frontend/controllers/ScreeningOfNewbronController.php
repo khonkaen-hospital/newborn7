@@ -43,10 +43,13 @@ class ScreeningOfNewbronController extends controller
 
     public function actionPkuScreening($id = null)
     {
-        $model = $id != null ? $this->findModel($id) : new PatientVisit();
+        $model = new PatientVisit();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['oae-screening', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->patient_id = $id;
+            if ($model->save()) {
+                return $this->redirect(['oae-screening', 'id' => $model->id]);
+            }
         } else {
             return $this->render('pku-screening', [
                 'model' => $model,
@@ -86,7 +89,7 @@ class ScreeningOfNewbronController extends controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['patient-visit/view', 'id' => $model->id]);
         } else {
             return $this->render('rop-screening', [
                 'model' => $model,

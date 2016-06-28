@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('<i class="fa fa-plus"></i> Newborn Clinic', ['patient-vaccine/create', 'id' => $model->id], ['class' => 'btn btn-success pull-right']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -52,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             'created_by',
-            'update_by',
+            'updated_by',
             'appointment_no',
         ],
     ]) ?>

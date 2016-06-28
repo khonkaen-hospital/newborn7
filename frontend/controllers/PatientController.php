@@ -66,17 +66,15 @@ class PatientController extends Controller
     public function actionCreate()
     {
         $model = new Patient();
-        $patientSp = new PatientSp();
 
         $model->birth_date = date('d/m/Y');
         $model->dead = '1';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['patient-sp/create', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'patientSp' => $patientSp
             ]);
         }
     }
@@ -92,7 +90,7 @@ class PatientController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['patient-sp/create', 'id' => $id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

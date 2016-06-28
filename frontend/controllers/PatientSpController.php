@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Patient;
 use Yii;
 use common\models\PatientSp;
 use common\models\PatientSpSearch;
@@ -61,16 +62,25 @@ class PatientSpController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = null)
     {
-        $model = new PatientSp();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
+        $model = PatientSp::find()->where(['patient_id' => $id])->one();
+        if (!empty($model)) {
+            return $this->render('update', [
                 'model' => $model,
             ]);
+        }
+        else{
+            $model = new PatientSp();
+            $model->calve_status = 1;
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                    'id' => $id,
+                ]);
+            }
         }
     }
 

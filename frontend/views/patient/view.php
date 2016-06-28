@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('<i class="fa fa-plus"></i> รายละเอียดการคลอด', ['patient-sp/create', 'id' => $model->id], ['class' => 'btn btn-success pull-right']) ?>
+
     </p>
 
     <?= DetailView::widget([
