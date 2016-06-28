@@ -31,7 +31,6 @@ class m160620_044250_create_patient_development extends Migration
             'visit_id'
         );
 
-        // add foreign key for table patient_visit
         $this->addForeignKey(
             'fk-patient_development-patient_visit',
             'patient_development',
