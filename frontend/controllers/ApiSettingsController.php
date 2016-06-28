@@ -69,18 +69,18 @@ class ApiSettingsController extends Controller
      */
     protected function findModelByHcode($id)
     {
-        if (count($models = Setting::find()->indexBy('id')->where(['hcode'=>$id])->all()) >= 1) {
-            return $models;
-        } else {
+        if (($models = Setting::find()->indexBy('id')->where(['hcode'=>$id])->all()) == []) {
           foreach (['host','database','username','password','driver'] as $key => $value) {
             $model = new Setting([
               'key'=> $value,
               'value' => NULL,
               'hcode' => Yii::$app->user->identity->profile->hcode
             ]);
-            $model->save();
+            $model->save(false);
           }
-          return Setting::find()->where(['hcode'=>$id])->all();
+          return Setting::find()->indexBy('id')->where(['hcode'=>$id])->all();
+        } else {
+          return $models;
         }
     }
 
