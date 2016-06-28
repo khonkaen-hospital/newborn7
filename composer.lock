@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7fe728a5b2598e5f55e5640a6a80b684",
-    "content-hash": "fc8653481612361f0e2b3801b1ae31c6",
+    "hash": "595b265ff626bcdf6eeeb72bbf23bc3e",
+    "content-hash": "a8af6bcfa10707246c7421a113f6f361",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -234,6 +234,45 @@
             ]
         },
         {
+            "name": "c006/yii2-migration-utility",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c006/yii2-migration-utility.git",
+                "reference": "3fc4af92c20ca2bf97bf01a50819565b5a6fe621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c006/yii2-migration-utility/zipball/3fc4af92c20ca2bf97bf01a50819565b5a6fe621",
+                "reference": "3fc4af92c20ca2bf97bf01a50819565b5a6fe621",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "c006\\utility\\migration\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Chambers",
+                    "email": "jchambers.dev@gmail.com"
+                }
+            ],
+            "description": "Automatically writes the create tables for migrations or create tables in general",
+            "keywords": [
+                "extension",
+                "migration",
+                "tables",
+                "yii2"
+            ],
+            "time": "2016-01-12 06:46:07"
+        },
+        {
             "name": "cebe/markdown",
             "version": "dev-master",
             "source": {
@@ -299,12 +338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dektrium/yii2-rbac.git",
-                "reference": "4254915df03af3618eda5e03adb8f9f64a5f604f"
+                "reference": "d1787eedcbb091623e87aa988c2155d514a7f993"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dektrium/yii2-rbac/zipball/4254915df03af3618eda5e03adb8f9f64a5f604f",
-                "reference": "4254915df03af3618eda5e03adb8f9f64a5f604f",
+                "url": "https://api.github.com/repos/dektrium/yii2-rbac/zipball/d1787eedcbb091623e87aa988c2155d514a7f993",
+                "reference": "d1787eedcbb091623e87aa988c2155d514a7f993",
                 "shasum": ""
             },
             "require": {
@@ -341,7 +380,7 @@
                 "yii2",
                 "yii2-rbac"
             ],
-            "time": "2016-05-10 18:20:07"
+            "time": "2016-06-28 09:41:53"
         },
         {
             "name": "dektrium/yii2-user",
@@ -451,19 +490,17 @@
             "time": "2015-08-05 01:03:42"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "kartik-v/bootstrap-fileinput",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "bdea79210ab646544c9e6f4a6d39e7dd670d45ee"
+                "reference": "d7a751a75c66b8f3e8322f8cccb3e0f31c773e80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/bdea79210ab646544c9e6f4a6d39e7dd670d45ee",
-                "reference": "bdea79210ab646544c9e6f4a6d39e7dd670d45ee",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/d7a751a75c66b8f3e8322f8cccb3e0f31c773e80",
+                "reference": "d7a751a75c66b8f3e8322f8cccb3e0f31c773e80",
                 "shasum": ""
             },
             "type": "library",
@@ -503,7 +540,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2016-06-11 18:44:02"
+            "time": "2016-06-23 08:23:17"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -550,7 +587,6 @@
             "time": "2016-06-07 02:53:49"
         },
         {
->>>>>>> eefc2e34b3a0713180dc342da6900f82fc64d775
             "name": "kartik-v/dependent-dropdown",
             "version": "v1.4.4",
             "source": {
@@ -1006,12 +1042,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-fileinput.git",
-                "reference": "637c50259183c4cddb565f551bd2e0aba88380be"
+                "reference": "3b8f6819f2cd01becff5251b8b952ac3e57b903a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/637c50259183c4cddb565f551bd2e0aba88380be",
-                "reference": "637c50259183c4cddb565f551bd2e0aba88380be",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/3b8f6819f2cd01becff5251b8b952ac3e57b903a",
+                "reference": "3b8f6819f2cd01becff5251b8b952ac3e57b903a",
                 "shasum": ""
             },
             "require": {
@@ -1053,7 +1089,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-06-14 13:49:19"
+            "time": "2016-06-16 06:53:01"
         },
         {
             "name": "kartik-v/yii2-widget-growl",
@@ -1210,55 +1246,6 @@
             "time": "2016-05-13 03:22:54"
         },
         {
-            "name": "kartik-v/yii2-widget-depdrop",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kartik-v/yii2-widget-depdrop.git",
-                "reference": "6918ca6f7d7be153c80f6aa9c261f9b333293e9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-depdrop/zipball/6918ca6f7d7be153c80f6aa9c261f9b333293e9c",
-                "reference": "6918ca6f7d7be153c80f6aa9c261f9b333293e9c",
-                "shasum": ""
-            },
-            "require": {
-                "kartik-v/dependent-dropdown": "~1.4",
-                "kartik-v/yii2-krajee-base": "~1.7"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "kartik\\depdrop\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Kartik Visweswaran",
-                    "email": "kartikv2@gmail.com",
-                    "homepage": "http://www.krajee.com/"
-                }
-            ],
-            "description": "Widget that enables setting up dependent dropdowns with nested dependencies (sub repo split from yii2-widgets)",
-            "homepage": "https://github.com/kartik-v/yii2-widget-depdrop",
-            "keywords": [
-                "dependent",
-                "dropdown",
-                "extension",
-                "form",
-                "jquery",
-                "plugin",
-                "widget",
-                "yii2"
-            ],
-            "time": "2016-01-10 17:30:48"
-        },
-        {
             "name": "kartik-v/yii2-widget-select2",
             "version": "dev-master",
             "source": {
@@ -1310,8 +1297,6 @@
                 "yii2"
             ],
             "time": "2016-06-14 13:48:39"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -1558,7 +1543,6 @@
                 "yii2"
             ],
             "time": "2016-01-10 17:10:39"
->>>>>>> eefc2e34b3a0713180dc342da6900f82fc64d775
         },
         {
             "name": "kartik-v/yii2-widget-typeahead",
@@ -2378,11 +2362,9 @@
         "dektrium/yii2-user": 20,
         "dektrium/yii2-rbac": 20,
         "kartik-v/yii2-widget-select2": 20,
-<<<<<<< HEAD
-        "kartik-v/yii2-widget-depdrop": 20
-=======
-        "kartik-v/yii2-widget-datepicker": 20
->>>>>>> eefc2e34b3a0713180dc342da6900f82fc64d775
+        "kartik-v/yii2-widget-depdrop": 20,
+        "kartik-v/yii2-widget-datepicker": 20,
+        "c006/yii2-migration-utility": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

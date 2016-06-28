@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Settings';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="row">
     <div class="col-md-3">

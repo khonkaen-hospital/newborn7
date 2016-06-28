@@ -3,7 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "co_setting".
  *
@@ -19,6 +22,24 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             BlameableBehavior::className(),
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'value',
+                ],
+                'value' => function ($event) {
+                    return utf8_encode(Yii::$app->getSecurity()->encryptByPassword($this->value , Yii::$app->params['app.secretKey']));
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => 'value',
+                ],
+                'value' => function ($event) {
+                    return Yii::$app->getSecurity()->decryptByPassword(utf8_decode($this->value), Yii::$app->params['app.secretKey']);
+                },
+            ],
         ];
     }
 
@@ -85,5 +106,24 @@ class Setting extends \yii\db\ActiveRecord
 
     public function getDriverItems(){
       return $this->itemsAilas('driver');
+    }
+
+    public static function loadConfig($hcode){
+        $connectDsnTemplage = '{driver}:host={host};dbname={database};port={port}';
+        $connection = [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ];
+        $settings =   static::find()
+                      ->select('key','value')
+                      ->indexBy('id')
+                      ->where(['hcode'=>$hcode])
+                      ->column();
+                      print_r($settings);
+
+        return $connection;
     }
 }

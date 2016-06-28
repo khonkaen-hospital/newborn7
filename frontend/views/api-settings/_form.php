@@ -3,8 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$model->value = Yii::$app->getSecurity()->decryptByPassword(utf8_decode($model->value), Yii::$app->params['app.secretKey']);
-
 /* @var $this yii\web\View */
 /* @var $model common\models\Setting */
 /* @var $form yii\widgets\ActiveForm */
