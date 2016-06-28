@@ -11,6 +11,15 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules'=>[
+      'user' => [
+          'class' => 'dektrium\user\Module',
+           'admins' => ['dixon'],
+           'modelMap' => [
+                'Profile' => 'common\models\Profile',
+            ],
+      ],
+    ],
     'components' => [
        'view' => [
           'theme' => [
