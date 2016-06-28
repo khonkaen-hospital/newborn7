@@ -134,8 +134,8 @@ class Patient extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->birth_date = date('Y-m-d', strtotime(str_replace("/", "-", $this->birth_date)));
-            $this->exp = date('Y-m-d', strtotime(str_replace("/", "-", $this->exp)));
+            $this->birth_date = $this->birth_date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->birth_date))): null;
+            $this->exp = $this->exp != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->exp))): null;
             return true;
         } else {
             return false;
@@ -145,8 +145,8 @@ class Patient extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
-        $this->birth_date = date('d/m/Y', strtotime($this->birth_date));
-        $this->exp = date('d/m/Y', strtotime($this->exp));
+        $this->birth_date =  $this->birth_date != null ? date('d/m/Y', strtotime($this->birth_date)): null;
+        $this->exp = $this->exp != null ? date('d/m/Y', strtotime($this->exp)) : null;
         return true;
     }
 

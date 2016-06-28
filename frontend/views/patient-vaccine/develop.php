@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Patient Vaccines', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="patient-vaccine-create">
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php echo Tabs::widget([
         'items' => [
             [

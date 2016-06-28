@@ -16,7 +16,7 @@ use kartik\time\TimePicker;
 
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'calve_status')->radioList(['1' => 'คลอด รพ.', '2' => 'รับ Refer']) ?>
+            <?= $form->field($model, 'calve_status')->radioList(['1' => 'คลอด รพ.', '2' => 'รับ Refer'])->label(false) ?>
         </div>
         <div class="col-md-3 col-xs-12">
             <?= $form->field($model, 'patient_sp_code')->textInput(['maxlength' => true, 'readonly' => true]) ?>
@@ -133,7 +133,7 @@ use kartik\time\TimePicker;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'บันทึก' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -112,7 +112,7 @@ class PatientDevelopment extends \yii\db\ActiveRecord
             'visit_id' => 'Visit ID',
             'develop' => 'พัฒนาการ',
             'age' => 'อายุ',
-            'ref' => 'ช่วงอายุ',
+            'ref' => 'ref',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

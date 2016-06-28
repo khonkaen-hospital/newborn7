@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap\Tabs;
 use yii\helpers\Url;
 
@@ -13,8 +12,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="patient-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php echo Tabs::widget([
         'items' => [
 
@@ -23,15 +20,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'content' => $this->render('_form', ['model' => $model]),
                 'headerOptions' => [],
                 'options' => ['id' => ''],
-                'url' => Url::to(['create', 'id' => $model->id]),
+                'url' => '#',
                 'active' => true
 
             ],
             [
                 'label' => 'รายละเอียดการคลอด (ข้อมูลการมา รพ.ครั้งแรก)',
-                'options' => ['id' => 'patientSp-id'],
-                'url' => Url::to(['patient-sp/create', 'id' => $model->id]),
-
+                'url' => '#',
+                'options' => [
+                    'id' => 'patientSp-id',
+                ],
+                'clientOption' => [
+                    'disable' => true
+                ],
+//               'url' => Url::to(['patient-sp/create', 'id' => $model->id]),
             ],
         ]
     ]);

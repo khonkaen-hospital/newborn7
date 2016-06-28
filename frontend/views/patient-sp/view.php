@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('<i class="fa fa-plus"></i> Patient Visit', ['screening-of-newbron/pku-screening', 'id' => $model->id], ['class' => 'btn btn-success pull-right']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -50,11 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'et_tube',
             'o2',
             'pdx',
-            'dx',
+            //'dx',
             'dx_other',
-            'comp',
+            //'comp',
             'comp_other',
-            'proc',
+            //'proc',
             'proc_other',
             'hospcode',
             'patient_id',

@@ -10,9 +10,6 @@ $this->title = 'Screening of Newbron';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="screening-of-newbron">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <br>
-
     <?php Pjax::begin(); ?>
     <?php echo Tabs::widget([
         'items' => [

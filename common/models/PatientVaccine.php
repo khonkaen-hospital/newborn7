@@ -151,42 +151,44 @@ class PatientVaccine extends \yii\db\ActiveRecord
         ];
     }
 
-//    public function afterFind()
+
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->milk = $this->milk != null ? explode(',', $this->milk): null;
+        $this->vaccine = $this->vaccine != null ? explode(',', $this->vaccine): null;
+        $this->eye = $this->eye != null ? explode(',', $this->eye): null;
+        $this->ear = $this->ear != null ? explode(',', $this->ear): null;
+        $this->ult_brain = $this->ult_brain != null ? explode(',', $this->ult_brain): null;
+
+        return true;
+    }
+
+
+//    public function milkToArray()
 //    {
-//        parent::afterFind();
-//        $this->milk = $this->milkToArray();
-//        $this->vaccine = $this->vaccineToArray();
-//        $this->eye = $this->eyeToArray();
-//        $this->ear = $this->earToArray();
-//        $this->ult_brain = $this->ult_brainToArray();
-//        return true;
+//        return $this->milk = $this->milk != null ? explode(',', $this->milk) : null;
 //    }
-
-
-    public function milkToArray()
-    {
-        return $this->milk = $this->milk != null ? explode(',', $this->milk) : null;
-    }
-
-    public function vaccineToArray()
-    {
-        return $this->vaccine = $this->vaccine != null ? explode(',', $this->vaccine) : null;
-    }
-
-    public function eyeToArray()
-    {
-        return $this->eye = $this->eye != null ? explode(',', $this->eye) : null;
-    }
-
-    public function earToArray()
-    {
-        return $this->ear = $this->ear != null ? explode(',', $this->ear) : null;
-    }
-
-    public function ult_brainToArray()
-    {
-        return $this->ult_brain = $this->ult_brain != null ? explode(',', $this->ult_brain) : null;
-    }
+//
+//    public function vaccineToArray()
+//    {
+//        return $this->vaccine = $this->vaccine != null ? explode(',', $this->vaccine) : null;
+//    }
+//
+//    public function eyeToArray()
+//    {
+//        return $this->eye = $this->eye != null ? explode(',', $this->eye) : null;
+//    }
+//
+//    public function earToArray()
+//    {
+//        return $this->ear = $this->ear != null ? explode(',', $this->ear) : null;
+//    }
+//
+//    public function ult_brainToArray()
+//    {
+//        return $this->ult_brain = $this->ult_brain != null ? explode(',', $this->ult_brain) : null;
+//    }
 
     /**
      * @return \yii\db\ActiveQuery

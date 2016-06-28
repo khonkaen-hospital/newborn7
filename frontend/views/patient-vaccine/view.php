@@ -23,9 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('<i class="fa fa-list"></i> ลงทะเบียนผู้ป่วย', ['patient/index'], ['class' => 'btn btn-success pull-right']) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?php echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -33,20 +34,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'hc',
             'length',
             'af',
-            'milk',
-            'vaccine',
+//            'milk',
+//            'vaccine',
             'vaccine_other',
-            'eye',
+//            'eye',
             'eye_other',
-            'ear',
+//            'ear',
             'ear_other',
-            'ult_brain',
+//            'ult_brain',
             'ref',
             'created_at',
             'updated_at',
             'created_by',
             'updated_by',
         ],
-    ]) ?>
+    ])
+    ?>
 
 </div>

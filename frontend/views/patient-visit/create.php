@@ -11,9 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Patient Visits', 'url' => ['index'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="patient-visit-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
         'patientSp' => $patientSp
