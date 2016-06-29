@@ -4,6 +4,7 @@ return [
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
     'app.brandLabel'=>'ระบบข้อมูลเขตสุขภาพที่ 7',
+    'app.subtitle'=>'New Born Service plan',
     'app.copyright'=>'เขตสุขภาพที่ 7 กระทรวงสาธารณสุข',
     'app.secretKey'=>'*Area7@#',
     'profile.province'=>[

@@ -49,6 +49,9 @@ class ApiSettingsController extends Controller
         $settings = $this->findModelByHcode(Yii::$app->user->identity->profile->hcode);
         if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
             foreach ($settings as $setting) {
+                if($setting->value=='[null]'){
+                  $setting->value = null;
+                }
                 $setting->save(false);
             }
             Yii::$app->session->setFlash('success', 'ตั้งค่าเชื่อมต่อฐานข้อมูลเสร็จเรียบร้อย..');

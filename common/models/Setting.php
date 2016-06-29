@@ -110,31 +110,26 @@ class Setting extends \yii\db\ActiveRecord
 
     public static function loadConfig($hcode){
         $connectDsnTemplate = '{driver}:host={host};dbname={database};port={port}';
-        $connection = [
-            'class' => 'yii\db\Connection',
-            'dsn' => '{driver}:host={host};dbname={database};port={port}',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-        ];
         $settings =   static::find()->where(['hcode'=>$hcode])->all();
         if(count($settings)>1){
-          $temp = [];
-          foreach ($settings as $key => $value) {
-            $temp[$value->key] = $value->attributes['value'];
-          }
-          $dsn =  strtr($connection['dsn'],[
-            '{driver}'=>$temp['driver'],
-            '{host}'=>$temp['host'],
-            '{database}'=>$temp['database'],
-            '{port}'=>isset($temp['port'])?$temp['port']:'3306',
-          ]);
-          $connection['dsn'] = $dsn;
-          $connection['username'] = $temp['username'];
-          $connection['password'] = $temp['password'];
+            $temp = [];
+            foreach ($settings as $key => $value) {
+              $temp[$value->key] = $value->attributes['value'];
+            }
+            $dsn =  strtr($connectDsnTemplate,[
+              '{driver}'=>$temp['driver'],
+              '{host}'=>$temp['host'],
+              '{database}'=>$temp['database'],
+              '{port}'=>isset($temp['port'])?$temp['port']:'3306',
+            ]);
         }
 
-        return $connection;
+        return new \yii\db\Connection([
+          'dsn'=>$dsn,
+          'username'=>$temp['username'],
+          'password'=>$temp['password'],
+          'charset' => 'utf8',
+        ]);
     }
 
     public function encryptValue($value){

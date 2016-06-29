@@ -7,10 +7,12 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\Patient */
 
-$this->title = 'Create Patient';
+$this->title = 'ลงทะเบียนประวัติ Newborn';
 $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<h1><?=$this->title;?></h1>
+<br>
 <div class="patient-create">
     <?php echo Tabs::widget([
         'items' => [
