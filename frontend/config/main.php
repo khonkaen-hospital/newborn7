@@ -55,6 +55,9 @@ return [
     ],
     'params' => $params,
     'modules'=>[
+      'utility' => [
+          'class' => 'c006\utility\migration\Module',
+      ],
       'user'=>[
               'class' => 'dektrium\user\Module',
               'enableFlashMessages'   => false,
