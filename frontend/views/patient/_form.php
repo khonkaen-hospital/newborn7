@@ -23,7 +23,7 @@ use yii\widgets\MaskedInput;
             <div class="col-md-3 col-xs-12">
                 <div class="form-group field-patient-hospcodeName">
                 <label class="control-label" for="patient-hospcodeName">สถานพยาบาล</label>
-                <input type="text" id="patient-hospcodeName" value="<?=Yii::$app->user->identity->profile->hospital->Off_name?>" class="form-control" name="hospcodeName" readonly="" maxlength="20">
+                <input type="text" id="patient-hospcodeName" value="<?=isset(Yii::$app->user->identity->profile->hospital) ? Yii::$app->user->identity->profile->hospital->Off_name:'กรุณาตั้งค่าสถานพยาบาลที่สังกัด!'?>" class="form-control" name="hospcodeName" readonly="" maxlength="20">
 
                 </div>
                 <?= $form->field($model, 'hospcode')->hiddenInput()->label(false) ?>
