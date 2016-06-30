@@ -2,19 +2,18 @@
 
 namespace frontend\modules\newborn7\controllers;
 
-use frontend\modules\newborn7\models\Patient;
 use Yii;
-use frontend\modules\newborn7\models\PatientVisit;
-use frontend\modules\newborn7\models\PatientVisitSearch;
+use frontend\modules\newborn7\models\PatientVisitClinic;
+use frontend\modules\newborn7\models\PatientVisitClinicSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Html;
+use frontend\modules\newborn7\models\PatientVisit;
 
 /**
- * PatientVisitController implements the CRUD actions for PatientVisit model.
+ * PatientVisitClinicController implements the CRUD actions for PatientVisitClinic model.
  */
-class PatientVisitController extends Controller
+class PatientVisitClinicController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,12 +31,12 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Lists all PatientVisit models.
+     * Lists all PatientVisitClinic models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PatientVisitSearch();
+        $searchModel = new PatientVisitClinicSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +46,7 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Displays a single PatientVisit model.
+     * Displays a single PatientVisitClinic model.
      * @param integer $id
      * @return mixed
      */
@@ -59,26 +58,22 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Creates a new PatientVisit model.
+     * Creates a new PatientVisitClinic model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate($id = null)
     {
-        $model = new PatientVisit();
-        $patient = Patient::findOne($id);
-        $model->hospcode = $patient->hospcode;
-        $model->seq = $patient->seq;
-        $model->hn = $patient->hn;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('alert', [
-                'type' => 'success',
-                'icon' => 'fa fa-users',
-                'title' => Yii::t('app', Html::encode('Success!')),
-                'message' => Yii::t('app', Html::encode('บันทึกข้อมูลเรียบร้อยแล้ว')),
-            ]);
+        $model = new PatientVisitClinic();
+        $patientVisit = PatientVisit::findOne($id);
 
-            return $this->redirect(['patient-visit/index', 'id' => $model->visit_id]);
+        $model->visit_id = $id;
+        $model->hospcode = $patientVisit->hospcode;
+        $model->seq = $patientVisit->seq;
+        $model->hn = $patientVisit->hn;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->visit_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -87,7 +82,7 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Updates an existing PatientVisit model.
+     * Updates an existing PatientVisitClinic model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,7 +101,7 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Deletes an existing PatientVisit model.
+     * Deletes an existing PatientVisitClinic model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,15 +114,15 @@ class PatientVisitController extends Controller
     }
 
     /**
-     * Finds the PatientVisit model based on its primary key value.
+     * Finds the PatientVisitClinic model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PatientVisit the loaded model
+     * @return PatientVisitClinic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PatientVisit::findOne($id)) !== null) {
+        if (($model = PatientVisitClinic::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

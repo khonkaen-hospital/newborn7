@@ -81,10 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'update' => function ($url, $model, $key) {
                         return Html::a('<i class=""></i> แก้ไข', ['patient/update', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-warning']);
                     },
-
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> แก้ไข', ['patient/update', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-warning']);
-                    },
                     'delete' => function ($url, $model, $key) {
                         return Html::a('<i class=""></i> ลบ', ['patient/delete', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
                     },

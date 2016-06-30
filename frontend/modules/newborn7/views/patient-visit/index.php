@@ -45,7 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'inp_id',
             // 'lastupdate',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{clinic} {view} {update} {delete}',
+                'buttons' => [
+                    'clinic' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> คลินิก', ['patient-visit-clinic/create', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-success']);
+                    },
+
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> รายละเอียด', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-primary']);
+                    },
+
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> แก้ไข', ['patient-visit/update', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-warning']);
+                    },
+
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> ลบ', ['patient-visit/delete', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
+                    },
+                ]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

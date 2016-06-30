@@ -13,8 +13,12 @@ use kartik\select2\Select2;
 
 <div class="patient-visit-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
+<fieldset>
     <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <legend><h4>ข้อมูล Visit</h4></legend>
+        </div>
         <div class="col-md-2 col-xs-12">
             <?= $form->field($model, 'seq')->textInput(['maxlength' => true, 'readonly' => true]) ?>
         </div>
@@ -24,15 +28,15 @@ use kartik\select2\Select2;
         </div>
 
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'hn')->textInput(['maxlength' => true ,'readonly' => true]) ?>
+            <?= $form->field($model, 'hn')->textInput(['maxlength' => true, 'readonly' => true]) ?>
         </div>
 
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'clinic')->dropDownList([],['maxlength' => true]) ?>
+            <?= $form->field($model, 'clinic')->dropDownList([], ['maxlength' => true]) ?>
         </div>
 
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'pttype')->dropDownList([],['maxlength' => true]) ?>
+            <?= $form->field($model, 'pttype')->dropDownList([], ['maxlength' => true]) ?>
         </div>
 
         <div class="col-md-2 col-xs-12">
@@ -97,8 +101,13 @@ use kartik\select2\Select2;
             ]); ?>
         </div>
     </div>
+</fieldset>
 
+<fieldset>
     <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <legend><h4>ข้อมูล TSK PKU</h4></legend>
+        </div>
         <div class="col-md-2 col-xs-12">
             <?= $form->field($model, 'tsh_pku')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
         </div>
@@ -132,7 +141,13 @@ use kartik\select2\Select2;
         </div>
     </div>
 
+</fieldset>
+
+<fieldset>
     <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <legend><h4>ข้อมูล OAE</h4></legend>
+        </div>
         <div class="col-md-2 col-xs-12">
             <?= $form->field($model, 'oae')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
         </div>
@@ -176,8 +191,13 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'oae_result')->textarea(['rows' => 5]) ?>
         </div>
     </div>
+</fieldset>
 
+<fieldset>
     <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <legend><h4>ข้อมูล IVH ULT BRAIN</h4></legend>
+        </div>
         <div class="col-md-3 col-xs-12">
             <?= $form->field($model, 'ivh_ult_brain')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
         </div>
@@ -200,8 +220,13 @@ use kartik\select2\Select2;
             <?= $form->field($model, 'ivh_result')->textarea(['rows' => 5]) ?>
         </div>
     </div>
+</fieldset>
 
+<fieldset>
     <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <legend><h4>ข้อมูล ROP</h4></legend>
+        </div>
         <div class="col-md-2 col-xs-12">
             <?= $form->field($model, 'rop')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
         </div>
@@ -225,21 +250,21 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ]);?>
+            ]); ?>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <?= $form->field($model, 'rop_result')->textarea(['rows' => 5]) ?>
         </div>
     </div>
+</fieldset>
 
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+<div class="form-group">
+    <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+</div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
