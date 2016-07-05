@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation for table `patient_development`.
+ * Handles the creation for table `patient_visit_clinic`.
  */
-class m160620_044250_create_patient_development extends Migration
+class m160630_135650_create_patient_visit_clinic extends Migration
 {
     /**
      * @inheritdoc
@@ -17,12 +17,12 @@ class m160620_044250_create_patient_development extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable('patient_development', [
-            'id' => $this->primaryKey(),
-            'visit_id' => $this->string(20),
-            'develop' => $this->string(),
-            'age' => $this->integer(),
+        $this->createTable('patient_visit_clinic', [
+            'visit_id' => $this->integer(),
+            'current_weight' => $this->string(),
+            'hc' => $this->string(),
             'ref' => $this->integer(),
+            'unused' => $this->dateTime(),
 
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
@@ -31,16 +31,17 @@ class m160620_044250_create_patient_development extends Migration
         ],$tableOptions);
 
         $this->createIndex(
-            'idx-patient_development',
-            'patient_development',
-            'visit_id'
+            'idx-dev_item',
+            'dev_item',
+            'code_item'
         );
 
+        // add foreign key for table patient_visit
         $this->addForeignKey(
-            'fk-patient_development-patient_visit',
-            'patient_development',
+            'fk-dev_item-group_item',
+            'dev_item',
             'ref',
-            'patient_visit',
+            'dev_item_group',
             'id',
             'CASCADE'
         );
@@ -51,6 +52,6 @@ class m160620_044250_create_patient_development extends Migration
      */
     public function down()
     {
-        $this->dropTable('patient_development');
+        $this->dropTable('patient_visit_clinic');
     }
 }

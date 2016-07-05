@@ -9,6 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\Growl;
 
 AppAsset::register($this);
 ?>
@@ -75,6 +77,36 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
+        <?php foreach (Yii::$app->session->getAllFlashes() as $message): ?>
+            <?php
+
+            echo Growl::widget([
+                'type' => (!empty($message['type'])) ? $message['type'] : 'success',
+                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'กรุณาใส่หัวข้อ',
+                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'ไม่มีข้อความ',
+                'showSeparator' => true,
+                'delay' => 1, //This delay is how long before the message shows
+                'pluginOptions' => [
+                    'showProgressbar' => true,
+                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                    'placement' => [
+                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
+                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                    ]
+                ]
+            ]);
+            ?>
+        <?php endforeach; ?>
+
+        <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+            <?= \yii\bootstrap\Alert::widget([
+                'body'=>ArrayHelper::getValue($message, 'body'),
+                'options'=>ArrayHelper::getValue($message, 'options'),
+            ])?>
+        <?php endforeach; ?>
+
         <?= $content ?>
     </div>
 </div>

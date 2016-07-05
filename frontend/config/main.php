@@ -11,22 +11,22 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'modules'=>[
-      'user' => [
-          'class' => 'dektrium\user\Module',
-           'admins' => ['dixon'],
-           'modelMap' => [
+    'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'admins' => ['dixon'],
+            'modelMap' => [
                 'Profile' => 'common\models\Profile',
             ],
-      ],
+        ],
     ],
     'components' => [
-       'view' => [
-          'theme' => [
-              'pathMap' => [
-                  '@app/views/user' => '@common/views/user',
-              ],
-          ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views/user' => '@common/views/user',
+                ],
+            ],
         ],
         'user' => [
             'identityClass' => 'dektrium\user\models\User',
@@ -54,27 +54,30 @@ return [
         */
     ],
     'params' => $params,
-    'modules'=>[
-      'utility' => [
-          'class' => 'c006\utility\migration\Module',
-      ],
-      'user'=>[
-              'class' => 'dektrium\user\Module',
-              'enableFlashMessages'   => false,
-               'admins' => ['admin'],
-               'modelMap' => [
-                    'Profile' => 'common\models\Profile',
-               ],
-              'mailer' => [
-                  'sender'                => ['ihospitallog@gmail.com' => 'ระบบข้อมูลสุขภาพที่ 7'],
-                  'welcomeSubject'        => 'ยินดีต้อนรับสู่ระบบข้อมูลสุขภาพที่ 7',
-                  'confirmationSubject'   => 'ยืนยันการลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
-                  'reconfirmationSubject' => 'ส่งข้อมูลรหัสยืนยันเพื่อลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
-                  'recoverySubject'       => 'กู้คืนระหัสผ่านระบบข้อมูลสุขภาพที่ 7'
-              ],
-              'controllerMap' => [
-                  'settings' => 'frontend\controllers\user\SettingsController'
-              ],
-          ]
+    'modules' => [
+        'newborn7' => [
+            'class' => 'frontend\modules\newborn7\Newborn7',
+        ],
+        'utility' => [
+            'class' => 'c006\utility\migration\Module',
+        ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableFlashMessages' => false,
+            'admins' => ['admin'],
+            'modelMap' => [
+                'Profile' => 'common\models\Profile',
+            ],
+            'mailer' => [
+                'sender' => ['ihospitallog@gmail.com' => 'ระบบข้อมูลสุขภาพที่ 7'],
+                'welcomeSubject' => 'ยินดีต้อนรับสู่ระบบข้อมูลสุขภาพที่ 7',
+                'confirmationSubject' => 'ยืนยันการลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
+                'reconfirmationSubject' => 'ส่งข้อมูลรหัสยืนยันเพื่อลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
+                'recoverySubject' => 'กู้คืนระหัสผ่านระบบข้อมูลสุขภาพที่ 7'
+            ],
+            'controllerMap' => [
+                'settings' => 'frontend\controllers\user\SettingsController'
+            ],
+        ]
     ]
 ];
