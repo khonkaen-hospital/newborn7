@@ -45,9 +45,10 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['field_name', 'group', 'type', 'type'], 'required'],
             [['sql', 'comment'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['field_name', 'group', 'type'], 'string', 'max' => 255],
+            [['field_name', 'group', 'type','table','description'], 'string', 'max' => 255],
         ];
     }
 
@@ -77,5 +78,18 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ApiSqlFieldMappingQuery(get_called_class());
+    }
+
+    public function itemAlias($key){
+      $items = [
+        'table'=> [
+          'patient'=>'Patient'
+        ]
+      ];
+      return array_key_exists($key, $items) ? $items[$key] : [];
+    }
+
+    public function getPatientItems(){
+       return $this->itemAlias('table');
     }
 }

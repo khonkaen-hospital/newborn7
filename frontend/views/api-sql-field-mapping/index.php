@@ -18,17 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Api Sql Field Mapping', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(); ?>
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => ['class'=>'table'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'field_name',
             'group',
             'type',
-            'sql:ntext',
+            //'sql:ntext',
             // 'comment:ntext',
             // 'created_at',
             // 'updated_at',

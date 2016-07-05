@@ -14,9 +14,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'field_name')->textInput(['maxlength' => true]) ?>
 
+    <div class="row">
+      <div class="row">
+          
+      </div>
+    </div>
+
     <?= $form->field($model, 'group')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'table')->dropdownList($model->getPatientItems()) ?>
 
     <?= $form->field($model, 'sql')->textarea(['rows' => 6]) ?>
 
