@@ -70,6 +70,16 @@ class ApiSqlFieldMappingController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    public function actionAssignField()
+    {
+        $tables =  Yii::$app->db->schema->getTableSchemas();
+
+        return $this->render('assign-field', [
+          'tables'=>$tables
+        ]);
+
+    }
+
     public function actionCreate()
     {
         $model = new ApiSqlFieldMapping();
