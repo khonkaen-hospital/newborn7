@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="patient-visit-clinic-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->visit_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->visit_id], [
@@ -24,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -40,15 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'length',
             'af',
             'clinic_date',
-            'milk',
+           // 'milk',
             'milk_other',
-            'vaccine',
+           // 'vaccine',
             'vaccine_other',
-            'eye',
+            //'eye',
             'eye_other',
-            'ear',
+            //'ear',
             'ear_other',
-            'ult_brain',
+            //'ult_brain',
             'ult_brain_result',
             'created_at',
             'updated_at',

@@ -2,21 +2,19 @@
 
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
 use yii\bootstrap\Tabs;
-
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\newborn7\models\PatientVisitProcedure */
+/* @var $model frontend\modules\newborn7\models\PatientVisitDevelop */
 
-$this->title = Yii::t('app', 'Create Patient Visit Procedure');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visit Procedures'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Patient Visit Develop');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visit Develops'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="patient-visit-procedure-create">
+<div class="patient-visit-develop-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     <?php Pjax::begin(); ?>
     <?php echo Tabs::widget([
         'items' => [
@@ -37,18 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Development',
-                'content' => '',
-                'options' => ['id' => 'development-id'],
-                'headerOptions' => [],
-                'url' => Url::to(['patient-visit-develop/create', 'id' => $model->visit_id, 'id' => $id])
-            ],
-            [
-                'label' => 'Procedure',
                 'content' => $this->render('_form',['model' => $model]),
-                'options' => ['id' => 'procedure-id'],
+                'options' => ['id' => 'development-id'],
                 'headerOptions' => [],
                 'url' => '#',
                 'active' => true
+            ],
+            [
+                'label' => 'Procedure',
+                'content' => '',
+                'options' => ['id' => 'procedure-id'],
+                'headerOptions' => [],
+                'url' => Url::to(['patient-visit-procedure/create', 'id' => $model->visit_id, 'id' => $id])
             ],
         ],
     ]);

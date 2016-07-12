@@ -890,12 +890,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "52606c8764a174aa0d5e6483ed811f617c74ee4e"
+                "reference": "b76e08a432950d658cadc7597178426a47a994ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/52606c8764a174aa0d5e6483ed811f617c74ee4e",
-                "reference": "52606c8764a174aa0d5e6483ed811f617c74ee4e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/b76e08a432950d658cadc7597178426a47a994ac",
+                "reference": "b76e08a432950d658cadc7597178426a47a994ac",
                 "shasum": ""
             },
             "require": {
@@ -904,7 +904,7 @@
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                    "dev-master": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -936,7 +936,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-04-08 10:42:51"
+            "time": "2016-06-28 17:51:26"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -1807,12 +1807,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "c5c40108d2cdcd3a90f7782a2ea89922d04fe2fa"
+                "reference": "dc7af32d5b9b5fb6e03960628b3374a46e559f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/c5c40108d2cdcd3a90f7782a2ea89922d04fe2fa",
-                "reference": "c5c40108d2cdcd3a90f7782a2ea89922d04fe2fa",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/dc7af32d5b9b5fb6e03960628b3374a46e559f38",
+                "reference": "dc7af32d5b9b5fb6e03960628b3374a46e559f38",
                 "shasum": ""
             },
             "require": {
@@ -1847,7 +1847,7 @@
                 "oauth",
                 "yii2"
             ],
-            "time": "2016-04-14 08:45:26"
+            "time": "2016-06-28 12:38:32"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

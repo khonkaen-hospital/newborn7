@@ -2,18 +2,18 @@
 
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
 use yii\bootstrap\Tabs;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\newborn7\models\PatientVisitProcedure */
+/* @var $model frontend\modules\newborn7\models\PatientVisitVaccine */
 
-$this->title = Yii::t('app', 'Create Patient Visit Procedure');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visit Procedures'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Patient Visit Vaccine');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visit Vaccines'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="patient-visit-procedure-create">
+<div class="patient-visit-vaccine-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -25,14 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'content' => '',
                 'headerOptions' => [],
                 'options' => ['id' => 'diag-id'],
-                'url' => Url::to(['patient-visit-diag/create', 'id' => $model->visit_id, 'id' => $id]),
+                'url' => Url::to(['patient-visit-diag/create', 'id' => $model->visit_id, 'id' => $id])
             ],
             [
                 'label' => 'Vaccine',
-                'content' => '',
+                'content' => $this->render('_form',['model' => $model]),
                 'headerOptions' => [],
                 'options' => ['id' => 'vaccine-id'],
-                'url' => Url::to(['patient-visit-vaccine/create', 'id' => $model->visit_id, 'id' => $id])
+                'url' => '#',
+                'active' => true
 
             ],
             [
@@ -44,11 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Procedure',
-                'content' => $this->render('_form',['model' => $model]),
+                'content' => '',
                 'options' => ['id' => 'procedure-id'],
                 'headerOptions' => [],
-                'url' => '#',
-                'active' => true
+                'url' => Url::to(['patient-visit-procedure/create', 'id' => $model->visit_id, 'id' => $id])
             ],
         ],
     ]);
