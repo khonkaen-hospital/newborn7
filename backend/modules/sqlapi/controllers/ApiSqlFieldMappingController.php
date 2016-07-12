@@ -1,15 +1,14 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\modules\sqlapi\controllers;
 
 use Yii;
-use common\models\ApiSqlFieldMapping;
-use frontend\models\ApiSqlFieldMappingSearch;
+use backend\modules\sqlapi\models\ApiSqlFieldMapping;
+use backend\modules\sqlapi\models\ApiSqlFieldMappingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\helpers\VarDumper;
+
 /**
  * ApiSqlFieldMappingController implements the CRUD actions for ApiSqlFieldMapping model.
  */
@@ -21,15 +20,6 @@ class ApiSqlFieldMappingController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -71,23 +61,12 @@ class ApiSqlFieldMappingController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionAssignField()
-    {
-        $tables =  Yii::$app->db->schema->getTableSchemas();
-
-        return $this->render('assign-field', [
-          'tables'=>$tables
-        ]);
-
-    }
-
     public function actionCreate()
     {
         $model = new ApiSqlFieldMapping();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-          VarDumper::dump($model->attributes,10,true);
-            //return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

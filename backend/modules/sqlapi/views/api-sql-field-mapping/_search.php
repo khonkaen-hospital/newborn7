@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\ApiSqlFieldMappingSearch */
+/* @var $model backend\modules\sqlapi\models\ApiSqlFieldMappingSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -25,7 +25,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sql') ?>
 
+    <?php // echo $form->field($model, 'table') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'params') ?>
+
     <?php // echo $form->field($model, 'comment') ?>
+
+    <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

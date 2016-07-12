@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ApiSqlFieldMapping */
+/* @var $model backend\modules\sqlapi\models\ApiSqlFieldMapping */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Api Sql Field Mappings', 'url' => ['index']];
@@ -33,7 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'group',
             'type',
             'sql:ntext',
+            'table',
+            'status',
+            'params:ntext',
             'comment:ntext',
+            'description',
             'created_at',
             'updated_at',
             'created_by',

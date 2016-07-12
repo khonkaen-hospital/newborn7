@@ -12,6 +12,9 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules'=>[
+     'sqlapi' => [
+          'class' => 'backend\modules\sqlapi\Module',
+      ],
       'user' => [
           'class' => 'dektrium\user\Module',
            'admins' => ['dixon'],

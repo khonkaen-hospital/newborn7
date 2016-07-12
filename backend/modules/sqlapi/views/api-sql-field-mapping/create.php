@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ApiSqlFieldMapping */
+/* @var $model backend\modules\sqlapi\models\ApiSqlFieldMapping */
 
 $this->title = 'Create Api Sql Field Mapping';
 $this->params['breadcrumbs'][] = ['label' => 'Api Sql Field Mappings', 'url' => ['index']];

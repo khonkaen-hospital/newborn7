@@ -1,10 +1,8 @@
 <?php
 
-namespace common\models;
+namespace backend\modules\sqlapi\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "api_sql_field_mapping".
@@ -14,7 +12,11 @@ use yii\behaviors\BlameableBehavior;
  * @property string $group
  * @property string $type
  * @property string $sql
+ * @property string $table
+ * @property integer $status
+ * @property string $params
  * @property string $comment
+ * @property string $description
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $created_by
@@ -22,17 +24,6 @@ use yii\behaviors\BlameableBehavior;
  */
 class ApiSqlFieldMapping extends \yii\db\ActiveRecord
 {
-    public $value;
-    public $key;
-
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
-        ];
-    }
-
     /**
      * @inheritdoc
      */
@@ -47,11 +38,9 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['field_name', 'group', 'type', 'type'], 'required'],
-            [['sql', 'comment'], 'string'],
-            [['params','key','value'], 'safe'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['field_name', 'group', 'type','table','description'], 'string', 'max' => 255],
+            [['sql', 'params', 'comment'], 'string'],
+            [['status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['field_name', 'group', 'type', 'table', 'description'], 'string', 'max' => 255],
         ];
     }
 
@@ -66,7 +55,11 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
             'group' => 'Group',
             'type' => 'Type',
             'sql' => 'Sql',
+            'table' => 'Table',
+            'status' => 'Status',
+            'params' => 'Params',
             'comment' => 'Comment',
+            'description' => 'Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -81,18 +74,5 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ApiSqlFieldMappingQuery(get_called_class());
-    }
-
-    public function itemAlias($key){
-      $items = [
-        'table'=> [
-          'patient'=>'Patient'
-        ]
-      ];
-      return array_key_exists($key, $items) ? $items[$key] : [];
-    }
-
-    public function getPatientItems(){
-       return $this->itemAlias('table');
     }
 }

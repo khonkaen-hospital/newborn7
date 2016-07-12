@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\ApiSqlFieldMappingSearch */
+/* @var $searchModel backend\modules\sqlapi\models\ApiSqlFieldMappingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Api Sql Field Mappings';
@@ -18,18 +18,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Api Sql Field Mapping', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>
-<?= GridView::widget([
+<?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'tableOptions' => ['class'=>'table'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
             'field_name',
             'group',
             'type',
-            //'sql:ntext',
+            'sql:ntext',
+            // 'table',
+            // 'status',
+            // 'params:ntext',
             // 'comment:ntext',
+            // 'description',
             // 'created_at',
             // 'updated_at',
             // 'created_by',

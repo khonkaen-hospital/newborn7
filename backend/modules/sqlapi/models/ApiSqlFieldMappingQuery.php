@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace backend\modules\sqlapi\models;
 
 /**
  * This is the ActiveQuery class for [[ApiSqlFieldMapping]].

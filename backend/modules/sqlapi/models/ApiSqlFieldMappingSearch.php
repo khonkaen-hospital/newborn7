@@ -1,14 +1,14 @@
 <?php
 
-namespace frontend\models;
+namespace backend\modules\sqlapi\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ApiSqlFieldMapping;
+use backend\modules\sqlapi\models\ApiSqlFieldMapping;
 
 /**
- * ApiSqlFieldMappingSearch represents the model behind the search form about `common\models\ApiSqlFieldMapping`.
+ * ApiSqlFieldMappingSearch represents the model behind the search form about `backend\modules\sqlapi\models\ApiSqlFieldMapping`.
  */
 class ApiSqlFieldMappingSearch extends ApiSqlFieldMapping
 {
@@ -18,8 +18,8 @@ class ApiSqlFieldMappingSearch extends ApiSqlFieldMapping
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['field_name', 'group', 'type', 'sql', 'comment'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['field_name', 'group', 'type', 'sql', 'table', 'params', 'comment', 'description'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class ApiSqlFieldMappingSearch extends ApiSqlFieldMapping
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
@@ -70,7 +71,10 @@ class ApiSqlFieldMappingSearch extends ApiSqlFieldMapping
             ->andFilterWhere(['like', 'group', $this->group])
             ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'sql', $this->sql])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
+            ->andFilterWhere(['like', 'table', $this->table])
+            ->andFilterWhere(['like', 'params', $this->params])
+            ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

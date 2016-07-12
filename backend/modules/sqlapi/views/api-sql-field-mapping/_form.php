@@ -29,25 +29,14 @@ use yii\bootstrap\ActiveForm;
           <?= $form->field($model, 'field_name')->textInput(['maxlength' => true]) ?>
           <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
           <?= $form->field($model, 'group')->textInput(['maxlength' => true]) ?>
-          <?= $form->field($model, 'type')->checkBoxList([1,2,3,4]) ?>
-
+          <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
         </div>
       </div>
 
       <div class="col-md-6">
         <?= $form->field($model, 'sql')->textarea(['rows' => 11]) ?>
         <?= $form->field($model, 'comment')->textarea(['rows' => 2]) ?>
-        <h4>Parameter</h4>
-        <?php foreach ([1,2] as $key => $value) :?>
-          <div class="row">
-            <div class="col-sm-6">
-              <?= $form->field($model, 'key[]')->textInput(['maxlength' => true])->label('Key') ?>
-            </div>
-            <div class="col-sm-6">
-              <?= $form->field($model, 'value[]')->textInput(['maxlength' => true])->label('Value') ?>
-            </div>
-          </div>
-        <?php endforeach;?>
+
       </div>
     </div>
 
