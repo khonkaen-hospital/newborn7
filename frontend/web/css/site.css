@@ -3,6 +3,18 @@ body {
     height: 100%;
 }
 
+
+/*
+ * Override Bootstrap's default container.
+ */
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
+
+
 .wrap {
     min-height: 100%;
     height: auto;

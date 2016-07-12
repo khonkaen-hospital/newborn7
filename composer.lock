@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2664d62315d7662f87f03d7fa76c857e",
-    "content-hash": "6cd6456a2f7e7bd77be27c2f8eb603d4",
+    "hash": "a455f1cad1f382ef846e5c3915f9d1eb",
+    "content-hash": "231b8d002b9d47b3b6d3d941e61333c5",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -444,6 +444,46 @@
                 "yii2-user"
             ],
             "time": "2016-03-27 18:09:10"
+        },
+        {
+            "name": "dmstr/yii2-migrate-command",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmstr/yii2-migrate-command.git",
+                "reference": "dcfe52c088b8039ce7e08e0b0fa5cff0002f2d79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmstr/yii2-migrate-command/zipball/dcfe52c088b8039ce7e08e0b0fa5cff0002f2d79",
+                "reference": "dcfe52c088b8039ce7e08e0b0fa5cff0002f2d79",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dmstr\\console\\controllers\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Munk",
+                    "email": "tobias@diemeisterei.de"
+                }
+            ],
+            "description": "Console Migration Command with multiple paths/aliases support",
+            "keywords": [
+                "command",
+                "console",
+                "extension",
+                "migration",
+                "yii2"
+            ],
+            "time": "2016-01-19 17:31:24"
         },
         {
             "name": "ezyang/htmlpurifier",

@@ -3,6 +3,15 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'timeZone'=>'Asia/Bangkok',
     'components' => [
+      'log' => [
+          'traceLevel' => YII_DEBUG ? 3 : 0,
+          'targets' => [
+              [
+                  'class' => 'yii\log\DbTarget',
+                  'levels' => ['error', 'warning'],
+              ],
+          ],
+      ],
       'authManager' => [
               'class' => 'yii\rbac\DbManager',
        ],

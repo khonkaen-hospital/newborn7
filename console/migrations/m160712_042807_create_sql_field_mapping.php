@@ -5,15 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation for table `sql_field_mapping`.
  */
-class m160629_065727_create_sql_field_mapping extends Migration
+class m160712_042807_create_sql_field_mapping extends Migration
 {
-
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $tableOptions = null;
+      $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
@@ -25,14 +24,16 @@ class m160629_065727_create_sql_field_mapping extends Migration
             'type'=> $this->string(),
             'sql' => $this->text(),
             'table' => $this->string(),
-            'status' => $this->text(),
-            'comment' => $this->integer(1),
+            'status' => $this->integer(1),
+            'params' => $this->text(),
+            'comment' => $this->text(),
             'description' => $this->string(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'created_by' => $this->integer(),
             'updated_by' => $this->integer()
         ],$tableOptions);
+
     }
 
     /**

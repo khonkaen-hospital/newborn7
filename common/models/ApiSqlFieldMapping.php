@@ -22,6 +22,8 @@ use yii\behaviors\BlameableBehavior;
  */
 class ApiSqlFieldMapping extends \yii\db\ActiveRecord
 {
+    public $value;
+    public $key;
 
     public function behaviors()
     {
@@ -45,8 +47,9 @@ class ApiSqlFieldMapping extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['field_name', 'group', 'type', 'type'], 'required'],
+            //[['field_name', 'group', 'type', 'type'], 'required'],
             [['sql', 'comment'], 'string'],
+            [['params','key','value'], 'safe'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['field_name', 'group', 'type','table','description'], 'string', 'max' => 255],
         ];
