@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{clinic} {view} {update} {delete}',
                 'buttons' => [
                     'clinic' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> คลินิก', ['patient-visit-clinic/create', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-success']);
+                        return Html::a('<i class=""></i> คลินิก', ['patient-visit-diag/create', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-success']);
                     },
 
                     'view' => function ($url, $model, $key) {

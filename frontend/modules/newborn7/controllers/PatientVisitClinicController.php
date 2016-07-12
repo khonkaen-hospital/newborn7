@@ -67,10 +67,13 @@ class PatientVisitClinicController extends Controller
         $model = new PatientVisitClinic();
         $patientVisit = PatientVisit::findOne($id);
 
-        $model->visit_id = $id;
-        $model->hospcode = $patientVisit->hospcode;
-        $model->seq = $patientVisit->seq;
-        $model->hn = $patientVisit->hn;
+        if(!empty($patientVisit)){
+
+            $model->visit_id = $id;
+            $model->hospcode = $patientVisit->hospcode;
+            $model->seq = $patientVisit->seq;
+            $model->hn = $patientVisit->hn;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->visit_id]);

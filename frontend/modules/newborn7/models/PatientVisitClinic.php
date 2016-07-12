@@ -54,61 +54,6 @@ class PatientVisitClinic extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
-
-            'milk' => [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['milk'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['milk'],
-                ],
-                'value' => function ($event) {
-                    return $this->milk != null ? implode(',', $this->milk) : null;
-                }
-            ],
-
-            'vaccine' => [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['vaccine'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['vaccine'],
-                ],
-                'value' => function ($event) {
-                    return $this->vaccine != null ? implode(',', $this->vaccine) : null;
-                }
-            ],
-
-            'eye' => [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['eye'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['eye'],
-                ],
-                'value' => function ($event) {
-                    return $this->eye != null ? implode(',', $this->eye) : null;
-                }
-            ],
-
-            'ear' => [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['ear'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['ear'],
-                ],
-                'value' => function ($event) {
-                    return $this->ear != null ? implode(',', $this->ear) : null;
-                }
-            ],
-
-            'ult_brain' => [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['ult_brain'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['ult_brain'],
-                ],
-                'value' => function ($event) {
-                    return $this->ult_brain != null ? implode(',', $this->ult_brain) : null;
-                }
-            ],
         ];
     }
 
@@ -118,7 +63,7 @@ class PatientVisitClinic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['visit_id'], 'required'],
+            [['visit_id', 'hn'], 'required'],
             [['visit_id', 'ga', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['birth_weight', 'current_weight', 'hc', 'length', 'af'], 'number'],
             [['clinic_date', 'milk', 'vaccine', 'eye', 'ear', 'ult_brain'], 'safe'],

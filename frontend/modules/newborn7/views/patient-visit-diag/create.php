@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content' => '',
                     'options' => ['id' => 'development-id'],
                     'headerOptions' => [],
-                    'url' => Url::to(['patient-visit-development/create', 'id' => $model->visit_id, 'id' => $id])
+                    'url' => Url::to(['patient-visit-develop/create', 'id' => $model->visit_id, 'id' => $id])
                 ],
                 [
                     'label' => 'Procedure',
