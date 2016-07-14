@@ -30,7 +30,8 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "c006/yii2-migration-utility": "dev-master",
         "wbraganca/yii2-dynamicform": "*",
-        "dmstr/yii2-migrate-command": "*"
+        "dmstr/yii2-migrate-command": "*",
+        "rmrevin/yii2-minify-view": "~1.11"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -54,7 +55,7 @@
       "php yii migrate/up --migrationPath=@yii/log/migrations --interactive=0",
       "php yii migrate/up --migrationPath=@yii/rbac/migrations --interactive=0",
       "php yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations --interactive=0",
-      "php yii migrate/up --migrationPath=@console/migrations/update --interactive=0"
+      "php yii migrate/up --migrationPath=@console/migrations/update --interactive=0",
       "php yii migrate/up --migrationPath=@backend/modules/sqlapi/migrations --interactive=0"
       ]
     }

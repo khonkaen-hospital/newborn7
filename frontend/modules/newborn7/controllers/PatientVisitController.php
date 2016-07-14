@@ -2,12 +2,14 @@
 
 namespace frontend\modules\newborn7\controllers;
 
+use frontend\modules\newborn7\models\Patient;
 use Yii;
 use frontend\modules\newborn7\models\PatientVisit;
 use frontend\modules\newborn7\models\PatientVisitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 
 /**
  * PatientVisitController implements the CRUD actions for PatientVisit model.
@@ -61,12 +63,22 @@ class PatientVisitController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = null)
     {
         $model = new PatientVisit();
-
+        $patient = Patient::findOne($id);
+        $model->hospcode = $patient->hospcode;
+        $model->seq = $patient->seq;
+        $model->hn = $patient->hn;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->visit_id]);
+            Yii::$app->getSession()->setFlash('alert', [
+                'type' => 'success',
+                'icon' => 'fa fa-users',
+                'title' => Yii::t('app', Html::encode('Success!')),
+                'message' => Yii::t('app', Html::encode('บันทึกข้อมูลเรียบร้อยแล้ว')),
+            ]);
+
+            return $this->redirect(['patient-visit/index', 'id' => $model->visit_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

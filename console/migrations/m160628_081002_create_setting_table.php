@@ -7,6 +7,7 @@ use yii\db\Migration;
  */
 class m160628_081002_create_setting_table extends Migration
 {
+    public $tableName = 'settings';
     /**
      * @inheritdoc
      */
@@ -17,7 +18,7 @@ class m160628_081002_create_setting_table extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable('co_setting', [
+        $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'type' => $this->string(),
             'key' => $this->string(),
@@ -27,12 +28,7 @@ class m160628_081002_create_setting_table extends Migration
             'updated_by' => $this->integer()
         ],$tableOptions);
 
-        $this->createIndex(
-           'idx-key-hcode',
-           'co_setting',
-           ['key','hcode'],
-           true
-       );
+        $this->createIndex('idx-key-hcode',$this->tableName,['key','hcode'],true);
     }
 
     /**
@@ -40,6 +36,6 @@ class m160628_081002_create_setting_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('co_setting');
+        $this->dropTable($this->tableName);
     }
 }

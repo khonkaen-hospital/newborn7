@@ -90,13 +90,17 @@ class Profile extends \dektrium\user\models\Profile
       return array_key_exists($key, $items) ? $items[$key] : [];
     }
 
-
     public function getItemProvince(){
       return $this->getItemAilas('province');
     }
 
+    public function getProvinceName(){
+      $items = $this->getItemAilas('province');
+      return array_key_exists($this->province_code, $items) ? $items[$this->province_code] : '';
+    }
+
     public function getHospital(){
-      return $this->hasOne(Hospitals::className(),['Off_id'=>'hcode']);
+      return $this->hasOne(Hospitals::className(),['off_id'=>'hcode']);
     }
 
     public function getHospitalName(){

@@ -28,7 +28,7 @@ class Hospitals extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'co_hospitals';
+        return 'lib_hospital';
     }
 
     /**

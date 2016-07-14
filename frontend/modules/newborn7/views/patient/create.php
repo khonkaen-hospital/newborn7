@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 
-$this->title = 'Create Patient';
-$this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Patient');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="patient-create">

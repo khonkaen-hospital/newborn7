@@ -91,12 +91,12 @@ class SettingsController extends BaseSettingsController
   }
 
   protected function getHospitalsByProvince($id){
-      $datas = Hospitals::find()->where(['Changwat'=>$id])->all();
-      return $this->MapData($datas,'Off_id','Off_name');
+      $datas = Hospitals::find()->where(['provcode'=>$id])->all();
+      return $this->MapData($datas,'off_id','name');
   }
   protected function getHospitalsByCode($id){
       $datas = Hospitals::find()->where(['Off_id'=>$id])->all();
-      return $this->MapData($datas,'Off_id','Off_name');
+      return $this->MapData($datas,'off_id','name');
   }
 
 
