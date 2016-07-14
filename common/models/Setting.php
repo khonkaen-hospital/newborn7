@@ -48,7 +48,7 @@ class Setting extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'co_setting';
+        return 'settings';
     }
 
     /**

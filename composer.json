@@ -15,7 +15,7 @@
     "repositories": {
         "packagist": { "url": "https://packagist.org", "type": "composer" }
      },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
@@ -31,7 +31,8 @@
         "c006/yii2-migration-utility": "dev-master",
         "wbraganca/yii2-dynamicform": "*",
         "dmstr/yii2-migrate-command": "*",
-        "rmrevin/yii2-minify-view": "~1.11"
+        "rmrevin/yii2-minify-view": "~1.11",
+        "baibaratsky/yii2-rollbar": "1.4.*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
