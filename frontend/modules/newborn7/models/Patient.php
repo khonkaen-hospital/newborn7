@@ -3,9 +3,6 @@
 namespace frontend\modules\newborn7\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "patient".
@@ -41,7 +38,7 @@ use yii\db\ActiveRecord;
  * @property string $tel
  * @property string $mobile
  * @property integer $moi_checked
- * @property integer $serviced
+ * @property string $serviced
  * @property string $lr_type
  * @property double $high
  * @property integer $weight
@@ -50,13 +47,6 @@ use yii\db\ActiveRecord;
  * @property string $remark
  * @property string $inp_id
  * @property string $lastupdate
- * @property integer $created_by
- * @property integer $updated_by
- * @property integer $created_at
- * @property integer $updated_at
- *
- * @property PatientSp[] $patientSps
- * @property Serviceplan[] $sps
  */
 class Patient extends \yii\db\ActiveRecord
 {
@@ -68,34 +58,26 @@ class Patient extends \yii\db\ActiveRecord
         return 'patient';
     }
 
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
-        ];
-    }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['hospcode', 'hn'], 'required'],
+            [['hospcode', 'prov', 'hn'], 'required'],
             [['dob', 'dead', 'lastupdate'], 'safe'],
             [['sex', 'remark'], 'string'],
-            [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['mother_age', 'moi_checked', 'weight', 'ga', 'apgar'], 'integer'],
             [['high'], 'number'],
-            [['hospcode', 'prename', 'zip'], 'string', 'max' => 5],
-            [['prov'], 'string', 'max' => 2],
-            [['hn', 'an', 'seq', 'mother_an','province', 'amphoe', 'tumbol',], 'string', 'max' => 15],
+            [['hospcode', 'prov', 'prename', 'zip'], 'string', 'max' => 5],
+            [['hn', 'an', 'seq', 'mother_an'], 'string', 'max' => 15],
             [['fname', 'mname', 'lname'], 'string', 'max' => 30],
             [['cid', 'mother_cid', 'father_cid', 'address', 'tel', 'mobile'], 'string', 'max' => 20],
-            [['mother_name', 'father_name', 'ban'], 'string', 'max' => 50],
+            [['mother_name', 'father_name', 'road', 'ban'], 'string', 'max' => 50],
             [['nation', 'moo', 'lr_type'], 'string', 'max' => 4],
-            [['soi', 'road'], 'string', 'max' => 40],
+            [['soi'], 'string', 'max' => 40],
             [['addcode'], 'string', 'max' => 6],
+            [['serviced'], 'string', 'max' => 3],
             [['inp_id'], 'string', 'max' => 10],
             [['hospcode', 'hn'], 'unique', 'targetAttribute' => ['hospcode', 'hn'], 'message' => 'The combination of Hospcode and Hn has already been taken.'],
         ];
@@ -108,68 +90,54 @@ class Patient extends \yii\db\ActiveRecord
     {
         return [
             'patient_id' => 'Patient ID',
-            'hospcode' => 'สถานพยาบาล',
-            'prov' => 'จังหวัด',
-            'hn' => 'HN',
-            'an' => 'AN',
-            'seq' => 'VisitNo (SEQ)',
-            'prename' => 'คำนำหน้า',
-            'fname' => 'ชื่อ',
-            'mname' => 'ชื่อกลาง',
-            'lname' => 'นามสกุล',
-            'cid' => 'เลขที่บัตรประชาชน',
-            'dob' => 'วันเกิด',
-            'sex' => 'เพศ',
-            'dead' => 'สถานะ',
-            'mother_cid' => 'เลขที่บัตรประชาชนมารดา',
-            'mother_name' => 'ชื่อมารดา',
-            'mother_age' => 'อายุมารดา (ปี)',
-            'mother_an' => 'AN มารดา',
-            'father_cid' => 'เลขที่บัตรประชาชนบิดา',
-            'father_name' => 'ชื่อบิดา',
-            'nation' => 'ประเทศ',
-            'address' => 'ที่อยู่',
-            'province' => 'จังหวัด',
-            'amphoe' => 'อำเภอ',
-            'tumbol' => 'ตำบล',
-            'moo' => 'หมู่',
-            'soi' => 'ซอย',
-            'road' => 'ถนน',
-            'ban' => 'บ้าน',
+            'hospcode' => 'Hospcode',
+            'prov' => 'Prov',
+            'hn' => 'Hn',
+            'an' => 'An',
+            'seq' => 'Seq',
+            'prename' => 'Prename',
+            'fname' => 'Fname',
+            'mname' => 'Mname',
+            'lname' => 'Lname',
+            'cid' => 'Cid',
+            'dob' => 'Dob',
+            'sex' => 'Sex',
+            'dead' => 'Dead',
+            'mother_cid' => 'Mother Cid',
+            'mother_name' => 'Mother Name',
+            'mother_age' => 'Mother Age',
+            'mother_an' => 'Mother An',
+            'father_cid' => 'Father Cid',
+            'father_name' => 'Father Name',
+            'nation' => 'Nation',
+            'address' => 'Address',
+            'moo' => 'Moo',
+            'soi' => 'Soi',
+            'road' => 'Road',
+            'ban' => 'Ban',
             'addcode' => 'Addcode',
-            'zip' => 'รัหัสไปรษณี',
+            'zip' => 'Zip',
             'tel' => 'Tel',
             'mobile' => 'Mobile',
-            'moi_checked' => 'การคลอด',
+            'moi_checked' => 'Moi Checked',
             'serviced' => 'Serviced',
-            'lr_type' => 'ลักษณะการคลอด',
-            'high' => 'ส่วนสูง (ซม.)',
-            'weight' => 'น้ำหนัก (กรัม)',
-            'ga' => 'GA (wks)',
-            'apgar' => 'Apgar (นาทีที่ 5)',
+            'lr_type' => 'Lr Type',
+            'high' => 'High',
+            'weight' => 'Weight',
+            'ga' => 'Ga',
+            'apgar' => 'Apgar',
             'remark' => 'Remark',
             'inp_id' => 'Inp ID',
             'lastupdate' => 'Lastupdate',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
         ];
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @inheritdoc
+     * @return PatientQuery the active query used by this AR class.
      */
-    public function getPatientSps()
+    public static function find()
     {
-        return $this->hasMany(PatientSp::className(), ['hospcode' => 'hospcode', 'hn' => 'hn']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSps()
-    {
-        return $this->hasMany(Serviceplan::className(), ['code' => 'sp'])->viaTable('patient_sp', ['hospcode' => 'hospcode', 'hn' => 'hn']);
+        return new PatientQuery(get_called_class());
     }
 }

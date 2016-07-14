@@ -5,12 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Patient',
-]) . $model->patient_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patients'), 'url' => ['index']];
+$this->title = 'Update Patient: ' . $model->patient_id;
+$this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->patient_id, 'url' => ['view', 'id' => $model->patient_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="patient-update">
 

@@ -18,8 +18,8 @@ class PatientSearch extends Patient
     public function rules()
     {
         return [
-            [['patient_id', 'mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar'], 'integer'],
-            [['hospcode', 'prov', 'hn', 'an', 'seq', 'prename', 'fname', 'mname', 'lname', 'cid', 'dob', 'sex', 'dead', 'mother_cid', 'mother_name', 'mother_an', 'father_cid', 'father_name', 'nation', 'address', 'moo', 'soi', 'road', 'ban', 'addcode', 'zip', 'tel', 'mobile', 'lr_type', 'remark', 'inp_id', 'lastupdate'], 'safe'],
+            [['patient_id', 'mother_age', 'moi_checked', 'weight', 'ga', 'apgar'], 'integer'],
+            [['hospcode', 'prov', 'hn', 'an', 'seq', 'prename', 'fname', 'mname', 'lname', 'cid', 'dob', 'sex', 'dead', 'mother_cid', 'mother_name', 'mother_an', 'father_cid', 'father_name', 'nation', 'address', 'moo', 'soi', 'road', 'ban', 'addcode', 'zip', 'tel', 'mobile', 'serviced', 'lr_type', 'remark', 'inp_id', 'lastupdate'], 'safe'],
             [['high'], 'number'],
         ];
     }
@@ -65,7 +65,6 @@ class PatientSearch extends Patient
             'dead' => $this->dead,
             'mother_age' => $this->mother_age,
             'moi_checked' => $this->moi_checked,
-            'serviced' => $this->serviced,
             'high' => $this->high,
             'weight' => $this->weight,
             'ga' => $this->ga,
@@ -99,6 +98,7 @@ class PatientSearch extends Patient
             ->andFilterWhere(['like', 'zip', $this->zip])
             ->andFilterWhere(['like', 'tel', $this->tel])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
+            ->andFilterWhere(['like', 'serviced', $this->serviced])
             ->andFilterWhere(['like', 'lr_type', $this->lr_type])
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'inp_id', $this->inp_id]);

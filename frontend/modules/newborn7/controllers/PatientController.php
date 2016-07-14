@@ -2,7 +2,6 @@
 
 namespace frontend\modules\newborn7\controllers;
 
-use frontend\modules\newborn7\models\PatientSp;
 use Yii;
 use frontend\modules\newborn7\models\Patient;
 use frontend\modules\newborn7\models\PatientSearch;
@@ -67,22 +66,7 @@ class PatientController extends Controller
         $model = new Patient();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $patientSp = new PatientSp();
-
-            $patientSp->hospcode = $model->hospcode;
-            $patientSp->sp = $model->lr_type;
-            $patientSp->hn = $model->hn;
-
-            if ($patientSp->save()) {
-
-                Yii::$app->getSession()->setFlash('alert',[
-                    'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
-                    'options'=>['class'=>'alert-success']
-                ]);
-
-                return $this->redirect(['patient-visit/index', 'id' => $model->patient_id]);
-            }
+            return $this->redirect(['view', 'id' => $model->patient_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

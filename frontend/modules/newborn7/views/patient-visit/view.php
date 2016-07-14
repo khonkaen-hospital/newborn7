@@ -7,23 +7,26 @@ use yii\widgets\DetailView;
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
 
 $this->title = $model->visit_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visits'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Patient Visits', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="patient-visit-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->visit_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->visit_id], [
+<div class="xpanel">
+  <div class="xpanel-heading">
+    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+    <p class="pull-right">
+        <?= Html::a('Update', ['update', 'id' => $model->visit_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->visit_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
+  </div>
+  <div class="xpanel-body patient-visit-view">
 
     <?= DetailView::widget([
         'model' => $model,
@@ -51,4 +54,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+  </div>
 </div>

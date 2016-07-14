@@ -21,6 +21,9 @@ return [
         ],
     ],
     'components' => [
+        'assetManager' => [
+          'appendTimestamp' => true,
+        ],
         'view' => [
             'theme' => [
                 'pathMap' => [
