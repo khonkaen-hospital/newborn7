@@ -12,8 +12,6 @@ use yii\widgets\MaskedInput;
 ?>
 
 <div class="patient-form">
-
-
     <?php $form = ActiveForm::begin(); ?>
     <br>
     <fieldset>

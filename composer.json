@@ -32,7 +32,7 @@
         "wbraganca/yii2-dynamicform": "*",
         "dmstr/yii2-migrate-command": "*",
         "rmrevin/yii2-minify-view": "~1.11",
-        "baibaratsky/yii2-rollbar": "1.4.*"
+        "insolita/yii2-migration-generator": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

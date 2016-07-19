@@ -12,7 +12,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patients'), 'url' =>
 $this->params['breadcrumbs'][] = ['label' => $model->patient_id, 'url' => ['view', 'id' => $model->patient_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="patient-update">
+<div class="xpanel">
+  <div class="xpanel-heading">
+    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+  </div>
+<div class="xpanel-body patient-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -20,4 +24,5 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         'model' => $model,
     ]) ?>
 
+</div>
 </div>

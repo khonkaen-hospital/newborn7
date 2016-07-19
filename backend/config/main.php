@@ -24,6 +24,9 @@ return [
       ],
     ],
     'components' => [
+      'authManager' => [
+              'class' => 'yii\rbac\DbManager',
+       ],
         'user' => [
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,

@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log','rollbar'],
+    'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'user' => [
@@ -21,6 +21,9 @@ return [
         ],
     ],
     'components' => [
+        'authManager' => [
+                'class' => 'yii\rbac\DbManager',
+         ],
         'assetManager' => [
           'appendTimestamp' => true,
         ],
@@ -49,13 +52,6 @@ return [
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
         ],
-        'rollbar' => [
-             'class' => 'baibaratsky\yii\rollbar\Rollbar',
-             'accessToken' => '404e7d0673344a058c9846f896c0f89d',
-         ],
-        'errorHandler' => [
-          'class' => 'baibaratsky\yii\rollbar\web\ErrorHandler',
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -63,10 +59,6 @@ return [
                     'class' => 'yii\log\DbTarget',
                     'levels' => ['error', 'warning'],
                 ],
-                // [
-                //    'class' => 'baibaratsky\yii\rollbar\log\Target',
-                //    'levels' => ['error', 'warning', 'info']
-                // ],
             ],
         ],
         'errorHandler' => [

@@ -65,6 +65,8 @@ class PatientController extends Controller
     public function actionCreate()
     {
         $model = new Patient();
+        $model->hospcode = Yii::$app->user->identity->profile->hospital->off_id;
+        $model->prov = Yii::$app->user->identity->profile->hospital->provcode;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -81,7 +83,9 @@ class PatientController extends Controller
                     'options'=>['class'=>'alert-success']
                 ]);
 
-                return $this->redirect(['patient-visit/index', 'id' => $model->patient_id]);
+                return $this->redirect(['/newborn7/patient-visit/index', 'id' => $model->patient_id]);
+            }else{
+              print_r($patientSp->getErrors());
             }
         } else {
             return $this->render('create', [
