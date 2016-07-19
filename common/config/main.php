@@ -27,8 +27,8 @@ return [
         ],
     ],
     'modules' => [
-        'rbac' => [
-            'class' => 'dektrium\rbac\RbacWebModule',
-        ],
+//        'rbac' => [
+//            'class' => 'dektrium\rbac\RbacWebModule',
+//        ],
     ],
 ];
