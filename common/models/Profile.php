@@ -104,7 +104,7 @@ class Profile extends \dektrium\user\models\Profile
     }
 
     public function getHospitalName(){
-      return isset($this->hospital) ? $this->hospital->Off_name : '';
+      return isset($this->hospital) ? $this->hospital->name : '';
     }
 
 }

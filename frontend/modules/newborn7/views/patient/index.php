@@ -11,17 +11,17 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Patients');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="patient-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="xpanel">
+  <div class="xpanel-heading">
+    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('app', 'Create Patient'), ['create'], ['class' => 'btn btn-primary pull-right']) ?>
+  </div>
+  <div class="panel-body patient-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Patient'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions'=>['class'=>'table'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -88,4 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]
     ]); ?>
-    <?php Pjax::end(); ?></div>
+    <?php Pjax::end(); ?>
+  </div>
+</div>

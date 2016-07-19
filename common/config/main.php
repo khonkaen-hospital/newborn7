@@ -12,9 +12,7 @@ return [
               ],
           ],
       ],
-      'authManager' => [
-              'class' => 'yii\rbac\DbManager',
-       ],
+
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -28,7 +26,7 @@ return [
     ],
     'modules' => [
         'rbac' => [
-            'class' => 'dektrium\rbac\RbacWebModule',
+            'class' => 'dektrium\rbac\Module',
         ],
     ],
 ];
