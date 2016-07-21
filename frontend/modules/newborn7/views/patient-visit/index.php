@@ -7,23 +7,25 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\newborn7\models\PatientVisitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Patient Visits');
+$this->title = Yii::t('app', 'ทะเบียนผู้ป่วย');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="patient-visit-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="xpanel">
+  <div class="xpanel-heading">
+    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'Create Patient Visit', ['create'], ['class' => 'btn btn-primary pull-right']) ?>
+  </div>
+  <div class="panel-body patient-visit-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Patient Visit'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions'=>[
+          'class'=>'table'
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'visit_id',
             'seq',
             'hospcode',
@@ -68,4 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+<?php Pjax::end(); ?>
+</div>
+</div>

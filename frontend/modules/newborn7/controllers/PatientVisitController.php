@@ -66,10 +66,10 @@ class PatientVisitController extends Controller
     public function actionCreate($id = null)
     {
         $model = new PatientVisit();
-        $patient = Patient::findOne($id);
-        $model->hospcode = $patient->hospcode;
-        $model->seq = $patient->seq;
-        $model->hn = $patient->hn;
+        // $patient = Patient::findOne($id);
+        // $model->hospcode = $patient->hospcode;
+        // $model->seq = $patient->seq;
+        // $model->hn = $patient->hn;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('alert', [
                 'type' => 'success',
