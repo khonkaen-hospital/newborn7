@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'patient_id',
             'hospcode',
-            'prov',
+            'provinceName',
             'hn',
             'an',
             // 'seq',

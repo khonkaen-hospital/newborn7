@@ -2,6 +2,7 @@
 
 namespace frontend\modules\newborn7\models;
 
+use common\models\LibProvince;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -83,7 +84,7 @@ class Patient extends \yii\db\ActiveRecord
     {
         return [
             [['hospcode', 'hn'], 'required'],
-            [['dob', 'dead', 'lastupdate'], 'safe'],
+            [['dob', 'dead', 'lastupdate', 'provinceName'], 'safe'],
             [['sex', 'remark'], 'string'],
             [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['high'], 'number'],
@@ -130,6 +131,7 @@ class Patient extends \yii\db\ActiveRecord
             'nation' => 'ประเทศ',
             'address' => 'ที่อยู่',
             'province' => 'จังหวัด',
+            'provinceName' => 'จังหวัด',
             'amphoe' => 'อำเภอ',
             'tumbol' => 'ตำบล',
             'moo' => 'หมู่',
@@ -165,9 +167,17 @@ class Patient extends \yii\db\ActiveRecord
         return $this->hasMany(PatientSp::className(), ['hospcode' => 'hospcode', 'hn' => 'hn']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    public function getProvince()
+    {
+        return $this->hasOne(LibProvince::className(), ['province_code' => 'prov']);
+    }
+
+    public function getProvinceName(){
+        //return @$this->province->name;
+        $province = LibProvince::find()->where(['province_code' => $this->prov])->one();
+        return $province != null ? $province->name : 'ไม่ระบุ';
+    }
+
     public function getSps()
     {
         return $this->hasMany(Serviceplan::className(), ['code' => 'sp'])->viaTable('patient_sp', ['hospcode' => 'hospcode', 'hn' => 'hn']);

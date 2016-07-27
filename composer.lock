@@ -4,59 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "05b73925b1840f7afadb50b86b7a1c19",
     "content-hash": "2431552fc4b63e323dba7704bafdf0ce",
+=======
+    "hash": "80497e91e088c3fde5b6d20f2624a84e",
+    "content-hash": "f4a99c780a3f83351376ea8e4999080e",
+>>>>>>> 7d4b1cd9e1c0598d87397e266b7167c8b1b5b732
     "packages": [
-        {
-            "name": "baibaratsky/yii2-rollbar",
-            "version": "v1.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/baibaratsky/yii2-rollbar.git",
-                "reference": "24a96690c9d17aed0a16936ff037f789a63d63d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/baibaratsky/yii2-rollbar/zipball/24a96690c9d17aed0a16936ff037f789a63d63d6",
-                "reference": "24a96690c9d17aed0a16936ff037f789a63d63d6",
-                "shasum": ""
-            },
-            "require": {
-                "rollbar/rollbar": "~0.18.0",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "baibaratsky\\yii\\rollbar\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Andrei Baibaratsky",
-                    "email": "andrei@baibaratsky.com"
-                }
-            ],
-            "description": "Rollbar for Yii2",
-            "homepage": "http://github.com/baibaratsky/yii2-rollbar",
-            "keywords": [
-                "debug",
-                "error",
-                "exception",
-                "log",
-                "monitoring",
-                "ratchet.io",
-                "ratchetio",
-                "rollbar",
-                "yii",
-                "yii2"
-            ],
-            "time": "2016-05-27 13:37:30"
-        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.6",
@@ -565,6 +520,52 @@
                 "html"
             ],
             "time": "2015-08-05 01:03:42"
+        },
+        {
+            "name": "insolita/yii2-migration-generator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Insolita/yii2-migrik.git",
+                "reference": "9b0b1230a93d33194ada6dceabf86325fcc86831"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Insolita/yii2-migrik/zipball/9b0b1230a93d33194ada6dceabf86325fcc86831",
+                "reference": "9b0b1230a93d33194ada6dceabf86325fcc86831",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "yiisoft/yii2-gii": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "insolita\\migrik\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "insolita\\migrik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "insolita",
+                    "email": "donnainsolita@gmail.com"
+                }
+            ],
+            "description": "gii tool for mass migration generation by Schema ",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-05-17 18:04:55"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -1820,56 +1821,6 @@
                 "yii2"
             ],
             "time": "2016-06-23 20:33:07"
-        },
-        {
-            "name": "rollbar/rollbar",
-            "version": "v0.18.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rollbar/rollbar-php.git",
-                "reference": "fafe13f8beb669d6bba0137f3703fa808d50cbb7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/fafe13f8beb669d6bba0137f3703fa808d50cbb7",
-                "reference": "fafe13f8beb669d6bba0137f3703fa808d50cbb7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.5.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/Level.php",
-                    "src/rollbar.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rollbar, Inc.",
-                    "email": "support@rollbar.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Monitors errors and exceptions and reports them to Rollbar",
-            "homepage": "http://github.com/rollbar/rollbar-php",
-            "keywords": [
-                "debugging",
-                "errors",
-                "exceptions",
-                "logging",
-                "monitoring"
-            ],
-            "time": "2016-07-05 15:50:29"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use yii\widgets\MaskedInput;
+use common\models\Profile;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
