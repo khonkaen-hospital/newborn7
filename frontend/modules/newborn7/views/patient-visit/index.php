@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\newborn7\models\PatientVisitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'ทะเบียนผู้ป่วย');
+$this->title = Yii::t('app', 'ทะเบียน');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
