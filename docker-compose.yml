@@ -1,0 +1,67 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb
+    container_name: newborn-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=123132123
+      - MYSQL_DATABASE=newborn7
+      - MYSQL_USER=web
+      - MYSQL_PASSWORD=123132123
+    volumes:
+      - ./docker/mysql/log/:/var/log/mysql
+      - ./docker/mysql/data/:/var/lib/mysql
+    networks:
+      - back-tier
+    restart: always
+
+  pmd:
+    image: phpmyadmin/phpmyadmin
+    container_name: newborn-phpmyadmin
+    ports:
+      - 9091:80
+    networks:
+      - back-tier
+
+  memcached:
+    image: memcached
+    container_name: newborn-memcached
+    ports:
+      - "11211:11211"
+    networks:
+      - back-tier
+
+  app:
+      build: ./
+      container_name: newborn-php7-fpm
+      expose:
+          - "9000"
+      volumes:
+          - ./:/var/www/html/
+      networks:
+        - back-tier
+      restart: always
+      environment:
+        ENABLE_ENV_FILE: 1
+        ENABLE_LOCALCONF: 1
+        API_TOKEN: "bb94d2416480e76c42244d1f44902584412f8667"
+
+  nginx:
+      build: ./docker/nginx
+      container_name: newborn-nginx
+      ports:
+          - "9090:80"
+      volumes_from:
+          - app
+      networks:
+        - back-tier
+      restart: always
+
+volumes:
+  db-data:
+      driver: local
+
+networks:
+  back-tier:
+      driver: bridge
