@@ -10,6 +10,7 @@ services:
       - MYSQL_USER=web
       - MYSQL_PASSWORD=123132123
     volumes:
+      - ./docker/mysql/build/:/docker-entrypoint-initdb.d
       - ./docker/mysql/log/:/var/log/mysql
       - ./docker/mysql/data/:/var/lib/mysql
     networks:
