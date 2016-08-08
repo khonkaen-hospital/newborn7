@@ -10,8 +10,11 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'ทะเบียน');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?= $this->render('/_mainmenu',[
+  'id' => $id
+])?>
+<div class="xpanel-tab">
 
-<div class="xpanel">
   <div class="xpanel-heading">
     <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
       <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'Create Patient Visit', ['create'], ['class' => 'btn btn-primary pull-right']) ?>

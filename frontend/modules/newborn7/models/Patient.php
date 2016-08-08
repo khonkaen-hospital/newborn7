@@ -2,11 +2,16 @@
 
 namespace frontend\modules\newborn7\models;
 
-use common\models\LibProvince;
 use Yii;
+use yii\db\ActiveRecord;
+use common\models\Hospitals;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use yii\db\ActiveRecord;
+use frontend\modules\newborn7\models\Address;
+use frontend\modules\newborn7\models\Changwat;
+use frontend\modules\newborn7\models\Amphoe;
+use frontend\modules\newborn7\models\Tambon;
+use frontend\modules\newborn7\models\Province;
 
 /**
  * This is the model class for table "patient".
@@ -77,13 +82,21 @@ class Patient extends \yii\db\ActiveRecord
         ];
     }
 
+    public function scenarios()
+   {
+       $scenarios = parent::scenarios();
+       $scenarios['newborn'] = ['moi_checked', 'serviced','lr_type','high','weight','ga','apgar','remark'];
+       $scenarios['dead'] = ['dead'];
+       return $scenarios;
+   }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['hospcode', 'hn'], 'required'],
+            [['hospcode', 'fname', 'lname','hn','province','amphoe','tumbol'], 'required'],
             [['dob', 'dead', 'lastupdate', 'provinceName'], 'safe'],
             [['sex', 'remark'], 'string'],
             [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
@@ -94,10 +107,10 @@ class Patient extends \yii\db\ActiveRecord
             [['fname', 'mname', 'lname'], 'string', 'max' => 30],
             [['cid', 'mother_cid', 'father_cid', 'address', 'tel', 'mobile'], 'string', 'max' => 20],
             [['mother_name', 'father_name', 'ban'], 'string', 'max' => 50],
-            [['nation', 'moo', 'lr_type'], 'string', 'max' => 4],
+            [['nation', 'moo'], 'string', 'max' => 4],
             [['soi', 'road'], 'string', 'max' => 40],
             [['addcode'], 'string', 'max' => 6],
-            [['inp_id'], 'string', 'max' => 10],
+            [['inp_id','lr_type'], 'string', 'max' => 10],
             [['hospcode', 'hn'], 'unique', 'targetAttribute' => ['hospcode', 'hn'], 'message' => 'The combination of Hospcode and Hn has already been taken.'],
         ];
     }
@@ -159,27 +172,35 @@ class Patient extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPatientSps()
+    public function getFullname(){
+      return $this->prename. $this->fname.' '.$this->lname;
+    }
+
+    public function getHospital()
     {
-        return $this->hasMany(PatientSp::className(), ['hospcode' => 'hospcode', 'hn' => 'hn']);
+        return $this->hasOne(Hospitals::className(), ['off_id' => 'hospcode']);
+    }
+
+    public function getHospitalName(){
+        return $this->getField('hospital','name');
     }
 
     public function getProvince()
     {
-        return $this->hasOne(LibProvince::className(), ['province_code' => 'prov']);
+        return $this->hasOne(Province::className(), ['province_code' => 'prov']);
     }
 
     public function getProvinceName(){
-        //return @$this->province->name;
-        $province = LibProvince::find()->where(['province_code' => $this->prov])->one();
+        $province = Province::find()->where(['province_code' => $this->prov])->one();
         return $province != null ? $province->name : 'ไม่ระบุ';
     }
 
-    public function getSps()
-    {
-        return $this->hasMany(Serviceplan::className(), ['code' => 'sp'])->viaTable('patient_sp', ['hospcode' => 'hospcode', 'hn' => 'hn']);
+    private function getField($relationName,$fieldName,$defaultValue=''){
+      return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
     }
+
+    public function loadInitAddress($id){
+      return Address::find()->loadInit($id)->column();
+    }
+
 }

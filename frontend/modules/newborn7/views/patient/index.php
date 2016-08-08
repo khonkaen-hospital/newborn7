@@ -3,6 +3,15 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\modules\newborn7\models\Address;
+use frontend\modules\newborn7\models\Changwat;
+use frontend\modules\newborn7\models\Amphoe;
+use frontend\modules\newborn7\models\Tambon;
+
+
+// foreach ($changwat as $key => $value) {
+//  echo "$value->code $value->name " . get_class($value) . "<br />";
+// }
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\newborn7\models\PatientSearch */
@@ -24,17 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions'=>['class'=>'table'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-//            'patient_id',
-            'hospcode',
-            'provinceName',
+          //'patient_id',
             'hn',
-            'an',
+            'fullName',
+            'hospitalName',
+            //'an',
             // 'seq',
-            // 'prename',
-            // 'fname',
-            // 'mname',
-            // 'lname',
+            //'hospcode',
+            //'provinceName',
             // 'cid',
             // 'dob',
             // 'sex',
@@ -69,22 +75,22 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{visit} {view} {update} {delete}',
-                'buttons' => [
-                    'visit' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> ส่งตรวจ', ['patient-visit/create', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-success']);
-                    },
-
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> ประวัติ', ['patient/view', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-primary']);
-                    },
-
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> แก้ไข', ['patient/update', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-warning']);
-                    },
-                    'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> ลบ', ['patient/delete', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
-                    },
-                ]
+                // 'buttons' => [
+                //     'visit' => function ($url, $model, $key) {
+                //         return Html::a('<i class=""></i> ส่งตรวจ', ['patient-visit/create', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-default']);
+                //     },
+                //
+                //     'view' => function ($url, $model, $key) {
+                //         return Html::a('<i class=""></i> ประวัติ', ['patient/view', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-primary']);
+                //     },
+                //
+                //     'update' => function ($url, $model, $key) {
+                //         return Html::a('<i class=""></i> แก้ไข', ['patient/update', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-warning']);
+                //     },
+                //     'delete' => function ($url, $model, $key) {
+                //         return Html::a('<i class=""></i> ลบ', ['patient/delete', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
+                //     },
+                // ]
             ],
         ]
     ]); ?>

@@ -1,15 +1,20 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use yii\widgets\MaskedInput;
 use common\models\Profile;
-
+use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
+use frontend\modules\newborn7\models\Changwat;
+use frontend\modules\newborn7\models\Amphoe;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="patient-form">
@@ -65,11 +70,11 @@ use common\models\Profile;
             <div class="col-md-4">
                 <?= $form->field($model, 'dob')->widget(DatePicker::classname(), [
                     'language' => 'th',
-                    'value' => date('dd/mm/yyyy'),
+
                     'type' => DatePicker::TYPE_COMPONENT_APPEND,
                     'pluginOptions' => [
                         'autoclose' => true,
-                        'format' => 'dd/mm/yyyy',
+                        'format' => 'yyyy-mm-dd',
                         'todayHighlight' => true
                     ]
                 ]); ?>
@@ -81,7 +86,7 @@ use common\models\Profile;
               <?= $form->field($model, 'sex')->inline()->radioList(['1' => 'ชาย', '2' => 'หญิง']); ?>
           </div>
           <div class="col-md-3">
-              <?= $form->field($model, 'dead')->inline()->radioList(['1' => 'มีชีวิต', '2' => 'เสียชีวิต']) ?>
+              <?php //$form->field($model, 'dead')->inline()->radioList(['1' => 'มีชีวิต', '2' => 'เสียชีวิต']) ?>
           </div>
         </div>
     </fieldset>
@@ -108,16 +113,38 @@ use common\models\Profile;
         </div>
         <div class="row">
             <div class="col-md-3">
-                <?= $form->field($model, 'province')->dropDownList([]) ?>
+                <?= $form->field($model, 'province')->widget(Select2::classname(), [
+                  'data' => Changwat::find()->select(['abbr'])->indexBy('code')->orderBy('abbr ASC')->column(),
+                  'options' => ['id'=>'dd-changwat','placeholder' => 'เลือกจังหวัด ...'],
+                  'pluginOptions' => [
+                      'allowClear' => true
+                  ],
+              ]); ?>
             </div>
             <div class="col-md-3">
-                <?= $form->field($model, 'amphoe')->dropDownList([]) ?>
+                <?= $form->field($model, 'amphoe')->widget(DepDrop::classname(), [
+                   'options' => ['id'=>'dd-amphoe'],
+                   'data'=>$model->isNewRecord ? [] : $model->loadInitAddress($model->amphoe),
+                   'pluginOptions'=>[
+                       'depends'=>['dd-changwat'],
+                       'placeholder' => 'เลือกอำเภอ...',
+                       'url' => Url::to(['/newborn7/patient/get-amphoe'])
+                   ]
+               ]) ?>
             </div>
             <div class="col-md-3">
-                <?= $form->field($model, 'tumbol')->dropDownList([]) ?>
+              <?= $form->field($model, 'tumbol')->widget(DepDrop::classname(), [
+                 'options' => ['id'=>'dd-tambon'],
+                 'data'=>$model->isNewRecord ? [] : $model->loadInitAddress($model->tumbol),
+                 'pluginOptions'=>[
+                     'depends'=>['dd-amphoe'],
+                     'placeholder' => 'เลือกอำเภอ...',
+                     'url' => Url::to(['/newborn7/patient/get-tambon'])
+                 ]
+             ]) ?>
             </div>
             <div class="col-md-3">
-                <?= $form->field($model, 'zip')->widget(MaskedInput::className(), ['mask' => '9999']) ?>
+                <?= $form->field($model, 'zip')->widget(MaskedInput::className(), ['mask' => '99999']) ?>
             </div>
         </div>
 
@@ -135,7 +162,6 @@ use common\models\Profile;
         </div>
 
     </fieldset>
-
     <br>
     <fieldset>
         <div class="row">
@@ -152,7 +178,6 @@ use common\models\Profile;
                 <?= $form->field($model, 'mother_age')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-3 col-xs-12">
                 <?= $form->field($model, 'father_cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
@@ -162,45 +187,10 @@ use common\models\Profile;
             </div>
         </div>
     </fieldset>
-    <fieldset>
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <legend><h4>รายละเอียดการคลอด (ข้อมูลการมา รพ.ครั้งแรก)</h4></legend>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'moi_checked')->dropDownList(['1' => 'คลอด รพ.', '2' => 'รับ Refer']) ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'serviced')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'lr_type')->dropDownList(['NL' => 'NL', 'C/S' => 'C/S', 'Forcep' => 'Forcep']) ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'high')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'weight')->textInput() ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'ga')->textInput() ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'apgar')->textInput() ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'inp_id')->textInput() ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <?= $form->field($model, 'remark')->textarea(['maxlength' => true]) ?>
-            </div>
-        </div>
-    </fieldset>
+    <div class="form-group text-right">
+      <?= Html::submitButton('บันทึกและลงทะเบียนการคลอด', ['class' =>  'btn btn-primary','name'=>'btn-save-newborn','value'=>1]) ?>
+      <?= Html::submitButton('บันทึก' , ['class' => 'btn btn-default']) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'บันทึก' : 'แก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

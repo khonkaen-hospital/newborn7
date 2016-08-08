@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
  */
 class PatientSp extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -39,7 +40,6 @@ class PatientSp extends \yii\db\ActiveRecord
         ];
     }
 
-
     /**
      * @inheritdoc
      */
@@ -52,8 +52,7 @@ class PatientSp extends \yii\db\ActiveRecord
             [['hospcode'], 'string', 'max' => 5],
             [['sp'], 'string', 'max' => 4],
             [['hn'], 'string', 'max' => 20],
-            [['hospcode', 'hn'], 'exist', 'skipOnError' => true, 'targetClass' => Patient::className(), 'targetAttribute' => ['hospcode' => 'hospcode', 'hn' => 'hn']],
-            [['sp'], 'exist', 'skipOnError' => true, 'targetClass' => Serviceplan::className(), 'targetAttribute' => ['sp' => 'code']],
+            [['hospcode', 'hn'], 'exist', 'skipOnError' => true, 'targetClass' => Patient::className(), 'targetAttribute' => ['hospcode' => 'hospcode', 'hn' => 'hn']]
         ];
     }
 
@@ -74,19 +73,5 @@ class PatientSp extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHospcode0()
-    {
-        return $this->hasOne(Patient::className(), ['hospcode' => 'hospcode', 'hn' => 'hn']);
-    }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSp0()
-    {
-        return $this->hasOne(Serviceplan::className(), ['code' => 'sp']);
-    }
 }

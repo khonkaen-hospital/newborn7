@@ -76,20 +76,16 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
+        <?php //Alert::widget() ?>
 
         <?php foreach (Yii::$app->session->getAllFlashes() as $message): ?>
             <?php
-
             echo Growl::widget([
                 'type' => (!empty($message['type'])) ? $message['type'] : 'success',
-                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'กรุณาใส่หัวข้อ',
-                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'ไม่มีข้อความ',
-                'showSeparator' => true,
-                'delay' => 1, //This delay is how long before the message shows
+                'title' => '',
+                'body' => (!empty($message['body'])) ? Html::encode($message['body']) : 'ไม่มีข้อความ',
                 'pluginOptions' => [
-                    'showProgressbar' => true,
+                    'showProgressbar' => false,
                     'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
                     'placement' => [
                         'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
@@ -98,13 +94,6 @@ AppAsset::register($this);
                 ]
             ]);
             ?>
-        <?php endforeach; ?>
-
-        <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-            <?= \yii\bootstrap\Alert::widget([
-                'body'=>ArrayHelper::getValue($message, 'body'),
-                'options'=>ArrayHelper::getValue($message, 'options'),
-            ])?>
         <?php endforeach; ?>
 
         <?= $content ?>

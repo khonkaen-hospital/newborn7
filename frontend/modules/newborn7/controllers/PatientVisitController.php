@@ -35,7 +35,7 @@ class PatientVisitController extends Controller
      * Lists all PatientVisit models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
         $searchModel = new PatientVisitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -43,6 +43,7 @@ class PatientVisitController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'id'=>$id
         ]);
     }
 
