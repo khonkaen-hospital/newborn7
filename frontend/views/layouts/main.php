@@ -38,9 +38,9 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
-        ['label' => 'ข้อมูล New Born', 'items' => [
-          ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
-          ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
+        ['label' => 'Newborn', 'items' => [
+          ['label' => 'ลงทะเบียน', 'url' => ['/newborn7/patient/create']],
+          ['label' => 'ทะเบียนการคลอด', 'url' => ['/newborn7/patient/index']],
         ]],
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],

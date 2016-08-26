@@ -17,13 +17,13 @@ use frontend\modules\newborn7\models\Tambon;
 /* @var $searchModel frontend\modules\newborn7\models\PatientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Patients');
+$this->title = 'ทะเบียนการคลอด';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="xpanel">
   <div class="xpanel-heading">
     <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('app', 'Create Patient'), ['create'], ['class' => 'btn btn-primary pull-right']) ?>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียน', ['create'], ['class' => 'btn btn-primary pull-right']) ?>
   </div>
   <div class="panel-body patient-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -32,18 +32,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'tableOptions'=>['class'=>'table'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+              'class' => 'yii\grid\SerialColumn',
+              'options'=>['style'=>'width:30px']
+            ],
           //'patient_id',
-            'hn',
+            [
+              'attribute'=>'hn',
+              'options'=>['style'=>'width:100px']
+            ],
+            [
+              'attribute'=>'an',
+              'options'=>['style'=>'width:100px']
+            ],
+
+
             'fullName',
-            'hospitalName',
-            //'an',
+            [
+              'attribute'=>'sex',
+              'filter' => $searchModel->getItemSex(),
+              'options'=>['style'=>'width:50px'],
+              'value'=>function($model){
+                return $model->getItemSexName();
+              }
+            ],
+            //'hospitalName',
+
             // 'seq',
             //'hospcode',
             //'provinceName',
             // 'cid',
             // 'dob',
-            // 'sex',
+
             // 'dead',
             // 'mother_cid',
             // 'mother_name',
@@ -73,25 +93,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'lastupdate',
 
             [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{visit} {view} {update} {delete}',
-                // 'buttons' => [
-                //     'visit' => function ($url, $model, $key) {
-                //         return Html::a('<i class=""></i> ส่งตรวจ', ['patient-visit/create', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-default']);
-                //     },
-                //
-                //     'view' => function ($url, $model, $key) {
-                //         return Html::a('<i class=""></i> ประวัติ', ['patient/view', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-primary']);
-                //     },
-                //
-                //     'update' => function ($url, $model, $key) {
-                //         return Html::a('<i class=""></i> แก้ไข', ['patient/update', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-warning']);
-                //     },
-                //     'delete' => function ($url, $model, $key) {
-                //         return Html::a('<i class=""></i> ลบ', ['patient/delete', 'id' => $model->patient_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
-                //     },
-                // ]
-            ],
+              'class' => 'yii\grid\ActionColumn',
+              'options'=>['style'=>'width:120px;'],
+              'buttonOptions'=>['class'=>'btn btn-default'],
+              'template'=>'<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} </div>'
+           ],
         ]
     ]); ?>
     <?php Pjax::end(); ?>

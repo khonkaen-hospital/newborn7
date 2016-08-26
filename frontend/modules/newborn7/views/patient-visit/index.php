@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="xpanel-heading">
     <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'Create Patient Visit', ['create'], ['class' => 'btn btn-primary pull-right']) ?>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'Create Patient Visit', ['create','id'=>$id], ['class' => 'btn btn-primary pull-right']) ?>
   </div>
   <div class="panel-body patient-visit-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

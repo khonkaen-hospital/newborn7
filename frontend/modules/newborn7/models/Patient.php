@@ -12,6 +12,7 @@ use frontend\modules\newborn7\models\Changwat;
 use frontend\modules\newborn7\models\Amphoe;
 use frontend\modules\newborn7\models\Tambon;
 use frontend\modules\newborn7\models\Province;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "patient".
@@ -47,6 +48,7 @@ use frontend\modules\newborn7\models\Province;
  * @property string $tel
  * @property string $mobile
  * @property integer $moi_checked
+ * @property integer $type
  * @property integer $serviced
  * @property string $lr_type
  * @property double $high
@@ -99,7 +101,7 @@ class Patient extends \yii\db\ActiveRecord
             [['hospcode', 'fname', 'lname','hn','province','amphoe','tumbol'], 'required'],
             [['dob', 'dead', 'lastupdate', 'provinceName'], 'safe'],
             [['sex', 'remark'], 'string'],
-            [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at','type'], 'integer'],
             [['high'], 'number'],
             [['hospcode', 'prename', 'zip'], 'string', 'max' => 5],
             [['prov'], 'string', 'max' => 2],
@@ -169,6 +171,8 @@ class Patient extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'fullName' => 'ชื่อ-นามสกุล',
+            'hospitalName' => 'โรงพยาบาล',
         ];
     }
 
@@ -201,6 +205,25 @@ class Patient extends \yii\db\ActiveRecord
 
     public function loadInitAddress($id){
       return Address::find()->loadInit($id)->column();
+    }
+
+    public function itemAlias($key){
+      $items =  [
+        'sex'=>[
+          1 => 'ชาย',
+          2 => 'หญิง'
+        ]
+      ];
+      return ArrayHelper::keyExists($key,$items) ? $items[$key] : [];
+    }
+
+    public function getItemSex(){
+      return $this->itemAlias('sex');
+    }
+
+    public function getItemSexName(){
+      $items =  $this->itemAlias('sex');
+      return ArrayHelper::keyExists($this->sex,$items) ? $items[$this->sex] : '';
     }
 
 }

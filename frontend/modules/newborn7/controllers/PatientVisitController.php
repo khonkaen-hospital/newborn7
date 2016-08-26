@@ -83,6 +83,7 @@ class PatientVisitController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'id'=>$id
             ]);
         }
     }
@@ -102,6 +103,7 @@ class PatientVisitController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                  'id'=>$id
             ]);
         }
     }
