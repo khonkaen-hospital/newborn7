@@ -2,6 +2,7 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'timeZone'=>'Asia/Bangkok',
+    'language'=>'th',
     'components' => [
       'log' => [
           'traceLevel' => YII_DEBUG ? 3 : 0,

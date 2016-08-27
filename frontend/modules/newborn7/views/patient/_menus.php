@@ -5,7 +5,7 @@ $regisActive = (Yii::$app->controller->getRoute() == 'newborn7/patient/update' |
 echo Nav::widget([
     'items' => [
         [
-            'label' => 'ประวัติผู้ป่วย',
+            'label' => 'ข้อมูลทารกแรกเกิด',
             'url' => ['/newborn7/patient/update','id'=>$id],
             'active'=> $regisActive
         ],
@@ -13,6 +13,10 @@ echo Nav::widget([
             'label' => 'ข้อมูลการคลอด',
             'url' => ['/newborn7/patient/newborn','id'=>$id],
 
+        ],
+        [
+            'label' => 'ประวัติบิดา-มารดา',
+            'url' => ['/newborn7/patient/parent-history','id'=>$id],
         ],
         [
             'label' => 'ข้อมูลการตรวจ',

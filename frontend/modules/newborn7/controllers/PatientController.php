@@ -147,6 +147,24 @@ class PatientController extends Controller
         }
     }
 
+    public function actionParentHistory($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'parent-history';
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('alert',[
+                'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
+                'options'=>['class'=>'alert-success']
+            ]);
+            return $this->refresh();
+        } else {
+            return $this->render('_form_parent_history', [
+                'model' => $model,
+                'id'=>$id
+            ]);
+        }
+    }
+
     public function actionDead($id)
     {
         $model = $this->findModel($id);

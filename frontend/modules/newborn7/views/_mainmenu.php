@@ -19,6 +19,7 @@ echo Nav::widget([
             'url' => ['/newborn7/patient/newborn','id'=>$id],
 
         ],
+
         [
             'label' => 'ข้อมูลการตรวจ',
             'url' => ['/newborn7/patient-visit/index','id'=>$id],

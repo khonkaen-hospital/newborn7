@@ -88,7 +88,69 @@ class Patient extends \yii\db\ActiveRecord
     public function scenarios()
    {
        $scenarios = parent::scenarios();
-       $scenarios['newborn'] = ['type','type_refer_from','moi_checked', 'serviced','lr_type','height','weight','ga','apgar','remark'];
+       $scenarios['parent-history'] = [
+         'mother_cid',
+         'mother_title',
+         'mother_name',
+         'mother_surname',
+         'mother_age',
+         'mother_an',
+         'mother_hn',
+         'mother_vdrl',
+         'mother_hbsag',
+         'mother_anti_hiv',
+         'mother_g',
+         'mother_p',
+         'mother_no_of_anc',
+         'mother_congenital_disease',
+         'mother_congenital_disease_name',
+         'mother_drug',
+         'mother_fever',
+         'mother_water_break',
+         'mother_day_of_water_break',
+         'mother_antibiotic',
+         'mother_antibiotic_name',
+         'mother_day_of_antibiotic',
+         'mother_bloody_show',
+         'mother_problem',
+         'mother_problem_desc',
+         'mother_drug_before_born',
+         'mother_drug_name_before_born',
+         'mother_amniotic_fluid_type',
+         'father_cid',
+         'father_name'
+       ];
+       $scenarios['newborn'] = [
+         'type',
+         'type_refer_from',
+         'ward_admit',
+         'age_of_admit',
+         'ga',
+         'weight',
+         'height',
+         'lr_type',
+         'apgar',
+         'resuscitate',
+         'cpr',
+         'date_of_resuscitate',
+         'ppv',
+         'et_tube',
+         'uvc',
+         'day_of_et_tube',
+         'day_of_o2',
+         'discharge_datetime',
+         'status_discharge',
+         'age_of_discharge',
+         'remark',
+         'moi_checked',
+         'serviced',
+         'lr_type',
+         'height',
+         'weight',
+         'ga',
+         'apgar',
+         'remark',
+        'position_et_tube'];
        return $scenarios;
    }
 
@@ -115,7 +177,25 @@ class Patient extends \yii\db\ActiveRecord
             [['inp_id','lr_type'], 'string', 'max' => 10],
             [['hospcode', 'hn'], 'unique', 'targetAttribute' => ['hospcode', 'hn'], 'message' => 'The combination of Hospcode and Hn has already been taken.'],
 
-            [['type','type_refer_from'],'integer']
+            [['type','type_refer_from','status_discharge','age_of_admit','resuscitate','cpr','et_tube','position_et_tube','uvc','day_of_et_tube','day_of_o2'],'integer'],
+            [['ward_admit'], 'string', 'max' => 255],
+            [['age_of_discharge'], 'string', 'max' => 100],
+            [['brufen','bt','hct','dtx','ppv'], 'string', 'max' => 50],
+            [['admit_datetime','date_of_resuscitate','refer_date','refer_hospital','remark'], 'safe'],
+
+
+            [['mother_no_of_anc','mother_vdrl','mother_hbsag','mother_anti_hiv','mother_congenital_disease','mother_fever','mother_water_break','mother_day_of_water_break','mother_day_of_antibiotic','mother_bloody_show','mother_problem','mother_drug_before_born','mother_amniotic_fluid_type'], 'integer'],
+            [['mother_cid','mother_g','mother_p'], 'string', 'max' => 20],
+            [['mother_hn','mother_an'], 'string', 'max' => 30],
+            [[''], 'string', 'max' => 50],
+            [['mother_title'], 'string', 'max' => 100],
+            [['mother_antibiotic_name','mother_drug_name_before_born'], 'string', 'max' => 150],
+            [['mother_name','mother_surname','mother_antibiotic'], 'string', 'max' => 200],
+            [['mother_congenital_disease_name','mother_problem_desc'], 'string', 'max' => 255],
+            [['mother_drug'],'safe']
+
+
+
         ];
     }
 
@@ -139,10 +219,7 @@ class Patient extends \yii\db\ActiveRecord
             'dob' => 'วันเกิด',
             'sex' => 'เพศ',
             'dead' => 'สถานะ',
-            'mother_cid' => 'เลขที่บัตรประชาชนมารดา',
-            'mother_name' => 'ชื่อมารดา',
-            'mother_age' => 'อายุมารดา (ปี)',
-            'mother_an' => 'AN มารดา',
+
             'father_cid' => 'เลขที่บัตรประชาชนบิดา',
             'father_name' => 'ชื่อบิดา',
             'nation' => 'ประเทศ',
@@ -184,7 +261,38 @@ class Patient extends \yii\db\ActiveRecord
             'cpr' => 'CPR',
             'ppv' => 'PPV (cicle)',
             'day_of_et_tube' => 'จำนวนวันที่ใส่ ET-Tube',
-            'day_of_o2' => 'จำนวนวันที่รับ O2'
+            'day_of_o2' => 'จำนวนวันที่รับ O2',
+            'position_et_tube' => 'ตำแหน่งที่ใส่ ET-Tube',
+
+            'mother_cid' => 'เลขที่บัตรประชาชน',
+            'mother_title' => 'คำนำหน้า',
+            'mother_name' => 'ชื่อ',
+            'mother_surname' => 'นามสกุล',
+            'mother_age' => 'อายุ (ปี)',
+            'mother_an' => 'AN',
+            'mother_hn' => 'HN',
+            'mother_vdrl'=>'VDRL',
+            'mother_hbsag'=>'HBsAg',
+            'mother_anti_hiv'=>'Anti HIV',
+            'mother_g'=>'G',
+            'mother_p'=>'P',
+            'mother_no_of_anc'=>'No. of ANC',
+            'mother_congenital_disease' => 'มีโรคประจำตัว',
+            'mother_congenital_disease_name' => 'ถ้ามีระบุ',
+            'mother_drug' => 'ยาที่กินประจำ',
+            'mother_fever'=>'มีไข้',
+            'mother_water_break'=>'น้ำเดิน',
+            'mother_day_of_water_break'=>'จำนวนวัน',
+            'mother_antibiotic'=>'ได้รับยาปฏิชีวนะ',
+            'mother_antibiotic_name'=>'ชื่อยาปฏิชีวนะ',
+            'mother_day_of_antibiotic'=>'จำนวนวัน',
+            'mother_bloody_show'=>'มีเลือดออกทางช่องคลอด',
+            'mother_problem'=>'ปัญหาอื่นๆ',
+            'mother_problem_desc'=>'ถ้ามีระบุ',
+            'mother_drug_before_born'=>'ได้รับยาก่อนคลอด',
+            'mother_drug_name_before_born'=>'ถ้าได้รับระบุ',
+            'mother_amniotic_fluid_type'=>'ลักษณะน้ำคร่ำ'
+
         ];
     }
 

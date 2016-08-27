@@ -161,31 +161,7 @@ use frontend\modules\newborn7\models\Amphoe;
         </div>
 
     </fieldset>
-    <br>
-    <fieldset>
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <legend><h4>บิดา/มารดา</h4></legend>
-            </div>
-            <div class="col-md-3 col-xs-12">
-                <?= $form->field($model, 'mother_cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
-            </div>
-            <div class="col-md-3 col-xs-12">
-                <?= $form->field($model, 'mother_name')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-2 col-xs-12">
-                <?= $form->field($model, 'mother_age')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-xs-12">
-                <?= $form->field($model, 'father_cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
-            </div>
-            <div class="col-md-3 col-xs-12">
-                <?= $form->field($model, 'father_name')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-    </fieldset>
+
     <div class="form-group text-right">
       <?= Html::submitButton('บันทึกและลงทะเบียนการคลอด', ['class' =>  'btn btn-primary','name'=>'btn-save-newborn','value'=>1]) ?>
       <?= Html::submitButton('บันทึก' , ['class' => 'btn btn-default']) ?>
