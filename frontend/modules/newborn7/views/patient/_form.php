@@ -14,7 +14,6 @@ use frontend\modules\newborn7\models\Amphoe;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="patient-form">
@@ -83,7 +82,7 @@ use frontend\modules\newborn7\models\Amphoe;
         </div>
         <div class="row">
           <div class="col-md-3">
-              <?= $form->field($model, 'sex')->inline()->radioList(['1' => 'ชาย', '2' => 'หญิง']); ?>
+              <?= $form->field($model, 'sex')->inline()->radioList($model->getItems('sex')); ?>
           </div>
           <div class="col-md-3">
               <?php //$form->field($model, 'dead')->inline()->radioList(['1' => 'มีชีวิต', '2' => 'เสียชีวิต']) ?>

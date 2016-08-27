@@ -575,3 +575,7 @@ Add a counter to the multi-steps indicator
     padding-top: 34px;
   }
 }
+
+legend{
+  margin-top: 30px;
+}

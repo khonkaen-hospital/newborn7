@@ -51,7 +51,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $type
  * @property integer $serviced
  * @property string $lr_type
- * @property double $high
+ * @property double $height
  * @property integer $weight
  * @property integer $ga
  * @property integer $apgar
@@ -68,6 +68,7 @@ use yii\helpers\ArrayHelper;
  */
 class Patient extends \yii\db\ActiveRecord
 {
+    use ItemsAliasTrait;
     /**
      * @inheritdoc
      */
@@ -87,8 +88,7 @@ class Patient extends \yii\db\ActiveRecord
     public function scenarios()
    {
        $scenarios = parent::scenarios();
-       $scenarios['newborn'] = ['moi_checked', 'serviced','lr_type','high','weight','ga','apgar','remark'];
-       $scenarios['dead'] = ['dead'];
+       $scenarios['newborn'] = ['type','type_refer_from','moi_checked', 'serviced','lr_type','height','weight','ga','apgar','remark'];
        return $scenarios;
    }
 
@@ -102,7 +102,7 @@ class Patient extends \yii\db\ActiveRecord
             [['dob', 'dead', 'lastupdate', 'provinceName'], 'safe'],
             [['sex', 'remark'], 'string'],
             [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at','type'], 'integer'],
-            [['high'], 'number'],
+            [['height'], 'number'],
             [['hospcode', 'prename', 'zip'], 'string', 'max' => 5],
             [['prov'], 'string', 'max' => 2],
             [['hn', 'an', 'seq', 'mother_an','province', 'amphoe', 'tumbol',], 'string', 'max' => 15],
@@ -114,6 +114,8 @@ class Patient extends \yii\db\ActiveRecord
             [['addcode'], 'string', 'max' => 6],
             [['inp_id','lr_type'], 'string', 'max' => 10],
             [['hospcode', 'hn'], 'unique', 'targetAttribute' => ['hospcode', 'hn'], 'message' => 'The combination of Hospcode and Hn has already been taken.'],
+
+            [['type','type_refer_from'],'integer']
         ];
     }
 
@@ -160,8 +162,8 @@ class Patient extends \yii\db\ActiveRecord
             'moi_checked' => 'การคลอด',
             'serviced' => 'Serviced',
             'lr_type' => 'ลักษณะการคลอด',
-            'high' => 'ส่วนสูง (ซม.)',
-            'weight' => 'น้ำหนัก (กรัม)',
+            'height' => 'Height (cm)',
+            'weight' => 'Birth Weight (gms)',
             'ga' => 'GA (wks)',
             'apgar' => 'Apgar (นาทีที่ 5)',
             'remark' => 'หมายเหตุ',
@@ -173,6 +175,16 @@ class Patient extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'fullName' => 'ชื่อ-นามสกุล',
             'hospitalName' => 'โรงพยาบาล',
+            'admit_date' => 'วันที่ Admit',
+            'admit_time' => 'เวลาที่ Admit',
+            'type' => 'คลอดที่',
+            'type_refer_from' => 'รับ refer จาก',
+            'age_of_admit' => 'อายุ ณ วัน admit',
+            'age_of_discharge' => 'อายุ ณ วัน discharge',
+            'cpr' => 'CPR',
+            'ppv' => 'PPV (cicle)',
+            'day_of_et_tube' => 'จำนวนวันที่ใส่ ET-Tube',
+            'day_of_o2' => 'จำนวนวันที่รับ O2'
         ];
     }
 

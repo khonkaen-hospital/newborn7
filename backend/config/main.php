@@ -17,10 +17,11 @@ return [
       ],
       'user' => [
           'class' => 'dektrium\user\Module',
-           'admins' => ['dixon'],
-           'modelMap' => [
-                'Profile' => 'common\models\Profile',
-            ],
+          'admins' => ['admin','pck','dixon'],
+          'modelMap' => [
+              'Profile' => 'common\models\Profile',
+              'User' => 'common\models\user\User',
+          ],
       ],
     ],
     'components' => [
@@ -28,7 +29,8 @@ return [
               'class' => 'yii\rbac\DbManager',
        ],
         'user' => [
-            'identityClass' => 'dektrium\user\models\User',
+            // 'identityClass' => 'dektrium\user\models\User',
+            'identityClass' => 'common\models\user\User',
             'enableAutoLogin' => true,
         ],
         'log' => [
@@ -43,14 +45,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

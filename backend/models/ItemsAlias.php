@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\newborn7\models;
+namespace backend\models;
 
 use Yii;
 
@@ -55,5 +55,4 @@ class ItemsAlias extends \yii\db\ActiveRecord
     {
         return new ItemsAliasQuery(get_called_class());
     }
-
 }
