@@ -12,21 +12,16 @@ echo Nav::widget([
         [
             'label' => 'ข้อมูลการคลอด',
             'url' => ['/newborn7/patient/newborn','id'=>$id],
-
         ],
         [
             'label' => 'ประวัติบิดา-มารดา',
             'url' => ['/newborn7/patient/parent-history','id'=>$id],
         ],
         [
-            'label' => 'ข้อมูลการตรวจ',
+            'label' => 'ข้อมูลการคัดกรอง',
             'url' => ['/newborn7/patient-visit/index','id'=>$id],
 
-        ],
-        [
-            'label' => 'ข้อมูลการเสียชีวิต',
-            'url' => ['/newborn7/patient/dead','id'=>$id]
-        ],
+        ]
     ],
     'options' => ['class' =>'nav-tabs'], // set this to nav-tab to get tab-styled navigation
 ]);

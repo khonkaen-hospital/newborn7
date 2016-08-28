@@ -7,7 +7,9 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\newborn7\models\PatientVisitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'ทะเบียน');
+$this->title = 'ข้อมูลการตรวจ';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนการคลอด', 'url' => ['/newborn7/patient/index']];
+$this->params['breadcrumbs'][] = ['label' => $patient->getFullname(), 'url' => ['/newborn7/patient/update', 'id' => $patient->patient_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('/_mainmenu',[
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="xpanel-heading">
     <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'Create Patient Visit', ['create','id'=>$id], ['class' => 'btn btn-primary pull-right']) ?>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '. 'เพิ่มการคัดกรอง', ['create','id'=>$id], ['class' => 'btn btn-primary pull-right']) ?>
   </div>
   <div class="panel-body patient-visit-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,11 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'visit_id',
-            'seq',
-            'hospcode',
-            'hn',
-            'date',
+            'date:dateTime',
             // 'clinic',
             // 'pttype',
             // 'age',
@@ -52,23 +50,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{clinic} {view} {update} {delete}',
+                'options'=>['style'=>'width:400px;'],
+                'template' => '<div class="btn-group btn-group-sm text-center" role="group">{clinic} {vaccine} {icd10} {development} {delete}</div>',
+                'buttonOptions'=>['class'=>'btn btn-default'],
                 'buttons' => [
                     'clinic' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> คลินิก', ['patient-visit-diag/create', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-success']);
+                        return Html::a('<i class=""></i> คัดกรอง', ['/newborn7/patient-visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                     },
-
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> รายละเอียด', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-primary']);
+                    'vaccine' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> การให้วัคซีน', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
                     },
-
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> แก้ไข', ['patient-visit/update', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-warning']);
+                    'icd10' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> โรคและหัตถการ', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
                     },
-
-                    'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> ลบ', ['patient-visit/delete', 'id' => $model->visit_id], ['class' => 'btn btn-xs btn-danger', 'data-method' => 'post', 'data-pjax' => '0']);
-                    },
+                    'development' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> ข้อมูลพัฒนาการ', ['patient-visit/update', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
+                    }
                 ]
             ],
         ],

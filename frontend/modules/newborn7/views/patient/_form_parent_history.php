@@ -15,13 +15,15 @@ use yii\web\JsExpression;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 /* @var $form yii\widgets\ActiveForm */
-$this->title = Yii::t('app', 'แก้ไขประวัติ');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patients'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->patient_id, 'url' => ['view', 'id' => $model->patient_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = 'ประวัติบิดามารดา';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนการคลอด', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->getFullname(), 'url' => ['update', 'id' => $model->patient_id]];
+$this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 
-<?= $this->render('_menus',[
+<?= $this->render('/_mainmenu',[
   'id' => $id
 ])?>
 <div class="xpanel-tab">

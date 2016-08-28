@@ -45,8 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
               'attribute'=>'an',
               'options'=>['style'=>'width:100px']
             ],
-
-
             'fullName',
             [
               'attribute'=>'sex',

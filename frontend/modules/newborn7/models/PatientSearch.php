@@ -22,7 +22,7 @@ class PatientSearch extends Patient
         return [
             [['patient_id', 'mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar'], 'integer'],
             [['fullName','hospcode', 'prov', 'hn', 'an', 'seq', 'prename', 'fname', 'mname', 'lname', 'cid', 'dob', 'sex', 'dead', 'mother_cid', 'mother_name', 'mother_an', 'father_cid', 'father_name', 'nation', 'address', 'moo', 'soi', 'road', 'ban', 'addcode', 'zip', 'tel', 'mobile', 'lr_type', 'remark', 'inp_id', 'lastupdate'], 'safe'],
-            [['high'], 'number'],
+            [['height'], 'number'],
         ];
     }
 
@@ -50,6 +50,11 @@ class PatientSearch extends Patient
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>[
+              'defaultOrder'=>[
+                'patient_id' => SORT_DESC
+              ]
+            ]
         ]);
 
         $this->load($params);
@@ -68,7 +73,7 @@ class PatientSearch extends Patient
             'mother_age' => $this->mother_age,
             'moi_checked' => $this->moi_checked,
             'serviced' => $this->serviced,
-            'high' => $this->high,
+            'height' => $this->height,
             'weight' => $this->weight,
             'ga' => $this->ga,
             'apgar' => $this->apgar,

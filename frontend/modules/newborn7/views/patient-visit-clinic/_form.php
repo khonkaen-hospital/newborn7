@@ -71,12 +71,6 @@ use kartik\widgets\DatePicker;
 
 <div class="row">
     <div class="col-md-12 col-xs-12">
-        <hr>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12 col-xs-12">
         <?= $form->field($model, 'milk')->checkboxList(ItemAlias::getItemMilk(), [
             'item' =>
                 function ($index, $label, $name, $checked, $value) {

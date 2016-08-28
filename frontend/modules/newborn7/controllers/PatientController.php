@@ -86,6 +86,7 @@ class PatientController extends Controller
     public function actionCreate()
     {
         $model = new Patient();
+        $model->scenario = 'newborn';
         $model->hospcode = Yii::$app->user->identity->profile->hospital->off_id;
         $model->prov = Yii::$app->user->identity->profile->hospital->provcode;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

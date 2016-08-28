@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'moi_checked',
             'serviced',
             'lr_type',
-            'high',
+            'height',
             'weight',
             'ga',
             'apgar',

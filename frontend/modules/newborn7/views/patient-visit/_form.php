@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use kartik\select2\Select2;
@@ -14,111 +14,104 @@ use kartik\select2\Select2;
 <div class="patient-visit-form">
 
 <?php $form = ActiveForm::begin(); ?>
+<?= $form->errorSummary($model)?>
 <fieldset>
+
     <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <legend><h4>ข้อมูล Visit</h4></legend>
-        </div>
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'seq')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'hospcode')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'hn')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'clinic')->dropDownList([], ['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'pttype')->dropDownList([], ['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'age')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'age_type')->dropDownList(['0', '1', '2', '3',], ['prompt' => '']) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'result')->textInput(['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'referin')->textInput(['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'referout')->textInput(['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'head_size')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'height')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'weight')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'waist')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'bp_max')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'bp_min')->textInput() ?>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'inp_id')->textInput(['maxlength' => true]) ?>
-        </div>
-
-
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
                 'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
+                      'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
                 ]
             ]); ?>
         </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-4">
+          <?= $form->field($model, 'foster_name')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-2">
+          <?= $form->field($model, 'ga')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-2">
+          <?= $form->field($model, 'weight')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-1">
+          <?= $form->field($model, 'hc')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-1">
+          <?= $form->field($model, 'length')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-1">
+          <?= $form->field($model, 'af')->textInput(['maxlength' => true]) ?>
+      </div>
+      <div class="col-md-1">
+          <?= $form->field($model, 'x')->textInput(['maxlength' => true]) ?>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+          <?= $form->field($model, 'milk')->radioList($model->getItems('yes/no')) ?>
+      </div>
+      <div class="col-md-4">
+          <?= $form->field($model, 'milk_milk_powder')->radioList($model->getItems('yes/no')) ?>
+      </div>
+      <div class="col-md-4">
+          <?= $form->field($model, 'milk_powder')->radioList($model->getItems('yes/no')) ?>
+      </div>
+    </div>
 </fieldset>
+<br>
+<fieldset>
+<legend><h3>การให้วัคซีน</h3></legend>
+<div class="row">
+  <div class="col-md-6">
+    <?= $form->field($model, 'vaccine')->widget(Select2::className(),[
+      'data' => $model->getItems('vaccine'),
+      'maintainOrder' => true,
+      'toggleAllSettings' => [
+          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
+          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
+          'selectOptions' => ['class' => 'text-success'],
+          'unselectOptions' => ['class' => 'text-danger'],
+      ],
+      'options' => ['placeholder' => 'เลือกวัคซีน..', 'multiple' => true],
+      'pluginOptions' => [
+          'tags' => true,
+          'maximumInputLength' => 10
+      ],
+    ]) ?>
+  </div>
+  <div class="col-md-6">
+      <?= $form->field($model, 'vaccine_other')->textInput(['maxlength' => true]) ?>
+  </div>
+</div>
+</fieldset>
+
+
 
 <fieldset>
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <legend><h4>ข้อมูล TSK PKU</h4></legend>
+            <legend><h4>TSK PKU Screening</h4></legend>
         </div>
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'tsh_pku')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
+          <?= $form->field($model, 'tsh_pku')->inline()->radioList($model->getItems('yes/no')) ?>
+
         </div>
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'tsh_pku_date')->widget(DatePicker::classname(), [
                 'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
                 ]
             ]); ?>
@@ -137,7 +130,7 @@ use kartik\select2\Select2;
     </div>
     <div class="row">
         <div class="col-md-10 col-xs-12">
-            <?= $form->field($model, 'tsh_pku_result')->textarea(['rows' => 5]) ?>
+            <?= $form->field($model, 'tsh_pku_result')->textarea(['rows' => 2]) ?>
         </div>
     </div>
 
@@ -146,31 +139,18 @@ use kartik\select2\Select2;
 <fieldset>
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <legend><h4>ข้อมูล OAE</h4></legend>
+            <legend><h4>OAE Screening</h4></legend>
         </div>
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'oae')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
+          <?= $form->field($model, 'oae')->inline()->radioList($model->getItems('yes/no')) ?>
         </div>
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'oae_date')->widget(DatePicker::classname(), [
                 'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
-                    'todayHighlight' => true
-                ]
-            ]); ?>
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'oae_abr')->widget(DatePicker::classname(), [
-                'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
                 ]
             ]); ?>
@@ -188,7 +168,7 @@ use kartik\select2\Select2;
 
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'oae_result')->textarea(['rows' => 5]) ?>
+            <?= $form->field($model, 'oae_result')->textarea(['rows' => 2]) ?>
         </div>
     </div>
 </fieldset>
@@ -196,19 +176,18 @@ use kartik\select2\Select2;
 <fieldset>
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <legend><h4>ข้อมูล IVH ULT BRAIN</h4></legend>
+            <legend><h4>IVH ULT BRAIN</h4></legend>
         </div>
         <div class="col-md-3 col-xs-12">
-            <?= $form->field($model, 'ivh_ult_brain')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
+          <?= $form->field($model, 'ivh_ult_brain')->inline()->radioList($model->getItems('yes/no')) ?>
         </div>
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'ivh_date')->widget(DatePicker::classname(), [
                 'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
                 ]
             ]); ?>
@@ -217,7 +196,7 @@ use kartik\select2\Select2;
 
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'ivh_result')->textarea(['rows' => 5]) ?>
+            <?= $form->field($model, 'ivh_result')->textarea(['rows' => 2]) ?>
         </div>
     </div>
 </fieldset>
@@ -228,36 +207,96 @@ use kartik\select2\Select2;
             <legend><h4>ข้อมูล ROP</h4></legend>
         </div>
         <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'rop')->dropDownList(['Yes' => 'Yes', 'No' => 'No'], ['maxlength' => true]) ?>
+            <?= $form->field($model, 'rop')->inline()->radioList($model->getItems('yes/no')) ?>
+
         </div>
         <div class="col-md-4 col-xs-12">
             <?= $form->field($model, 'rop_date')->widget(DatePicker::classname(), [
                 'language' => 'th',
-                'value' => date('dd/mm/yyyy'),
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd/mm/yyyy',
+                    'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
                 ]
             ]); ?>
         </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'rop_hosp_appointment')->widget(Select2::classname(), [
-                'data' => ['10670' => 'โรงพยาบาลศูนย์ขอนแก่น'],
-                'language' => 'th',
-                'options' => ['placeholder' => 'ค้นหาโรงพยาบาล'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]); ?>
-        </div>
+
     </div>
+
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'rop_result')->textarea(['rows' => 5]) ?>
+            <?= $form->field($model, 'rop_result')->textarea(['rows' => 2]) ?>
         </div>
     </div>
+
+
+
+</fieldset>
+<br>
+<fieldset>
+  <legend><h4>สรุปผลตรวจ</h4></legend>
+  <?= $form->field($model, 'summary')->textarea(['rows' => 5]) ?>
+</fieldset>
+
+
+<fieldset>
+<legend><h3>โรคและหัตถการ</h3></legend>
+<div class="row">
+  <div class="col-md-6">
+    <?= $form->field($model, 'disease')->widget(Select2::className(),[
+
+      'maintainOrder' => true,
+      'toggleAllSettings' => [
+          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
+          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
+          'selectOptions' => ['class' => 'text-success'],
+          'unselectOptions' => ['class' => 'text-danger'],
+      ],
+      'options' => ['placeholder' => 'กรอก disease..', 'multiple' => true],
+      'pluginOptions' => [
+          'tags' => true,
+          'maximumInputLength' => 10
+      ],
+    ]) ?>
+  </div>
+  <div class="col-md-6">
+    <?= $form->field($model, 'complication')->widget(Select2::className(),[
+
+      'maintainOrder' => true,
+      'toggleAllSettings' => [
+          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
+          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
+          'selectOptions' => ['class' => 'text-success'],
+          'unselectOptions' => ['class' => 'text-danger'],
+      ],
+      'options' => ['placeholder' => 'กรอก complication..', 'multiple' => true],
+      'pluginOptions' => [
+          'tags' => true,
+          'maximumInputLength' => 10
+      ],
+    ]) ?>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <?= $form->field($model, 'procedure_code')->widget(Select2::className(),[
+
+      'maintainOrder' => true,
+      'toggleAllSettings' => [
+          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
+          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
+          'selectOptions' => ['class' => 'text-success'],
+          'unselectOptions' => ['class' => 'text-danger'],
+      ],
+      'options' => ['placeholder' => 'กรอก Procedure..', 'multiple' => true],
+      'pluginOptions' => [
+          'tags' => true,
+          'maximumInputLength' => 10
+      ],
+    ]) ?>
+  </div>
+</div>
 </fieldset>
 
 

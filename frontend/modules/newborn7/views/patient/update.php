@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\newborn7\models\Patient */
 
 $this->title = Yii::t('app', 'แก้ไขประวัติ');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patients'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->patient_id, 'url' => ['view', 'id' => $model->patient_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนการคลอด', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->getFullname(), 'url' => ['view', 'id' => $model->patient_id]];
+$this->params['breadcrumbs'][] = $model->getFullname()
 ?>
 
 <?= $this->render('_menus',[

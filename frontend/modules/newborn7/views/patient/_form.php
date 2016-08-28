@@ -56,8 +56,7 @@ use frontend\modules\newborn7\models\Amphoe;
 
         <div class="row">
             <div class="col-md-2">
-
-                <?= $form->field($model, 'prename')->dropDownList(['1' => 'ด.ช.', '2' => 'ด.ญ.']); ?>
+                <?= $form->field($model, 'prename')->dropDownList($model->itemAlias('prename')); ?>
             </div>
             <div class="col-md-3">
                 <?= $form->field($model, 'fname')->textInput(['maxlength' => true]) ?>
@@ -84,9 +83,7 @@ use frontend\modules\newborn7\models\Amphoe;
           <div class="col-md-3">
               <?= $form->field($model, 'sex')->inline()->radioList($model->getItems('sex')); ?>
           </div>
-          <div class="col-md-3">
-              <?php //$form->field($model, 'dead')->inline()->radioList(['1' => 'มีชีวิต', '2' => 'เสียชีวิต']) ?>
-          </div>
+
         </div>
     </fieldset>
     <br>
@@ -155,9 +152,9 @@ use frontend\modules\newborn7\models\Amphoe;
             <div class="col-md-2">
                 <?= $form->field($model, 'mobile')->widget(MaskedInput::className(), ['mask' => '999-999-9999']) ?>
             </div>
-            <div class="col-md-3">
-                <?= $form->field($model, 'nation')->dropDownList([], []) ?>
-            </div>
+            <!-- <div class="col-md-3">
+                <?php //$form->field($model, 'nation')->dropDownList([], []) ?>
+            </div> -->
         </div>
 
     </fieldset>

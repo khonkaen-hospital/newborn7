@@ -37,13 +37,15 @@ class PatientVisitController extends Controller
      */
     public function actionIndex($id)
     {
+        $patient = $this->findPatientModel($id);
         $searchModel = new PatientVisitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id'=>$id
+            'id'=>$id,
+            'patient' => $patient
         ]);
     }
 
@@ -64,13 +66,15 @@ class PatientVisitController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id = null)
+    public function actionCreate($id)
     {
         $model = new PatientVisit();
-        // $patient = Patient::findOne($id);
-        // $model->hospcode = $patient->hospcode;
-        // $model->seq = $patient->seq;
-        // $model->hn = $patient->hn;
+        $patient = $this->findPatientModel($id);
+        $model->hospcode = $patient->hospcode;
+        $model->seq = $patient->seq;
+        $model->patient_id = $patient->patient_id;
+        $model->hn = $patient->hn;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('alert', [
                 'type' => 'success',
@@ -79,11 +83,12 @@ class PatientVisitController extends Controller
                 'message' => Yii::t('app', Html::encode('บันทึกข้อมูลเรียบร้อยแล้ว')),
             ]);
 
-            return $this->redirect(['patient-visit/index', 'id' => $model->visit_id]);
+            return $this->redirect(['patient-visit/index', 'id' => $model->patient_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'id'=>$id
+                'id' => $id,
+                'patient' => $patient
             ]);
         }
     }
@@ -94,16 +99,19 @@ class PatientVisitController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$visit_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($visit_id);
+        $patient = $this->findPatientModel($id);
+        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->visit_id]);
+            return $this->redirect(['index', 'id' => $model->visit_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                  'id'=>$id
+                'id'=>$id,
+                'patient'=>$patient
             ]);
         }
     }
@@ -131,6 +139,15 @@ class PatientVisitController extends Controller
     protected function findModel($id)
     {
         if (($model = PatientVisit::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findPatientModel($id)
+    {
+        if (($model = Patient::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

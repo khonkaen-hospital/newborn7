@@ -6,8 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
 
-$this->title = Yii::t('app', 'Create Patient Visit');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visits'), 'url' => ['index']];
+$this->title = 'เพิ่มการคัดกรอง';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนการคลอด', 'url' => ['/newborn7/patient/index']];
+$this->params['breadcrumbs'][] = ['label' => $patient->getFullname(), 'url' => ['/newborn7/patient/update', 'id' => $patient->patient_id]];
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนส่งตรวจ', 'url' => ['index','id'=>$patient->patient_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?=$this->render('/_mainmenu',[

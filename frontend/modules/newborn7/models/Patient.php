@@ -88,6 +88,16 @@ class Patient extends \yii\db\ActiveRecord
     public function scenarios()
    {
        $scenarios = parent::scenarios();
+       $scenarios['default'] = [
+         'hospcode', 'fname', 'lname','hn','province','amphoe','tumbol',
+         'dob', 'dead', 'lastupdate', 'provinceName',
+         'sex', 'remark',
+         'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at',
+         'height','hospcode', 'prename', 'zip','prov',
+         'hn', 'an', 'seq', 'mother_an','moo','soi','road','ban','province', 'amphoe', 'tumbol',
+         'fname', 'mname', 'lname',
+         'cid', 'address', 'tel', 'mobile'
+       ];
        $scenarios['parent-history'] = [
          'mother_cid',
          'mother_title',
@@ -117,8 +127,7 @@ class Patient extends \yii\db\ActiveRecord
          'mother_drug_before_born',
          'mother_drug_name_before_born',
          'mother_amniotic_fluid_type',
-         'father_cid',
-         'father_name'
+         'mother_cid', 'father_cid', 'father_name'
        ];
        $scenarios['newborn'] = [
          'type',
@@ -138,6 +147,7 @@ class Patient extends \yii\db\ActiveRecord
          'uvc',
          'day_of_et_tube',
          'day_of_o2',
+         'admit_datetime',
          'discharge_datetime',
          'status_discharge',
          'age_of_discharge',
@@ -163,19 +173,21 @@ class Patient extends \yii\db\ActiveRecord
             [['hospcode', 'fname', 'lname','hn','province','amphoe','tumbol'], 'required'],
             [['dob', 'dead', 'lastupdate', 'provinceName'], 'safe'],
             [['sex', 'remark'], 'string'],
-            [['mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at','type'], 'integer'],
+            [['moi_checked', 'serviced', 'weight', 'ga', 'apgar', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['height'], 'number'],
             [['hospcode', 'prename', 'zip'], 'string', 'max' => 5],
             [['prov'], 'string', 'max' => 2],
-            [['hn', 'an', 'seq', 'mother_an','province', 'amphoe', 'tumbol',], 'string', 'max' => 15],
+            [['hn', 'an', 'seq', 'mother_an','province', 'amphoe', 'tumbol'], 'string', 'max' => 15],
             [['fname', 'mname', 'lname'], 'string', 'max' => 30],
-            [['cid', 'mother_cid', 'father_cid', 'address', 'tel', 'mobile'], 'string', 'max' => 20],
-            [['mother_name', 'father_name', 'ban'], 'string', 'max' => 50],
+            [['cid', 'father_cid', 'address', 'tel', 'mobile'], 'string', 'max' => 20],
+
+
             [['nation', 'moo'], 'string', 'max' => 4],
             [['soi', 'road'], 'string', 'max' => 40],
             [['addcode'], 'string', 'max' => 6],
             [['inp_id','lr_type'], 'string', 'max' => 10],
             [['hospcode', 'hn'], 'unique', 'targetAttribute' => ['hospcode', 'hn'], 'message' => 'The combination of Hospcode and Hn has already been taken.'],
+
 
             [['type','type_refer_from','status_discharge','age_of_admit','resuscitate','cpr','et_tube','position_et_tube','uvc','day_of_et_tube','day_of_o2'],'integer'],
             [['ward_admit'], 'string', 'max' => 255],
@@ -184,13 +196,12 @@ class Patient extends \yii\db\ActiveRecord
             [['admit_datetime','date_of_resuscitate','refer_date','refer_hospital','remark'], 'safe'],
 
 
-            [['mother_no_of_anc','mother_vdrl','mother_hbsag','mother_anti_hiv','mother_congenital_disease','mother_fever','mother_water_break','mother_day_of_water_break','mother_day_of_antibiotic','mother_bloody_show','mother_problem','mother_drug_before_born','mother_amniotic_fluid_type'], 'integer'],
+            [['mother_age','mother_no_of_anc','mother_vdrl','mother_hbsag','mother_anti_hiv','mother_congenital_disease','mother_fever','mother_water_break','mother_day_of_water_break','mother_day_of_antibiotic','mother_bloody_show','mother_problem','mother_drug_before_born','mother_amniotic_fluid_type'], 'integer'],
             [['mother_cid','mother_g','mother_p'], 'string', 'max' => 20],
             [['mother_hn','mother_an'], 'string', 'max' => 30],
-            [[''], 'string', 'max' => 50],
             [['mother_title'], 'string', 'max' => 100],
             [['mother_antibiotic_name','mother_drug_name_before_born'], 'string', 'max' => 150],
-            [['mother_name','mother_surname','mother_antibiotic'], 'string', 'max' => 200],
+            [['father_name','mother_name','mother_surname','mother_antibiotic'], 'string', 'max' => 200],
             [['mother_congenital_disease_name','mother_problem_desc'], 'string', 'max' => 255],
             [['mother_drug'],'safe']
 
@@ -263,7 +274,8 @@ class Patient extends \yii\db\ActiveRecord
             'day_of_et_tube' => 'จำนวนวันที่ใส่ ET-Tube',
             'day_of_o2' => 'จำนวนวันที่รับ O2',
             'position_et_tube' => 'ตำแหน่งที่ใส่ ET-Tube',
-
+            'admit_datetime'=>'วันที่ Admit',
+            'ward_admit'=>'Ward Admit',
             'mother_cid' => 'เลขที่บัตรประชาชน',
             'mother_title' => 'คำนำหน้า',
             'mother_name' => 'ชื่อ',
@@ -297,7 +309,7 @@ class Patient extends \yii\db\ActiveRecord
     }
 
     public function getFullname(){
-      return $this->prename. $this->fname.' '.$this->lname;
+      return $this->getItemLabel('prename'). $this->fname.' '.$this->lname;
     }
 
     public function getHospital()
@@ -332,14 +344,25 @@ class Patient extends \yii\db\ActiveRecord
         'sex'=>[
           1 => 'ชาย',
           2 => 'หญิง'
+        ],
+        'prename'=>[
+          1 => 'ด.ช.',
+          2 => 'ด.ญ.'
         ]
       ];
       return ArrayHelper::keyExists($key,$items) ? $items[$key] : [];
     }
 
+    public function getItemLabel($field){
+      $items =  $this->itemAlias($field);
+      return ArrayHelper::keyExists($this->{$field},$items) ? $items[$this->{$field}] : '';
+    }
+
     public function getItemSex(){
       return $this->itemAlias('sex');
     }
+
+
 
     public function getItemSexName(){
       $items =  $this->itemAlias('sex');

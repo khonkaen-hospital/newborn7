@@ -11,15 +11,16 @@ echo Nav::widget([
     'items' => [
         [
             'label' => 'ประวัติผู้ป่วย',
-            'url' => ['/newborn7/patient/update','id'=>$id],
-            'active'=> $regisActive
+            'url' => ['/newborn7/patient/update','id'=>$id]
         ],
         [
             'label' => 'ข้อมูลการคลอด',
             'url' => ['/newborn7/patient/newborn','id'=>$id],
-
         ],
-
+        [
+            'label' => 'ประวัติบิดา-มารดา',
+            'url' => ['/newborn7/patient/parent-history','id'=>$id],
+        ],
         [
             'label' => 'ข้อมูลการตรวจ',
             'url' => ['/newborn7/patient-visit/index','id'=>$id],

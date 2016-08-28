@@ -14,7 +14,7 @@ $this->title =  Yii::$app->params['app.brandLabel'];
         <p class="lead"><?=Yii::$app->params['app.subtitle']?></p>
 
         <p>
-          <?=Html::a('บันทึก KPI New Born',['patient/index'],['class'=>'btn btn-lg btn-default'])?>
+          <?=Html::a('บันทึก KPI New Born',['/newborn7/patient/index'],['class'=>'btn btn-lg btn-default'])?>
         </p>
     </div>
 

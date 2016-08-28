@@ -5,6 +5,7 @@ namespace frontend\modules\newborn7\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -55,8 +56,10 @@ use yii\db\ActiveRecord;
  * @property PatientVisitDiag $patientVisitDiag
  * @property PatientVisitProcedure $patientVisitProcedure
  */
-class PatientVisit extends \yii\db\ActiveRecord
+class PatientVisit extends ActiveRecord
 {
+
+    use ItemsAliasTrait;
     /**
      * @inheritdoc
      */
@@ -70,7 +73,54 @@ class PatientVisit extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             BlameableBehavior::className(),
+            [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_BEFORE_INSERT => 'vaccine',
+                  ActiveRecord::EVENT_BEFORE_UPDATE => 'vaccine',
+              ],
+              'value' => function ($event) {
+                  return is_array($this->vaccine) ? implode(',',$this->vaccine) : '';
+              },
+            ],
+            [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_BEFORE_INSERT => 'disease',
+                  ActiveRecord::EVENT_BEFORE_UPDATE => 'disease',
+              ],
+              'value' => function ($event) {
+                  return is_array($this->disease) ? implode(',',$this->disease) : '';
+              },
+            ],
+            [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_BEFORE_INSERT => 'complication',
+                  ActiveRecord::EVENT_BEFORE_UPDATE => 'complication',
+              ],
+              'value' => function ($event) {
+                  return is_array($this->complication) ? implode(',',$this->complication) : '';
+              },
+            ],
+            [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_BEFORE_INSERT => 'procedure_code',
+                  ActiveRecord::EVENT_BEFORE_UPDATE => 'procedure_code',
+              ],
+              'value' => function ($event) {
+                  return is_array($this->procedure_code) ? implode(',',$this->procedure_code) : '';
+              },
+            ],
         ];
+    }
+
+    public function fieldToArray(Array $fields){
+      foreach ($fields as $key => $field) {
+        $this->{$field} = empty($this->{$field}) ? '' : explode(',',$this->{$field});
+      }
+
     }
 
     /**
@@ -79,9 +129,9 @@ class PatientVisit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['seq', 'hospcode', 'hn'], 'required'],
-            [['date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate'], 'safe'],
-            [['age', 'bp_max', 'bp_min', 'tsh_pku_result', 'ivh_result', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['hospcode', 'hn'], 'required'],
+            [['ivh_result','date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate','tsh_pku_result'], 'safe'],
+            [['age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at','patient_id'], 'integer'],
             [['age_type'], 'string'],
             [['head_size', 'height', 'weight', 'waist'], 'number'],
             [['seq', 'hn', 'inp_id'], 'string', 'max' => 15],
@@ -91,6 +141,11 @@ class PatientVisit extends \yii\db\ActiveRecord
             [['tsh_pku', 'oae', 'rop', 'ivh_ult_brain'], 'string', 'max' => 3],
             [['oae_right', 'oae_left', 'oae_result', 'rop_result', 'rop_hosp_appointment'], 'string', 'max' => 255],
             [['seq', 'hospcode', 'hn'], 'unique', 'targetAttribute' => ['seq', 'hospcode', 'hn'], 'message' => 'The combination of Seq, Hospcode and Hn has already been taken.'],
+
+            [['ga', 'hc', 'length', 'af', 'x', 'foster_name'],'string','max'=>20],
+            [['milk', 'milk_milk_powder', 'milk_powder'],'integer'],
+            [['vaccine','disease','complication','procedure_code'],'safe'],
+            [['vaccine_other'],'string', 'max'=>200]
         ];
     }
 
@@ -104,43 +159,51 @@ class PatientVisit extends \yii\db\ActiveRecord
             'seq' => 'Seq',
             'hospcode' => 'Hospcode',
             'hn' => 'Hn',
-            'date' => 'Date',
+            'date' => 'วันที่',
             'clinic' => 'Clinic',
             'pttype' => 'Pttype',
-            'age' => 'Age',
+            'age' => 'อายุ',
             'age_type' => 'Age Type',
             'result' => 'Result',
             'referin' => 'Referin',
             'referout' => 'Referout',
             'head_size' => 'Head Size',
-            'height' => 'Height',
-            'weight' => 'Weight',
+            'height' => 'ส่วนสูง',
+            'weight' => 'น้ำหนัก',
             'waist' => 'Waist',
             'bp_max' => 'Bp Max',
             'bp_min' => 'Bp Min',
             'inp_id' => 'Inp ID',
-            'tsh_pku' => 'Tsh Pku',
-            'tsh_pku_date' => 'Tsh Pku Date',
-            'tsh_pku_time' => 'Tsh Pku Time',
-            'tsh_pku_result' => 'Tsh Pku Result',
-            'oae' => 'Oae',
-            'oae_date' => 'Oae Date',
+            'tsh_pku' => 'ตรวจ TSH PKU',
+            'tsh_pku_date' => 'วันที่เจาะ',
+            'tsh_pku_time' => 'เวลาที่เจาะ',
+            'tsh_pku_result' => 'ผลตรวจ',
+            'oae' => 'ตรวจ OAE',
+            'oae_date' => 'วันที่ตรวจ',
             'oae_abr' => 'Oae Abr',
-            'oae_right' => 'Oae Right',
-            'oae_left' => 'Oae Left',
-            'oae_result' => 'Oae Result',
-            'ivh_ult_brain' => 'Ivh Ult Brain',
-            'ivh_date' => 'Ivh Date',
+            'oae_right' => 'ผลตรวจข้างขวา',
+            'oae_left' => 'ผลตรวจข้างซ้าย',
+            'oae_result' => 'ผลตรวจ',
+            'ivh_ult_brain' => 'ตรวจ IVH',
+            'ivh_date' => 'วันที่ตรวจ',
             'ivh_result' => 'Ivh Result',
-            'rop' => 'Rop',
-            'rop_date' => 'Rop Date',
-            'rop_result' => 'Rop Result',
-            'rop_hosp_appointment' => 'Rop Hosp Appointment',
+            'rop' => 'ตรวจ Rop',
+            'rop_date' => 'วันที่ตรวจ',
+            'rop_result' => 'การรักษา',
+            'rop_hosp_appointment' => 'รพ.ที่นัด',
             'lastupdate' => 'Lastupdate',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+
+            'foster_name'=>'ผู้เลี้ยงดู',
+            'milk'=> 'ได้รับนมมารดาอย่างเดียว',
+            'milk_milk_powder'=> 'ได้รับนมมารดาและนมผสม',
+            'milk_powder'=> 'นมผสมอย่างเดียว',
+            'vaccine'=> 'วัคซีนที่ได้รับแล้ว',
+            'vaccine_other'=> 'อื่นๆ ระบุ',
+            'summary' => 'รายละเอียด'
         ];
     }
 
@@ -162,6 +225,7 @@ class PatientVisit extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
+
         $this->date = $this->date != null ? date('Y-m-d', strtotime(str_replace("/", "-", $this->date))) : null;
         $this->tsh_pku_date = $this->tsh_pku_date != null ? date('d/m/Y', strtotime($this->tsh_pku_date)) : null;
         $this->oae_date = $this->oae_date != null ? date('d/m/Y', strtotime($this->oae_date)) : null;
