@@ -50,8 +50,6 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     } else {
 
-
-
        $menuItems[] = ['label' => 'Account('.Yii::$app->user->identity->username .')', 'items' => [
             ['label' => 'Profile', 'url' => ['/user/settings/profile']],
             ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
@@ -83,9 +81,9 @@ AppAsset::register($this);
 
             echo Growl::widget([
                 'type' => (!empty($message['type'])) ? $message['type'] : 'success',
-                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'กรุณาใส่หัวข้อ',
+                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : '',
                 'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'ไม่มีข้อความ',
+                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : '',
                 'showSeparator' => true,
                 'delay' => 1, //This delay is how long before the message shows
                 'pluginOptions' => [
