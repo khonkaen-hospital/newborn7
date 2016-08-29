@@ -12,6 +12,8 @@ use frontend\modules\newborn7\models\Patient;
  */
 class PatientSearch extends Patient
 {
+    public $fullName;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class PatientSearch extends Patient
     {
         return [
             [['patient_id', 'mother_age', 'moi_checked', 'serviced', 'weight', 'ga', 'apgar'], 'integer'],
-            [['hospcode', 'prov', 'hn', 'an', 'seq', 'prename', 'fname', 'mname', 'lname', 'cid', 'dob', 'sex', 'dead', 'mother_cid', 'mother_name', 'mother_an', 'father_cid', 'father_name', 'nation', 'address', 'moo', 'soi', 'road', 'ban', 'addcode', 'zip', 'tel', 'mobile', 'lr_type', 'remark', 'inp_id', 'lastupdate'], 'safe'],
+            [['fullName','hospcode', 'prov', 'hn', 'an', 'seq', 'prename', 'fname', 'mname', 'lname', 'cid', 'dob', 'sex', 'dead', 'mother_cid', 'mother_name', 'mother_an', 'father_cid', 'father_name', 'nation', 'address', 'moo', 'soi', 'road', 'ban', 'addcode', 'zip', 'tel', 'mobile', 'lr_type', 'remark', 'inp_id', 'lastupdate'], 'safe'],
             [['high'], 'number'],
         ];
     }
@@ -42,7 +44,7 @@ class PatientSearch extends Patient
      */
     public function search($params)
     {
-        $query = Patient::find();
+        $query = Patient::find()->with(['hospital']);
 
         // add conditions that should always apply here
 
@@ -102,6 +104,10 @@ class PatientSearch extends Patient
             ->andFilterWhere(['like', 'lr_type', $this->lr_type])
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'inp_id', $this->inp_id]);
+
+            $query->where('fname like :q || lname like :q',[
+              'q' => '%'.$this->fullName.'%'
+            ]);
 
         return $dataProvider;
     }

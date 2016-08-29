@@ -2,10 +2,13 @@
 
 namespace frontend\modules\newborn7\controllers;
 
-use frontend\modules\newborn7\models\PatientSp;
 use Yii;
-use frontend\modules\newborn7\models\Patient;
+use frontend\modules\newborn7\models\PatientSp;
 use frontend\modules\newborn7\models\PatientSearch;
+use frontend\modules\newborn7\models\Patient;
+use frontend\modules\newborn7\models\Changwat;
+use frontend\modules\newborn7\models\Amphoe;
+use frontend\modules\newborn7\models\Tambon;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,6 +18,24 @@ use yii\filters\VerbFilter;
  */
 class PatientController extends Controller
 {
+
+    public function actions()
+    {
+        return \yii\helpers\ArrayHelper::merge(parent::actions(), [
+            'get-amphoe' => [
+                'class' => \kartik\depdrop\DepDropAction::className(),
+                'outputCallback' => function ($selectedId, $params) {
+                  return Amphoe::find()->getAmphoeByChangwatID(substr($selectedId,0,2))->all();
+                }
+            ],
+            'get-tambon' => [
+                'class' => \kartik\depdrop\DepDropAction::className(),
+                'outputCallback' => function ($selectedId, $params) {
+                  return Tambon::find()->getTambonByAmphoeID(substr($selectedId,0,4))->all();
+                }
+            ]
+        ]);
+    }
     /**
      * @inheritdoc
      */
@@ -67,25 +88,15 @@ class PatientController extends Controller
         $model = new Patient();
         $model->hospcode = Yii::$app->user->identity->profile->hospital->off_id;
         $model->prov = Yii::$app->user->identity->profile->hospital->provcode;
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $patientSp = new PatientSp();
-
-            $patientSp->hospcode = $model->hospcode;
-            $patientSp->sp = $model->lr_type;
-            $patientSp->hn = $model->hn;
-
-            if ($patientSp->save()) {
-
-                Yii::$app->getSession()->setFlash('alert',[
-                    'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
-                    'options'=>['class'=>'alert-success']
-                ]);
-
-                return $this->redirect(['/newborn7/patient-visit/index', 'id' => $model->patient_id]);
+            Yii::$app->getSession()->setFlash('alert',[
+                'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
+                'options'=>['class'=>'alert-success']
+            ]);
+            if(Yii::$app->request->post('btn-save-newborn') == 1){
+              return $this->redirect(['/newborn7/patient/newborn', 'id' => $model->patient_id]);
             }else{
-              print_r($patientSp->getErrors());
+              return $this->redirect(['/newborn7/patient/update', 'id' => $model->patient_id]);
             }
         } else {
             return $this->render('create', [
@@ -105,10 +116,66 @@ class PatientController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->patient_id]);
+            Yii::$app->getSession()->setFlash('alert',[
+                'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
+                'options'=>['class'=>'alert-success']
+            ]);
+            return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'id'=>$id
+            ]);
+        }
+    }
+
+    public function actionNewborn($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'newborn';
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('alert',[
+                'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
+                'options'=>['class'=>'alert-success']
+            ]);
+            return $this->refresh();
+        } else {
+            return $this->render('_form_newborn', [
+                'model' => $model,
+                'id'=>$id
+            ]);
+        }
+    }
+
+    public function actionParentHistory($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'parent-history';
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('alert',[
+                'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
+                'options'=>['class'=>'alert-success']
+            ]);
+            return $this->refresh();
+        } else {
+            return $this->render('_form_parent_history', [
+                'model' => $model,
+                'id'=>$id
+            ]);
+        }
+    }
+
+    public function actionDead($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'dead';
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->refresh();
+        } else {
+            return $this->render('_form_dead', [
+                'model' => $model,
+                'id'=>$id
             ]);
         }
     }

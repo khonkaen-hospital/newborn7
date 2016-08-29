@@ -10,7 +10,9 @@ $this->title = Yii::t('app', 'Create Patient Visit');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visits'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?=$this->render('/_menus')?>
+<?=$this->render('/_mainmenu',[
+    'id'=>$id
+])?>
 <div class="xpanel-tab">
   <div class="xpanel-heading">
     <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
@@ -19,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'id'=>$id
     ]) ?>
 
 </div>
