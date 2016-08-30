@@ -5,7 +5,10 @@ $regisActive = (Yii::$app->controller->getRoute() == 'newborn7/patient/update' |
 $visitActive = in_array(Yii::$app->controller->getRoute(),[
   'newborn7/patient-visit/index',
   'newborn7/patient-visit/create',
-  'newborn7/patient-visit/update'
+  'newborn7/patient-visit/update',
+  'newborn7/patient-visit/screening',
+  'newborn7/patient-visit/disease',
+  'newborn7/patient-visit-develop/create'
 ]);
 echo Nav::widget([
     'items' => [

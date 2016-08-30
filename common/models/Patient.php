@@ -123,7 +123,7 @@ class Patient extends \yii\db\ActiveRecord
             'id_card_papa' => 'เลขที่บัตรประชาชนบิดา',
             'first_name_papa' => 'ชื่อบิดา',
             'last_name_papa' => 'นามสกุลบิดา',
-
+            'et_tube'=>'ET-Tube',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

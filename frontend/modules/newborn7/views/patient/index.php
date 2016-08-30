@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->getItemSexName();
               }
             ],
-            //'hospitalName',
+            'hospitalName',
 
             // 'seq',
             //'hospcode',

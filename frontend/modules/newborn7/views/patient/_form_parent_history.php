@@ -79,9 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
        <?= $form->field($model, 'mother_hbsag')->radioList($model->getItems('positive/negative')) ?>
        </div>
        <div class="col-md-2">
-         <?= $form->field($model, 'mother_anti_hiv')->radioList($model->getItems('yes/no')) ?>
-       </div>
-       <div class="col-md-2">
          <?= $form->field($model, 'mother_fever')->radioList($model->getItems('yes/no')) ?>
        </div>
        <div class="col-md-3">
@@ -103,14 +100,20 @@ $this->params['breadcrumbs'][] = $this->title;
      <div class="col-md-2">
       <?= $form->field($model, 'mother_drug_before_born')->inline()->radioList($model->getItems('yes/no')) ?>
      </div>
-     <div class="col-md-5">
+     <div class="col-md-2">
+      <?= $form->field($model, 'mother_drug_before_born_item')->inline()->radioList($model->getItems('mother_drug_before_born_item')) ?>
+     </div>
+     <div class="col-md-2">
+      <?= $form->field($model, 'mother_drug_before_born_amount')->textInput(['maxlength' => true]) ?>
+     </div>
+     <div class="col-md-2">
       <?= $form->field($model, 'mother_drug_name_before_born')->textInput(['maxlength' => true]) ?>
      </div>
    </div>
 
    <div class="row">
      <div class="col-md-2">
-       <?= $form->field($model, 'mother_congenital_disease')->inline()->radioList($model->getItems('yes/no')) ?>
+       <?= $form->field($model, 'mother_congenital_disease')->inline()->radioList($model->getItems('have/nohave')) ?>
      </div>
      <div class="col-md-5">
       <?= $form->field($model, 'mother_congenital_disease_name')->textInput(['maxlength' => true]) ?>

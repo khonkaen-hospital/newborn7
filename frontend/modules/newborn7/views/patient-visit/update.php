@@ -9,6 +9,7 @@ $this->title = 'ข้อมูลการคัดกรอง';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visits'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->visit_id, 'url' => ['view', 'id' => $model->visit_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+
 ?>
 <?=$this->render('/_mainmenu',[
     'id'=>$id
@@ -22,7 +23,16 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'id'=>$id
+        'id'=> $id,
+        'patient'=> $patient,
+        'tskSearchModel' => $tskSearchModel,
+        'tskDataprovider' => $tskDataprovider,
+        'oaeSearchModel' => $oaeSearchModel,
+        'oaeDataprovider' => $oaeDataprovider,
+        'ivhSearchModel' => $ivhSearchModel,
+        'ivhDataprovider' => $ivhDataprovider,
+        'ropSearchModel' => $ropSearchModel,
+        'ropDataprovider' => $ropDataprovider
     ]) ?>
 
 </div>

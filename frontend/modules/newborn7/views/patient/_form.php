@@ -68,7 +68,6 @@ use frontend\modules\newborn7\models\Amphoe;
             <div class="col-md-4">
                 <?= $form->field($model, 'dob')->widget(DatePicker::classname(), [
                     'language' => 'th',
-
                     'type' => DatePicker::TYPE_COMPONENT_APPEND,
                     'pluginOptions' => [
                         'autoclose' => true,

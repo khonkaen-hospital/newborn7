@@ -14,7 +14,6 @@ return [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
-            'admins' => [],
             'modelMap' => [
                 'Profile' => 'common\models\Profile',
                 'User' => 'common\models\user\User',
@@ -50,8 +49,8 @@ return [
             ],
         ],
         'user' => [
-            //'identityClass' => 'dektrium\user\models\User',
-            'identityClass' => 'common\models\user\User',
+            'identityClass' => 'dektrium\user\models\User',
+            //'identityClass' => 'common\models\user\User',
             'enableAutoLogin' => true,
         ],
         'log' => [

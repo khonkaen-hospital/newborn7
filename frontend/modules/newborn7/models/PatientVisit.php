@@ -132,7 +132,7 @@ class PatientVisit extends ActiveRecord
             [['hospcode', 'hn'], 'required'],
             [['ivh_result','date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate','tsh_pku_result'], 'safe'],
             [['age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at','patient_id'], 'integer'],
-            [['age_type'], 'string'],
+            [['age_type','summary'], 'string'],
             [['head_size', 'height', 'weight', 'waist'], 'number'],
             [['seq', 'hn', 'inp_id'], 'string', 'max' => 15],
             [['hospcode', 'referin', 'referout'], 'string', 'max' => 5],
@@ -140,7 +140,7 @@ class PatientVisit extends ActiveRecord
             [['result'], 'string', 'max' => 4],
             [['tsh_pku', 'oae', 'rop', 'ivh_ult_brain'], 'string', 'max' => 3],
             [['oae_right', 'oae_left', 'oae_result', 'rop_result', 'rop_hosp_appointment'], 'string', 'max' => 255],
-            [['seq', 'hospcode', 'hn'], 'unique', 'targetAttribute' => ['seq', 'hospcode', 'hn'], 'message' => 'The combination of Seq, Hospcode and Hn has already been taken.'],
+            //[['seq', 'hospcode', 'hn'], 'unique', 'targetAttribute' => ['seq', 'hospcode', 'hn'], 'message' => 'The combination of Seq, Hospcode and Hn has already been taken.'],
 
             [['ga', 'hc', 'length', 'af', 'x', 'foster_name'],'string','max'=>20],
             [['milk', 'milk_milk_powder', 'milk_powder'],'integer'],

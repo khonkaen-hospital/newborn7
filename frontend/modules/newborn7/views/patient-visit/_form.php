@@ -5,6 +5,9 @@ use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use kartik\select2\Select2;
+use yii\bootstrap\Modal;
+
+
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
@@ -93,146 +96,6 @@ use kartik\select2\Select2;
   </div>
 </div>
 </fieldset>
-
-
-
-<fieldset>
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <legend><h4>TSK PKU Screening</h4></legend>
-        </div>
-        <div class="col-md-2 col-xs-12">
-          <?= $form->field($model, 'tsh_pku')->inline()->radioList($model->getItems('yes/no')) ?>
-
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'tsh_pku_date')->widget(DatePicker::classname(), [
-                'language' => 'th',
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
-                ]
-            ]); ?>
-        </div>
-        <div class="col-md-2 col-xs-2">
-            <?= $form->field($model, 'tsh_pku_time')->widget(TimePicker::classname(), [
-                'value' => '',
-                'pluginOptions' => [
-                    'showSeconds' => true,
-                    'showMeridian' => false,
-                    'minuteStep' => 1,
-                    'secondStep' => 5,
-                ]
-            ]); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-xs-12">
-            <?= $form->field($model, 'tsh_pku_result')->textarea(['rows' => 2]) ?>
-        </div>
-    </div>
-
-</fieldset>
-
-<fieldset>
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <legend><h4>OAE Screening</h4></legend>
-        </div>
-        <div class="col-md-2 col-xs-12">
-          <?= $form->field($model, 'oae')->inline()->radioList($model->getItems('yes/no')) ?>
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'oae_date')->widget(DatePicker::classname(), [
-                'language' => 'th',
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
-                ]
-            ]); ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 col-xs-6">
-            <?= $form->field($model, 'oae_right')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <?= $form->field($model, 'oae_left')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'oae_result')->textarea(['rows' => 2]) ?>
-        </div>
-    </div>
-</fieldset>
-
-<fieldset>
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <legend><h4>IVH ULT BRAIN</h4></legend>
-        </div>
-        <div class="col-md-3 col-xs-12">
-          <?= $form->field($model, 'ivh_ult_brain')->inline()->radioList($model->getItems('yes/no')) ?>
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'ivh_date')->widget(DatePicker::classname(), [
-                'language' => 'th',
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
-                ]
-            ]); ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'ivh_result')->textarea(['rows' => 2]) ?>
-        </div>
-    </div>
-</fieldset>
-
-<fieldset>
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <legend><h4>ข้อมูล ROP</h4></legend>
-        </div>
-        <div class="col-md-2 col-xs-12">
-            <?= $form->field($model, 'rop')->inline()->radioList($model->getItems('yes/no')) ?>
-
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'rop_date')->widget(DatePicker::classname(), [
-                'language' => 'th',
-
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
-                ]
-            ]); ?>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-xs-12">
-            <?= $form->field($model, 'rop_result')->textarea(['rows' => 2]) ?>
-        </div>
-    </div>
-
-
-
-</fieldset>
 <br>
 <fieldset>
   <legend><h4>สรุปผลตรวจ</h4></legend>
@@ -240,64 +103,7 @@ use kartik\select2\Select2;
 </fieldset>
 
 
-<fieldset>
-<legend><h3>โรคและหัตถการ</h3></legend>
-<div class="row">
-  <div class="col-md-6">
-    <?= $form->field($model, 'disease')->widget(Select2::className(),[
 
-      'maintainOrder' => true,
-      'toggleAllSettings' => [
-          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
-          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
-          'selectOptions' => ['class' => 'text-success'],
-          'unselectOptions' => ['class' => 'text-danger'],
-      ],
-      'options' => ['placeholder' => 'กรอก disease..', 'multiple' => true],
-      'pluginOptions' => [
-          'tags' => true,
-          'maximumInputLength' => 10
-      ],
-    ]) ?>
-  </div>
-  <div class="col-md-6">
-    <?= $form->field($model, 'complication')->widget(Select2::className(),[
-
-      'maintainOrder' => true,
-      'toggleAllSettings' => [
-          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
-          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
-          'selectOptions' => ['class' => 'text-success'],
-          'unselectOptions' => ['class' => 'text-danger'],
-      ],
-      'options' => ['placeholder' => 'กรอก complication..', 'multiple' => true],
-      'pluginOptions' => [
-          'tags' => true,
-          'maximumInputLength' => 10
-      ],
-    ]) ?>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <?= $form->field($model, 'procedure_code')->widget(Select2::className(),[
-
-      'maintainOrder' => true,
-      'toggleAllSettings' => [
-          'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
-          'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> Untag All',
-          'selectOptions' => ['class' => 'text-success'],
-          'unselectOptions' => ['class' => 'text-danger'],
-      ],
-      'options' => ['placeholder' => 'กรอก Procedure..', 'multiple' => true],
-      'pluginOptions' => [
-          'tags' => true,
-          'maximumInputLength' => 10
-      ],
-    ]) ?>
-  </div>
-</div>
-</fieldset>
 
 
 <div class="form-group">

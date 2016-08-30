@@ -54,17 +54,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<div class="btn-group btn-group-sm text-center" role="group">{clinic} {vaccine} {icd10} {development} {delete}</div>',
                 'buttonOptions'=>['class'=>'btn btn-default'],
                 'buttons' => [
-                    'clinic' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> คัดกรอง', ['/newborn7/patient-visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
-                    },
+
                     'vaccine' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> การให้วัคซีน', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
+                        return Html::a('<i class=""></i> การให้วัคซีน', ['patient-visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
+                    },
+                    'clinic' => function ($url, $model, $key) {
+                        return Html::a('<i class=""></i> คัดกรอง', ['/newborn7/patient-visit/screening', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                     },
                     'icd10' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> โรคและหัตถการ', ['patient-visit/view', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
+                        return Html::a('<i class=""></i> โรคและหัตถการ', ['/newborn7/patient-visit/disease', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                     },
                     'development' => function ($url, $model, $key) {
-                        return Html::a('<i class=""></i> ข้อมูลพัฒนาการ', ['patient-visit/update', 'id' => $model->visit_id], ['class' => 'btn  btn-default']);
+                        return Html::a('<i class=""></i> ข้อมูลพัฒนาการ', ['/newborn7/patient-visit-develop/create', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                     }
                 ]
             ],

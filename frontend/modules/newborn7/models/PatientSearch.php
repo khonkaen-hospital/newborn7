@@ -44,6 +44,7 @@ class PatientSearch extends Patient
      */
     public function search($params)
     {
+
         $query = Patient::find()->with(['hospital']);
 
         // add conditions that should always apply here

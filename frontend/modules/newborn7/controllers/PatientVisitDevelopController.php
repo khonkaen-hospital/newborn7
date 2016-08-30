@@ -63,18 +63,19 @@ class PatientVisitDevelopController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id = null)
+    public function actionCreate($id,$visit_id)
     {
         $model = new PatientVisitDevelop();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->visit_id = $visit_id;
             if($model->save()){
                 $model->visit_id = $id;
                 Yii::$app->getSession()->setFlash('alert',[
                     'body'=>'บันทึกข้อมูลเรียบร้อยแล้ว!',
                     'options'=>['class'=>'alert-success']
                 ]);
-                return $this->redirect(['patient-visit-vaccine', 'id' => $model->visit_id]);
+                return $this->refresh();
             }
         }else {
             return $this->render('create', [

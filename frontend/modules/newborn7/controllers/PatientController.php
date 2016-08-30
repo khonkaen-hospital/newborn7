@@ -12,6 +12,7 @@ use frontend\modules\newborn7\models\Tambon;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PatientController implements the CRUD actions for Patient model.
@@ -42,6 +43,16 @@ class PatientController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+              'class' => AccessControl::className(),
+              'rules' => [
+                  [
+                      //'actions' => ['logout', 'index'],
+                      'allow' => true,
+                      'roles' => ['@'],
+                  ],
+              ],
+          ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -57,6 +68,10 @@ class PatientController extends Controller
      */
     public function actionIndex()
     {
+        if(!isset(Yii::$app->user->identity->profile->hcode)){
+            throw new NotFoundHttpException('กรุณากรอกข้อมูลส่วนตัวและเลือกรพ.ที่ท่่านสังกัด');
+        }
+        
         $searchModel = new PatientSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -86,7 +101,7 @@ class PatientController extends Controller
     public function actionCreate()
     {
         $model = new Patient();
-        $model->scenario = 'newborn';
+        $model->scenario = 'default';
         $model->hospcode = Yii::$app->user->identity->profile->hospital->off_id;
         $model->prov = Yii::$app->user->identity->profile->hospital->provcode;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

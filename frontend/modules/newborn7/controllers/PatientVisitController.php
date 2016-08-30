@@ -6,9 +6,12 @@ use frontend\modules\newborn7\models\Patient;
 use Yii;
 use frontend\modules\newborn7\models\PatientVisit;
 use frontend\modules\newborn7\models\PatientVisitSearch;
+use frontend\modules\newborn7\models\VisitScreening;
+use frontend\modules\newborn7\models\VisitScreeningSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\helpers\Html;
 
 /**
@@ -22,6 +25,16 @@ class PatientVisitController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        //'actions' => ['logout', 'index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -47,6 +60,13 @@ class PatientVisitController extends Controller
             'id'=>$id,
             'patient' => $patient
         ]);
+    }
+
+    public function loadScreenDataprovider($visit_id,$type)
+    {
+        $searchModel = new VisitScreeningSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$visit_id,$type);
+        return [$searchModel,$dataProvider];
     }
 
     /**
@@ -85,6 +105,7 @@ class PatientVisitController extends Controller
 
             return $this->redirect(['patient-visit/index', 'id' => $model->patient_id]);
         } else {
+
             return $this->render('create', [
                 'model' => $model,
                 'id' => $id,
@@ -108,7 +129,72 @@ class PatientVisitController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->visit_id]);
         } else {
+
+            list($tskSearchModel,$tskDataprovider) = $this->loadScreenDataprovider($visit_id,'tshpku');
+            list($oaeSearchModel,$oaeDataprovider) = $this->loadScreenDataprovider($visit_id,'oae');
+            list($ivhSearchModel,$ivhDataprovider) = $this->loadScreenDataprovider($visit_id,'ivh');
+            list($ropSearchModel,$ropDataprovider) = $this->loadScreenDataprovider($visit_id,'rop');
+
             return $this->render('update', [
+                'model' => $model,
+                'id'=>$id,
+                'patient'=>$patient,
+                'tskSearchModel' => $tskSearchModel,
+                'tskDataprovider' => $tskDataprovider,
+                'oaeSearchModel' => $oaeSearchModel,
+                'oaeDataprovider' => $oaeDataprovider,
+                'ivhSearchModel' => $ivhSearchModel,
+                'ivhDataprovider' => $ivhDataprovider,
+                'ropSearchModel' => $ropSearchModel,
+                'ropDataprovider' => $ropDataprovider
+            ]);
+        }
+    }
+
+
+    public function actionScreening($id,$visit_id)
+    {
+        $model = $this->findModel($visit_id);
+        $patient = $this->findPatientModel($id);
+        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->visit_id]);
+        } else {
+
+            list($tskSearchModel,$tskDataprovider) = $this->loadScreenDataprovider($visit_id,'tshpku');
+            list($oaeSearchModel,$oaeDataprovider) = $this->loadScreenDataprovider($visit_id,'oae');
+            list($ivhSearchModel,$ivhDataprovider) = $this->loadScreenDataprovider($visit_id,'ivh');
+            list($ropSearchModel,$ropDataprovider) = $this->loadScreenDataprovider($visit_id,'rop');
+
+            return $this->render('screening', [
+                'model' => $model,
+                'id'=>$id,
+                'patient'=>$patient,
+                'tskSearchModel' => $tskSearchModel,
+                'tskDataprovider' => $tskDataprovider,
+                'oaeSearchModel' => $oaeSearchModel,
+                'oaeDataprovider' => $oaeDataprovider,
+                'ivhSearchModel' => $ivhSearchModel,
+                'ivhDataprovider' => $ivhDataprovider,
+                'ropSearchModel' => $ropSearchModel,
+                'ropDataprovider' => $ropDataprovider
+            ]);
+        }
+    }
+    public function actionDisease($id,$visit_id)
+    {
+        $model = $this->findModel($visit_id);
+        $patient = $this->findPatientModel($id);
+        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->visit_id]);
+        } else {
+
+
+
+            return $this->render('disease', [
                 'model' => $model,
                 'id'=>$id,
                 'patient'=>$patient

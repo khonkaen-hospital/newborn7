@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = 'ข้อมูลการคลอด'
                             'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
                         ],
                         'ajax' => [
-                            'url' => Url::to([]),
+                            'url' => '#',
                             'dataType' => 'json',
                             'delay'=> 250,
                             'cache'=>true,
