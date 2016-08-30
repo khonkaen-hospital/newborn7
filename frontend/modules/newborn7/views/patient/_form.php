@@ -43,45 +43,39 @@ use frontend\modules\newborn7\models\Amphoe;
               </div>
             </div>
 
-            <div class="col-sm-3 ">
-                <?= $form->field($model, 'hn')->textInput(['maxlength' => true]) ?>
-            </div>
-            <!-- <div class="col-sm-2 ">
-                <?php //$form->field($model, 'an')->textInput(['maxlength' => true]) ?>
-            </div> -->
-            <div class="col-sm-3 ">
-                <?= $form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
-            </div>
+
         </div>
 
         <div class="row">
             <div class="col-md-2">
                 <?= $form->field($model, 'prename')->dropDownList($model->itemAlias('prename')); ?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <?= $form->field($model, 'fname')->textInput(['maxlength' => true]) ?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <?= $form->field($model, 'lname')->textInput(['maxlength' => true]) ?>
             </div>
-
-            <div class="col-md-4">
-                <?= $form->field($model, 'dob')->widget(DatePicker::classname(), [
-                    'language' => 'th',
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                        'todayHighlight' => true
-                    ]
-                ]); ?>
+            <div class="col-md-2">
+                <?= $form->field($model, 'sex')->inline()->radioList($model->getItems('sex')); ?>
             </div>
-
         </div>
         <div class="row">
-          <div class="col-md-3">
-              <?= $form->field($model, 'sex')->inline()->radioList($model->getItems('sex')); ?>
+          <div class="col-md-4">
+              <?= $form->field($model, 'dob')->widget(DatePicker::classname(), [
+                  'language' => 'th',
+                  'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                  'pluginOptions' => [
+                      'autoclose' => true,
+                      'format' => 'yyyy-mm-dd',
+                      'todayHighlight' => true
+                  ]
+              ]); ?>
           </div>
+          <div class="col-sm-4 ">
+              <?= $form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
+          </div>
+
 
         </div>
     </fieldset>
