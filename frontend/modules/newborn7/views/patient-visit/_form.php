@@ -50,11 +50,20 @@ use yii\bootstrap\Modal;
       <div class="col-md-1">
           <?= $form->field($model, 'length')->textInput(['maxlength' => true]) ?>
       </div>
-      <div class="col-md-1">
+
+    </div>
+    <div class="row">
+      <div class="col-md-2">
           <?= $form->field($model, 'af')->textInput(['maxlength' => true]) ?>
       </div>
-      <div class="col-md-1">
-          <?= $form->field($model, 'x')->textInput(['maxlength' => true]) ?>
+      <div class="col-md-2">
+          <?= $form->field($model, 'x',[
+            'template' => '{label} <div class="input-group">
+      <div class="input-group-addon">x</div>
+      {input}
+      {error} {hint}
+    </div>'
+          ])->textInput(['maxlength' => true])->label('&nbsp;') ?>
       </div>
     </div>
 

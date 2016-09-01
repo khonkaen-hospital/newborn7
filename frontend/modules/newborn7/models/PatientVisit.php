@@ -203,7 +203,8 @@ class PatientVisit extends ActiveRecord
             'milk_powder'=> 'นมผสมอย่างเดียว',
             'vaccine'=> 'วัคซีนที่ได้รับแล้ว',
             'vaccine_other'=> 'อื่นๆ ระบุ',
-            'summary' => 'รายละเอียด'
+            'summary' => 'รายละเอียด',
+            'af'=>'AF (cm)'
         ];
     }
 

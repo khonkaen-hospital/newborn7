@@ -103,24 +103,25 @@ $this->params['breadcrumbs'][] = 'ข้อมูลการคลอด'
 
       <legend><h4>รายละเอียดการคลอด </h4></legend>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?= $form->field($model, 'ga')->textInput() ?>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?= $form->field($model, 'weight')->textInput() ?>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?= $form->field($model, 'height')->textInput(['maxlength' => true]) ?>
         </div>
+
+          <div class="col-md-3">
+              <?= $form->field($model, 'apgar')->textInput() ?>
+          </div>
 
           <div class="col-md-3">
               <?= $form->field($model, 'lr_type')->dropDownList($model->getItems('lr_type')) ?>
           </div>
 
-          <div class="col-md-2">
-              <?= $form->field($model, 'apgar')->textInput() ?>
-          </div>
       </div>
 
       <legend><h4>ข้อมูลการช่วยชีวิต </h4></legend>

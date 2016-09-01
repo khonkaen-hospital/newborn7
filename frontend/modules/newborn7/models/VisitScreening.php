@@ -85,9 +85,17 @@ class VisitScreening extends ActiveRecord
             'updated_by' => 'Updated By',
             'oae_left_status'=>'ข้างซ้าย',
             'oae_right_status'=>'ข้างขวา',
-            'ivh' => 'ผลตรวจ',
+            'ivh' => 'อื่นๆ ',
             'rop_left' => 'ผลตรวจตาข้างซ้าย',
-            'rop_right' => 'ผลตรวจตาข้างขวา'
+            'rop_right' => 'ผลตรวจตาข้างขวา',
+            'rop_left_stage' => 'ผลตรวจตาข้างซ้าย',
+            'rop_right_stage' => 'ผลตรวจตาข้างขวา',
+            'rop_left_zone' => 'Zone',
+            'rop_right_zone' => 'Zone',
+            'rop_left_plus' => 'With Plus',
+            'rop_right_plus' => 'With Plus',
+            'rop_plus' => 'ROP Plus',
+            'ivh_grade'=> 'IVH Grade'
         ];
     }
 

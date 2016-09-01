@@ -32,6 +32,7 @@ AppAsset::register($this);
     NavBar::begin([
         'brandLabel' => Yii::$app->params['app.brandLabel'],
         'brandUrl' => Yii::$app->homeUrl,
+        'renderInnerContainer'=>false,
         'options' => [
             'class' => 'navbar-default navbar-fixed-top',
         ],

@@ -262,7 +262,7 @@ class Patient extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'fullName' => 'ชื่อ-นามสกุล',
-            'hospitalName' => 'โรงพยาบาล',
+            'hospitalName' => 'ลงทะเบียนที่โรงพยาบาล',
             'admit_date' => 'วันที่ Admit',
             'admit_time' => 'เวลาที่ Admit',
             'type' => 'คลอดที่',
@@ -306,7 +306,8 @@ class Patient extends \yii\db\ActiveRecord
             'mother_drug_before_born_item'=>'ชื่อยาที่ได้รับ',
             'mother_drug_name_before_born'=>'ถ้าได้รับระบุ',
             'mother_drug_before_born_amount'=>'จำนวน (Dose)',
-            'mother_amniotic_fluid_type'=>'ลักษณะน้ำคร่ำ'
+            'mother_amniotic_fluid_type'=>'ลักษณะน้ำคร่ำ',
+            'created_at'=>'วันที่ลงทะเบียน'
 
         ];
     }

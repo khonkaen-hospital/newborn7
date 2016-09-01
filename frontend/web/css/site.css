@@ -2,7 +2,8 @@ html,
 body {
     height: 100%;
     background-color: #f3f5f8;
-    color:#878F98;
+    color: #878F98;
+    font-family: HelveticaNeue,'Helvetica Neue',Helvetica,Arial,roboto,sans-serif;
 }
 
 /*=============== Heading ===========================*/
@@ -578,4 +579,9 @@ Add a counter to the multi-steps indicator
 
 legend{
   margin-top: 30px;
+}
+
+.navbar-default .navbar-nav > li > a{
+  font-size: 13px;
+  font-weight: 500;
 }

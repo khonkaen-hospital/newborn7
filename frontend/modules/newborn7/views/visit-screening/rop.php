@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 use yii\widgets\MaskedInput;
 
@@ -33,13 +33,26 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
           <div class="col-md-6">
-            <?= $form->field($model, "[{$i}]rop_left")->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, "[{$i}]rop_left_stage")->dropDownList($model->getItems('rop_stage')) ?>
           </div>
-          <div class="col-md-6">
-            <?= $form->field($model, "[{$i}]rop_right")->textInput(['maxlength' => true]) ?>
+          <div class="col-md-2">
+            <?= $form->field($model, "[{$i}]rop_left_zone")->dropDownList($model->getItems('rop_zone')) ?>
+          </div>
+          <div class="col-md-4">
+            <?= $form->field($model, "[{$i}]rop_left_plus")->inline()->radioList($model->getItems('rop_plus')) ?>
           </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-6">
+            <?= $form->field($model, "[{$i}]rop_right_stage")->dropDownList($model->getItems('rop_stage')) ?>
+          </div>
+          <div class="col-md-2">
+            <?= $form->field($model, "[{$i}]rop_right_zone")->dropDownList($model->getItems('rop_zone')) ?>
+          </div>
+          <div class="col-md-4">
+            <?= $form->field($model, "[{$i}]rop_right_plus")->inline()->radioList($model->getItems('rop_plus')) ?>
+          </div>
+        </div>
       </div>
 
     <?php endforeach; ?>

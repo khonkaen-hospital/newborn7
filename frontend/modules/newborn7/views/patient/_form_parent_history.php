@@ -15,7 +15,7 @@ use yii\web\JsExpression;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\Patient */
 /* @var $form yii\widgets\ActiveForm */
-$this->title = 'ประวัติบิดามารดา';
+$this->title = 'ประวัติบิดา-มารดา';
 $this->params['breadcrumbs'][] = ['label' => 'ทะเบียนการคลอด', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->getFullname(), 'url' => ['update', 'id' => $model->patient_id]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -60,6 +60,11 @@ $this->params['breadcrumbs'][] = $this->title;
       <div class="col-md-3">
           <?= $form->field($model, 'mother_an')->textInput(['maxlength' => true]) ?>
       </div>
+
+   </div>
+
+   <legend><h4>ข้อมูลการคลอด</h4></legend>
+    <div class="row">
       <div class="col-md-1">
             <?= $form->field($model, 'mother_g')->textInput(['maxlength' => true]) ?>
       </div>
@@ -69,8 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <div class="col-md-2">
         <?= $form->field($model, 'mother_no_of_anc')->textInput(['maxlength' => true]) ?>
       </div>
-   </div>
-
+    </div>
     <div class="row">
        <div class="col-md-2">
          <?= $form->field($model, 'mother_vdrl')->radioList($model->getItems('positive/negative')) ?>

@@ -26,10 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php foreach ($models as $i => $model): ?>
       <div class="item">
+
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <?= $form->field($model, "[{$i}]check_date")->widget(MaskedInput::className(), ['mask' => '99-99-9999 99:99']) ?>
           </div>
+          <div class="col-md-6">
+            <?= $form->field($model, "[{$i}]ivh_grade")->dropDownList($model->getItems('ivh_grade')) ?>
+          </div>
+
         </div>
          <?= $form->field($model, "[{$i}]ivh")->textArea() ?>
       </div>
