@@ -5,6 +5,9 @@ namespace frontend\modules\nb\controllers;
 use Yii;
 use frontend\modules\nb\models\Person;
 use frontend\modules\nb\models\PersonSearch;
+use frontend\modules\nb\models\Changwat;
+use frontend\modules\nb\models\Amphoe;
+use frontend\modules\nb\models\Tambon;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +30,24 @@ class PersonController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actions()
+    {
+        return \yii\helpers\ArrayHelper::merge(parent::actions(), [
+            'get-ampur' => [
+                'class' => \kartik\depdrop\DepDropAction::className(),
+                'outputCallback' => function ($selectedId, $params) {
+                  return Amphoe::find()->getAmphoeByChangwatID(substr($selectedId,0,2))->all();
+                }
+            ],
+            'get-tambon' => [
+                'class' => \kartik\depdrop\DepDropAction::className(),
+                'outputCallback' => function ($selectedId, $params) {
+                  return Tambon::find()->getTambonByAmphoeID(substr($selectedId,0,4))->all();
+                }
+            ]
+        ]);
     }
 
     /**

@@ -61,10 +61,11 @@ h6,
   padding: 0;
   background-color: #fff;
 }
+
 .xpanel{
   box-shadow: 0 1px 2px rgba(0,0,0,.04);
   border-radius: 3px;
-  margin: 20px auto;
+  margin: 10px auto;
   border: 1px solid #E0E4EA;
   padding: 0;
   background-color: #fff;
@@ -87,9 +88,6 @@ h6,
   font-size: 18px;
   color:#315566;
 }
-
-
-
 .xpanel-body{
   padding: 25px;
 }
@@ -202,9 +200,10 @@ h6,
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #45474D;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    color: #A8A9AC;
 }
 
 .jumbotron {
@@ -599,4 +598,9 @@ legend{
 .navbar-brand {
   font-size: 15px;
 
+}
+
+.table a{
+  color:#495d68;
+  text-decoration: none;
 }

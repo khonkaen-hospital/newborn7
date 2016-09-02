@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Person */
 
-$this->title = 'แก้ไขทะเบียนทารกแรกเกิด';
-$this->params['breadcrumbs'][] = ['label' => 'ทะเบียนทารกแรกเกิด', 'url' => ['index']];
+$this->title = 'แก้ไขทะเบียน ('.$model->fullName.')';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

@@ -13,6 +13,7 @@ use frontend\modules\nb\models\Person;
 class PersonSearch extends Person
 {
     public $fullName;
+    public $hospitalName;
 
     /**
      * @inheritdoc
@@ -20,7 +21,7 @@ class PersonSearch extends Person
     public function rules()
     {
         return [
-            [['hospcode', 'cid', 'pid', 'hid', 'prename', 'name', 'lname', 'hn', 'sex', 'birth', 'mstatus', 'occupation_old', 'occupation_new', 'race', 'nation', 'religion', 'education', 'fstatus', 'father', 'mother', 'couple', 'vstatus', 'movein', 'discharge', 'ddischarge', 'abogroup', 'rhgroup', 'labor', 'passport', 'typearea', 'd_update', 'fullName'], 'safe'],
+            [['hospcode', 'cid', 'pid', 'hid', 'prename', 'name', 'lname', 'hn', 'sex', 'birth', 'mstatus', 'occupation_old', 'occupation_new', 'race', 'nation', 'religion', 'education', 'fstatus', 'father', 'mother', 'couple', 'vstatus', 'movein', 'discharge', 'ddischarge', 'abogroup', 'rhgroup', 'labor', 'passport', 'typearea', 'd_update', 'fullName', 'hospitalName'], 'safe'],
         ];
     }
 
@@ -42,7 +43,7 @@ class PersonSearch extends Person
      */
     public function search($params)
     {
-        $query = Person::find();
+        $query = Person::find()->joinWith(['hospital']);;
 
         // add conditions that should always apply here
 
@@ -62,6 +63,16 @@ class PersonSearch extends Person
             // $query->where('0=1');
             return $dataProvider;
         }
+
+
+
+        $query->andWhere('lib_hospital.name LIKE :hospname',[
+          'hospname' => "%$this->hospitalName%"
+        ]);
+
+        $query->andWhere('person.name LIKE :fullName OR person.lname LIKE :fullName',[
+          'fullName' => '%'.$this->fullName.'%'
+        ]);
 
         // grid filtering conditions
         $query->andFilterWhere([

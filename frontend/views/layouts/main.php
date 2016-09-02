@@ -38,7 +38,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
+        //['label' => 'หน้าหลัก', 'url' => ['/site/index']],
 
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
@@ -51,8 +51,9 @@ AppAsset::register($this);
       //   ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
       //   ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
       // ]];
-       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียนทารกแรกเกิด', 'url' => ['/nb/person/index']];
-       $menuItems[] = ['label' => 'Account('.Yii::$app->user->identity->username .')', 'items' => [
+       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียน', 'url' => ['/nb/person/index']];
+       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-save-file"></i> '.'นำเข้าทะเบียน', 'url' => ['/nb/person/import']];
+       $menuItems[] = ['label' => 'บัญชี ('.Yii::$app->user->identity->username .')', 'items' => [
             ['label' => 'Profile', 'url' => ['/user/settings/profile']],
             ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
             '<li>'
@@ -72,7 +73,6 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

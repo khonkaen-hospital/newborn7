@@ -37,7 +37,7 @@ use yii\widgets\MaskedInput;
         <?= $form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
       </div>
       <div class="col-sm-3">
-        <?= $form->field($model, 'birth')->widget(MaskedInput::className(), ['mask' => '99-99-9999'])->label($model->isNewRecord ? $model->getAttributeLabel('birth') : $model->getAttributeLabel('birth'). ' '.$model->currentAge.' ปี') ?>
+        <?= $form->field($model, 'birth')->widget(MaskedInput::className(), ['mask' => '99-99-9999'])->label($model->isNewRecord ? $model->getAttributeLabel('birth') : $model->getAttributeLabel('birth'). ': '.$model->currentAge.' ปี') ?>
       </div>
       <div class="col-sm-3">
         <?= $form->field($model, 'hn')->textInput(['maxlength' => true]) ?>
@@ -49,18 +49,10 @@ use yii\widgets\MaskedInput;
   </div>
   </div>
 
-  <div class="xpanel" id="parent-data">
-
-    <div class="xpanel-heading-sm">
-        <span class="xpanel-title">
-          ข้อมูลที่อยู่
-        </span>
-    </div>
-
-    <div class="panel-body person-form">
-
-    </div>
-  </div>
+  <?=$this->render('_form_address',[
+    'form' => $form,
+    'model' => $model
+  ]); ?>
 
   <div class="xpanel" id="parent-data">
 
@@ -71,9 +63,25 @@ use yii\widgets\MaskedInput;
     </div>
 
     <div class="panel-body person-form">
+      <div class="row">
+        <div class="col-sm-6">
+          <?= $form->field($model, 'mother_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-6">
+          <?= $form->field($model, 'mother')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
+        </div>
+      </div>
 
-    <?= $form->field($model, 'father')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
-    <?= $form->field($model, 'mother')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
+      <div class="row">
+        <div class="col-sm-6">
+          <?= $form->field($model, 'father_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-6">
+          <?= $form->field($model, 'father')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
+        </div>
+      </div>
+
+
 
 
   </div>

@@ -25,17 +25,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>    <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel'  => $searchModel,
-            'tableOptions' => ['class'=>'table'],
+            'tableOptions' => ['class'=>'table table-striped table-hover'],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-
-
                 [
                   'attribute'=>'fullName',
+                  'format' => 'raw',
+                  'value' => function($model){
+                    return Html::a($model->fullName,['update','id'=>$model->newborn_id]);
+                  }
                 ],
-                'cid',
-                'pid',
-                'hospcode',
+                [
+                  'attribute' => 'pid',
+                  'options'=>['style'=>'width:120px;']
+                ],
+                [
+                  'attribute' => 'cid',
+                  'options'=>['style'=>'width:150px;']
+                ],
+                [
+                  'attribute' => 'hospitalName',
+                  'options'=>['style'=>'width:200px;']
+                ],
                 // 'hid',
                 // 'prename',
                 // 'name',
@@ -66,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'd_update',
                 // 'id',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                //['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
     <?php Pjax::end(); ?>

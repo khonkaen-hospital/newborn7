@@ -41,6 +41,8 @@ use yii\db\ActiveRecord;
  * @property string $passport
  * @property string $typearea
  * @property string $d_update
+ * @property string $mother_name
+ * @property string $father_name
  */
 class Person extends ActiveRecord
 {
@@ -78,12 +80,13 @@ class Person extends ActiveRecord
     public function rules()
     {
         return [
-            [['hospcode', 'pid', 'prename', 'name', 'lname', 'sex', 'birth'], 'required'],
+            [['hospcode', 'hn', 'cid', 'prename', 'name', 'lname', 'sex', 'birth','mother','mother_name'], 'required'],
             [['birth', 'movein', 'ddischarge', 'd_update'], 'safe'],
             [['hospcode'], 'string', 'max' => 5],
             [['cid', 'father', 'mother', 'couple'], 'string', 'max' => 13],
             [['pid', 'hn', 'passport'], 'string', 'max' => 15],
             [['hid'], 'string', 'max' => 14],
+            [['mother_name','father_name'], 'string', 'max' => 150],
             [['prename', 'occupation_old', 'race', 'nation'], 'string', 'max' => 3],
             [['name', 'lname'], 'string', 'max' => 50],
             [['sex', 'mstatus', 'fstatus', 'vstatus', 'discharge', 'abogroup', 'rhgroup', 'typearea'], 'string', 'max' => 1],
@@ -108,7 +111,7 @@ class Person extends ActiveRecord
             'lname' => 'นามสกุล',
             'hn' => 'เลขทะเบียนบุคคล (HN)',
             'sex' => 'เพศ',
-            'birth' => 'วันเกิด (วัน-เดือน-ปีพ.ศ.)',
+            'birth' => 'วันเกิด',
             'mstatus' => 'Mstatus',
             'occupation_old' => 'Occupation Old',
             'occupation_new' => 'Occupation New',
@@ -130,7 +133,20 @@ class Person extends ActiveRecord
             'passport' => 'Passport',
             'typearea' => 'Typearea',
             'd_update' => 'D Update',
-            'fullName' => 'ชื่อ-นามสกุล'
+            'fullName' => 'ชื่อ-นามสกุล',
+
+            'add_houseno' => 'บ้านเลขที่',
+            'add_village' => 'หมู่ที่',
+            'add_soimain' => 'ซอย',
+            'add_road' => 'ถนน',
+            'add_changwat' => 'จังหวัด',
+            'add_ampur' => 'อำเภอ',
+            'add_tambon' => 'ตำบล',
+            'add_zip' => 'รหัสไปรษณีย์',
+            'add_mobile' => 'เบอร์โทรศัพท์มือถือ',
+
+            'mother_name' => 'ชื่อ-นามสกุลแม่',
+            'father_name' => 'ชื่อ-นามสกุลพ่อ'
         ];
     }
 
@@ -141,6 +157,10 @@ class Person extends ActiveRecord
     public static function find()
     {
         return new \frontend\modules\nb\models\query\PersonQuery(get_called_class());
+    }
+
+    public function loadInitAddress($id){
+      return Address::find()->loadInit($id)->column();
     }
 
     public function getFullName(){
@@ -156,19 +176,20 @@ class Person extends ActiveRecord
         return $this->getRelationField('hospital','name');
     }
 
-    /** ===========================================================================
+    /** ============================================================================================================
     * @referent http://php.net/manual/en/function.date-diff.php
     * PARA: Date Should In YYYY-MM-DD Format
+    * ==============================================================================================================
     * RESULT FORMAT:
-    *  '%y Year %m Month %d Day %h Hours %i Minute %s Seconds'        =>  1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds
-    *  '%y Year %m Month %d Day'                                    =>  1 Year 3 Month 14 Days
-    *  '%m Month %d Day'                                            =>  3 Month 14 Day
-    *  '%d Day %h Hours'                                            =>  14 Day 11 Hours
-    *  '%d Day'                                                        =>  14 Days
-    *  '%h Hours %i Minute %s Seconds'                                =>  11 Hours 49 Minute 36 Seconds
-    *  '%i Minute %s Seconds'                                        =>  49 Minute 36 Seconds
-    *  '%h Hours                                                    =>  11 Hours
-    *  '%a Days                                                        =>  468 Days
+    *  '%y Year %m Month %d Day %h Hours %i Minute %s Seconds' =>  1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds
+    *  '%y Year %m Month %d Day'                               =>  1 Year 3 Month 14 Days
+    *  '%m Month %d Day'                                       =>  3 Month 14 Day
+    *  '%d Day %h Hours'                                       =>  14 Day 11 Hours
+    *  '%d Day'                                                =>  14 Days
+    *  '%h Hours %i Minute %s Seconds'                         =>  11 Hours 49 Minute 36 Seconds
+    *  '%i Minute %s Seconds'                                  =>  49 Minute 36 Seconds
+    *  '%h Hours                                               =>  11 Hours
+    *  '%a Days                                                =>  468 Days
     ===========================================================================***/
 
     public function dateDifference( $birth_date , $current_date, $differenceFormat = '%y' )
