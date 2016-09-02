@@ -50,10 +50,10 @@ class PersonController extends Controller
      * @param string $pid
      * @return mixed
      */
-    public function actionView($hospcode, $pid)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($hospcode, $pid),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -82,9 +82,9 @@ class PersonController extends Controller
      * @param string $pid
      * @return mixed
      */
-    public function actionUpdate($hospcode, $pid)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($hospcode, $pid);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'hospcode' => $model->hospcode, 'pid' => $model->pid]);
@@ -102,9 +102,9 @@ class PersonController extends Controller
      * @param string $pid
      * @return mixed
      */
-    public function actionDelete($hospcode, $pid)
+    public function actionDelete($id)
     {
-        $this->findModel($hospcode, $pid)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -117,9 +117,9 @@ class PersonController extends Controller
      * @return Person the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($hospcode, $pid)
+    protected function findModel($id)
     {
-        if (($model = Person::findOne(['hospcode' => $hospcode, 'pid' => $pid])) !== null) {
+        if (($model = Person::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -41,7 +41,6 @@ use yii\db\ActiveRecord;
  * @property string $passport
  * @property string $typearea
  * @property string $d_update
- * @property string $id
  */
 class Person extends ActiveRecord
 {
@@ -90,7 +89,6 @@ class Person extends ActiveRecord
             [['sex', 'mstatus', 'fstatus', 'vstatus', 'discharge', 'abogroup', 'rhgroup', 'typearea'], 'string', 'max' => 1],
             [['occupation_new'], 'string', 'max' => 4],
             [['religion', 'education', 'labor'], 'string', 'max' => 2],
-            [['id'], 'string', 'max' => 25],
             [['sex'], 'default', 'value' => 1],
         ];
     }
@@ -132,7 +130,6 @@ class Person extends ActiveRecord
             'passport' => 'Passport',
             'typearea' => 'Typearea',
             'd_update' => 'D Update',
-            'id' => 'ID',
             'fullName' => 'ชื่อ-นามสกุล'
         ];
     }

@@ -20,7 +20,7 @@ class PersonSearch extends Person
     public function rules()
     {
         return [
-            [['hospcode', 'cid', 'pid', 'hid', 'prename', 'name', 'lname', 'hn', 'sex', 'birth', 'mstatus', 'occupation_old', 'occupation_new', 'race', 'nation', 'religion', 'education', 'fstatus', 'father', 'mother', 'couple', 'vstatus', 'movein', 'discharge', 'ddischarge', 'abogroup', 'rhgroup', 'labor', 'passport', 'typearea', 'd_update', 'id','fullName'], 'safe'],
+            [['hospcode', 'cid', 'pid', 'hid', 'prename', 'name', 'lname', 'hn', 'sex', 'birth', 'mstatus', 'occupation_old', 'occupation_new', 'race', 'nation', 'religion', 'education', 'fstatus', 'father', 'mother', 'couple', 'vstatus', 'movein', 'discharge', 'ddischarge', 'abogroup', 'rhgroup', 'labor', 'passport', 'typearea', 'd_update', 'fullName'], 'safe'],
         ];
     }
 
@@ -97,8 +97,7 @@ class PersonSearch extends Person
             ->andFilterWhere(['like', 'rhgroup', $this->rhgroup])
             ->andFilterWhere(['like', 'labor', $this->labor])
             ->andFilterWhere(['like', 'passport', $this->passport])
-            ->andFilterWhere(['like', 'typearea', $this->typearea])
-            ->andFilterWhere(['like', 'id', $this->id]);
+            ->andFilterWhere(['like', 'typearea', $this->typearea]);
 
         return $dataProvider;
     }
