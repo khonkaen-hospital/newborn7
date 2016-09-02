@@ -33,7 +33,8 @@
         "dmstr/yii2-migrate-command": "*",
         "rmrevin/yii2-minify-view": "~1.11",
         "insolita/yii2-migration-generator": "~1.0",
-        "yii2assets/yii2-fullscreen-modal": "*"
+        "yii2assets/yii2-fullscreen-modal": "*",
+        "omnilight/yii2-vuejs": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

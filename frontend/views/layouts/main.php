@@ -32,17 +32,14 @@ AppAsset::register($this);
     NavBar::begin([
         'brandLabel' => Yii::$app->params['app.brandLabel'],
         'brandUrl' => Yii::$app->homeUrl,
-        'renderInnerContainer'=>false,
+        'renderInnerContainer'=>true,
         'options' => [
             'class' => 'navbar-default navbar-fixed-top',
         ],
     ]);
     $menuItems = [
         ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
-        ['label' => 'ข้อมูล New Born', 'items' => [
-          ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
-          ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
-        ]],
+
         // ['label' => 'About', 'url' => ['/site/about']],
         // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
@@ -50,7 +47,11 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     } else {
-
+      // $menuItems[] = ['label' => 'ข้อมูล New Born', 'items' => [
+      //   ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
+      //   ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
+      // ]];
+       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียนทารกแรกเกิด', 'url' => ['/nb/person/index']];
        $menuItems[] = ['label' => 'Account('.Yii::$app->user->identity->username .')', 'items' => [
             ['label' => 'Profile', 'url' => ['/user/settings/profile']],
             ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
@@ -67,6 +68,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels' => false,
     ]);
     NavBar::end();
     ?>

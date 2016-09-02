@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cd9b5677eae0d6cc2c9e1e68e6ebba8d",
-    "content-hash": "2e3dca2c2fefee83e15ee751d5c30443",
+    "hash": "5fa9d705f931ca4db55c572ca3017d77",
+    "content-hash": "041b71297035d8c17c0f71089bcae6f5",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -162,6 +162,41 @@
             }
         },
         {
+            "name": "bower-asset/vue",
+            "version": "v1.0.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vuejs/vue.git",
+                "reference": "e7932f80eeacf6f7d392bf520e98c4790db9d5c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vuejs/vue/zipball/e7932f80eeacf6f7d392bf520e98c4790db9d5c1",
+                "reference": "e7932f80eeacf6f7d392bf520e98c4790db9d5c1",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/vue.js",
+                "bower-asset-ignore": [
+                    ".*",
+                    "examples",
+                    "build",
+                    "perf",
+                    "test",
+                    "grunt",
+                    "gruntfile.js",
+                    "*.json",
+                    "*.md",
+                    "*.yml"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple, Fast & Composable MVVM for building interative interfaces"
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "v2.0.6",
             "source": {
@@ -201,12 +236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/c006/yii2-migration-utility.git",
-                "reference": "6d8568ff77a7ceec6551362b9b3b2e1caab3c453"
+                "reference": "33deea7b96c9b36b76b2484cdd73d8e11d6314d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c006/yii2-migration-utility/zipball/6d8568ff77a7ceec6551362b9b3b2e1caab3c453",
-                "reference": "6d8568ff77a7ceec6551362b9b3b2e1caab3c453",
+                "url": "https://api.github.com/repos/c006/yii2-migration-utility/zipball/33deea7b96c9b36b76b2484cdd73d8e11d6314d6",
+                "reference": "33deea7b96c9b36b76b2484cdd73d8e11d6314d6",
                 "shasum": ""
             },
             "type": "yii2-extension",
@@ -232,7 +267,7 @@
                 "tables",
                 "yii2"
             ],
-            "time": "2016-08-11 04:02:30"
+            "time": "2016-08-31 23:46:16"
         },
         {
             "name": "cebe/markdown",
@@ -933,12 +968,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "43fab52cd8932939bd18821a664a87a2547d25db"
+                "reference": "d810b0d79629aad064aacf49b9e391383abd6932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/43fab52cd8932939bd18821a664a87a2547d25db",
-                "reference": "43fab52cd8932939bd18821a664a87a2547d25db",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/d810b0d79629aad064aacf49b9e391383abd6932",
+                "reference": "d810b0d79629aad064aacf49b9e391383abd6932",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +1014,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-08-16 18:53:36"
+            "time": "2016-08-29 17:28:07"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -1294,12 +1329,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "a905917593b984c5eff5a586608d5cd117aaac40"
+                "reference": "ed4467366f5ef50a7cfa957d5f07fa3c6d235a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/a905917593b984c5eff5a586608d5cd117aaac40",
-                "reference": "a905917593b984c5eff5a586608d5cd117aaac40",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/ed4467366f5ef50a7cfa957d5f07fa3c6d235a72",
+                "reference": "ed4467366f5ef50a7cfa957d5f07fa3c6d235a72",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1374,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-08-18 16:56:39"
+            "time": "2016-08-30 13:16:04"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -1741,6 +1776,56 @@
             "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
             "homepage": "http://code.google.com/p/minify/",
             "time": "2016-03-08 11:49:57"
+        },
+        {
+            "name": "omnilight/yii2-vuejs",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/omnilight/yii2-vuejs.git",
+                "reference": "4942e1aa3f31ec118fcf8e6c2c4cf04ba06f7612"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/omnilight/yii2-vuejs/zipball/4942e1aa3f31ec118fcf8e6c2c4cf04ba06f7612",
+                "reference": "4942e1aa3f31ec118fcf8e6c2c4cf04ba06f7612",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/vue": "^1.0.0",
+                "php": "~5.5|~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "omnilight\\assets\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Agalecky",
+                    "email": "pavel.agalecky@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Vue.js library for Yii2 framework",
+            "homepage": "https://github.com/omnilight/yii2-vuejs",
+            "keywords": [
+                "omnilight",
+                "vue",
+                "vuejs",
+                "yii2"
+            ],
+            "time": "2016-03-09 14:00:53"
         },
         {
             "name": "rmrevin/yii2-minify-view",
@@ -2194,16 +2279,16 @@
         },
         {
             "name": "yiisoft/yii2-authclient",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "1e65f3af2c7095dbb55047f617231fc0ae601876"
+                "reference": "5ed7ebfda270d87197f7640b2a9c046297080cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/1e65f3af2c7095dbb55047f617231fc0ae601876",
-                "reference": "1e65f3af2c7095dbb55047f617231fc0ae601876",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/5ed7ebfda270d87197f7640b2a9c046297080cac",
+                "reference": "5ed7ebfda270d87197f7640b2a9c046297080cac",
                 "shasum": ""
             },
             "require": {
@@ -2238,7 +2323,7 @@
                 "oauth",
                 "yii2"
             ],
-            "time": "2016-08-04 13:41:57"
+            "time": "2016-08-29 09:21:09"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

@@ -11,15 +11,6 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'modules' => [
-        'user' => [
-            'class' => 'dektrium\user\Module',
-            'modelMap' => [
-                'Profile' => 'common\models\Profile',
-                'User' => 'common\models\user\User',
-            ],
-        ],
-    ],
     'components' => [
         'authManager' => [
                 'class' => 'yii\rbac\DbManager',
@@ -76,6 +67,9 @@ return [
     ],
     'params' => $params,
     'modules' => [
+        'nb' => [
+            'class' => 'frontend\modules\nb\Module',
+        ],
         'newborn7' => [
             'class' => 'frontend\modules\newborn7\Newborn7',
         ],
@@ -85,9 +79,10 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableFlashMessages' => false,
-            'admins' => ['admin'],
+            'admins' => [],
             'modelMap' => [
-                'Profile' => 'common\models\Profile',
+              'Profile' => 'common\models\Profile',
+              'User' => 'common\models\user\User',
             ],
             'mailer' => [
                 'sender' => ['ihospitallog@gmail.com' => 'ระบบข้อมูลสุขภาพที่ 7'],
