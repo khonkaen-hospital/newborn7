@@ -61,6 +61,14 @@ services:
         - back-tier
       restart: always
 
+  elastic:
+    image: elasticsearch:1.5.2
+    container_name: newborn-elastic
+    volumes:
+      - ./docker/es/data:/usr/share/elasticsearch/data
+    networks:
+      - back-tier
+
 volumes:
   db-data:
       driver: local

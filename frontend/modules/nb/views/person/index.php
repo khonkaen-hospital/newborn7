@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   'attribute'=>'fullName',
                   'format' => 'raw',
                   'value' => function($model){
-                    return Html::a($model->fullName,['update','id'=>$model->newborn_id]);
+                    return Html::a($model->fullName,['update','id'=>$model->newborn_id],['data'=>['pjax'=>'0']]);
                   }
                 ],
                 [

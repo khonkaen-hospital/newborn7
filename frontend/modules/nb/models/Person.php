@@ -134,6 +134,7 @@ class Person extends ActiveRecord
             'typearea' => 'Typearea',
             'd_update' => 'D Update',
             'fullName' => 'ชื่อ-นามสกุล',
+            'hospitalName' => 'โรงพยาบาล',
 
             'add_houseno' => 'บ้านเลขที่',
             'add_village' => 'หมู่ที่',

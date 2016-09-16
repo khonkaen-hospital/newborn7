@@ -34,7 +34,8 @@
         "rmrevin/yii2-minify-view": "~1.11",
         "insolita/yii2-migration-generator": "~1.0",
         "yii2assets/yii2-fullscreen-modal": "*",
-        "omnilight/yii2-vuejs": "*"
+        "omnilight/yii2-vuejs": "*",
+        "yiisoft/yii2-elasticsearch": "~2.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
