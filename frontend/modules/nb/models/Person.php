@@ -68,7 +68,35 @@ class Person extends ActiveRecord
                 ],
                 'value' => function ($event) {
                     $this->adBirth = $this->birth;
-                    return date('d-m-',strtotime($this->birth)). (date('Y',strtotime($this->birth))+543);
+                    return $this->setThaiFormatdate('birth');
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => 'register_date',
+                ],
+                'value' => function ($event) {
+                    return $this->setThaiFormatdate('register_date');
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'birth',
+                ],
+                'value' => function ($event) {
+                    $this->adBirth = $this->birth;
+                    return $this->setStandardFormatdate('birth');
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'register_date',
+                ],
+                'value' => function ($event) {
+                    return $this->setStandardFormatdate('register_date');
                 },
             ],
         ];
@@ -81,7 +109,7 @@ class Person extends ActiveRecord
     {
         return [
             [['hospcode', 'hn', 'cid', 'prename', 'name', 'lname', 'sex', 'birth','mother','mother_name'], 'required'],
-            [['birth', 'movein', 'ddischarge', 'd_update'], 'safe'],
+            [['birth', 'movein', 'ddischarge', 'd_update','register_date'], 'safe'],
             [['hospcode'], 'string', 'max' => 5],
             [['cid', 'father', 'mother', 'couple'], 'string', 'max' => 13],
             [['pid', 'hn', 'passport'], 'string', 'max' => 15],
@@ -147,7 +175,8 @@ class Person extends ActiveRecord
             'add_mobile' => 'เบอร์โทรศัพท์มือถือ',
 
             'mother_name' => 'ชื่อ-นามสกุลแม่',
-            'father_name' => 'ชื่อ-นามสกุลพ่อ'
+            'father_name' => 'ชื่อ-นามสกุลพ่อ',
+            'register_date' => 'วันที่ลงทะเบียน'
         ];
     }
 
@@ -157,7 +186,7 @@ class Person extends ActiveRecord
      */
     public static function find()
     {
-        return new \frontend\modules\nb\models\query\PersonQuery(get_called_class());
+      return new \frontend\modules\nb\models\query\PersonQuery(get_called_class());
     }
 
     public function loadInitAddress($id){
@@ -203,4 +232,15 @@ class Person extends ActiveRecord
       return $this->dateDifference($this->adBirth, date('Y-m-d'), $format);
     }
 
+    public function setStandardFormatdate($field){
+      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field}));
+    }
+
+    public function setThaiFormatdate($field){
+      if($this->{$field} == '0000-00-00' || empty($this->{$field}))
+      {
+        return '00000000';
+      }
+      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543);
+    }
 }

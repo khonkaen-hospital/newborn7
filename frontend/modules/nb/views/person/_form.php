@@ -8,7 +8,9 @@ use yii\widgets\MaskedInput;
 /* @var $model frontend\modules\nb\models\Person */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+  'id'=>'person-form'
+]); ?>
 
 <div class="xpanel" id="personal-data">
 
@@ -21,13 +23,16 @@ use yii\widgets\MaskedInput;
   <div class="panel-body person-form" >
 
     <div class="row">
+      <div class="col-sm-2">
+        <?= $form->field($model, 'register_date')->widget(MaskedInput::className(), ['mask' => '99-99-9999']) ?>
+      </div>
       <div class="col-sm-2 ">
         <?= $form->field($model, 'prename')->textInput(['maxlength' => true]) ?>
       </div>
-      <div class="col-sm-5 col-xs-6">
+      <div class="col-sm-4 col-xs-6">
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
       </div>
-      <div class="col-sm-5 col-xs-6">
+      <div class="col-sm-4 col-xs-6">
         <?= $form->field($model, 'lname')->textInput(['maxlength' => true]) ?>
       </div>
     </div>
@@ -91,3 +96,17 @@ use yii\widgets\MaskedInput;
   </div>
 
     <?php ActiveForm::end(); ?>
+
+    <?php
+    $this->registerJs('
+      $("#person-form input").keyup(function (event) {
+          if (event.keyCode == 13) {
+            var index = $("input").index(this) + 1;
+
+            $("input").eq(index).focus();
+            console.log(index);
+          }
+      });
+
+    ');
+     ?>

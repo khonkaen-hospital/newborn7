@@ -36,13 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                   }
                 ],
                 [
-                  'attribute' => 'pid',
-                  'options'=>['style'=>'width:120px;']
-                ],
-                [
                   'attribute' => 'cid',
                   'options'=>['style'=>'width:150px;']
                 ],
+                [
+                  'attribute' => 'pid',
+                  'options'=>['style'=>'width:120px;']
+                ],
+
                 [
                   'attribute' => 'hospitalName',
                   'options'=>['style'=>'width:200px;']

@@ -86,6 +86,7 @@ class PersonController extends Controller
     public function actionCreate()
     {
         $model = new Person();
+        $model->register_date = date('d-m-').(date('Y')+543);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'hospcode' => $model->hospcode, 'pid' => $model->pid]);
