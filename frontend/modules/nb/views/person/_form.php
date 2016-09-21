@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\MaskedInput;
 
+
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Person */
 /* @var $form yii\widgets\ActiveForm */

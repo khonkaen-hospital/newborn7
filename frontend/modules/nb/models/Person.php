@@ -5,6 +5,7 @@ namespace frontend\modules\nb\models;
 use Yii;
 use common\models\Hospitals;
 use yii\behaviors\AttributeBehavior;
+use common\behaviors\AttributeValueBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -62,41 +63,32 @@ class Person extends ActiveRecord
     {
         return [
             [
-                'class' => AttributeBehavior::className(),
+                'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => 'birth',
+                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date'],
                 ],
-                'value' => function ($event) {
-                    $this->adBirth = $this->birth;
-                    return $this->setThaiFormatdate('birth');
+                'value' => function ($event, $attribute) {
+                    return $this->setThaiFormatdate($attribute);
                 },
             ],
+            // [
+            //     'class' => AttributeValueBehavior::className(),
+            //     'attributes' => [
+            //       ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date'],
+            //       ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date'],
+            //     ],
+            //     'value' => function ($event, $attribute) {
+            //         return $this->setStandardFormatdate($attribute);
+            //     },
+            // ],
             [
-                'class' => AttributeBehavior::className(),
+                'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => 'register_date',
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['cid', 'father', 'mother'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['cid', 'father', 'mother'],
                 ],
-                'value' => function ($event) {
-                    return $this->setThaiFormatdate('register_date');
-                },
-            ],
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'birth',
-                ],
-                'value' => function ($event) {
-                    $this->adBirth = $this->birth;
-                    return $this->setStandardFormatdate('birth');
-                },
-            ],
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'register_date',
-                ],
-                'value' => function ($event) {
-                    return $this->setStandardFormatdate('register_date');
+                'value' => function ($event,$attribute) {
+                    return  str_replace('-','', $this->owner->$attribute);
                 },
             ],
         ];
@@ -111,7 +103,7 @@ class Person extends ActiveRecord
             [['hospcode', 'hn', 'cid', 'prename', 'name', 'lname', 'sex', 'birth','mother','mother_name'], 'required'],
             [['birth', 'movein', 'ddischarge', 'd_update','register_date'], 'safe'],
             [['hospcode'], 'string', 'max' => 5],
-            [['cid', 'father', 'mother', 'couple'], 'string', 'max' => 13],
+            [['cid', 'father', 'mother', 'couple'], 'string', 'max' => 17],
             [['pid', 'hn', 'passport'], 'string', 'max' => 15],
             [['hid'], 'string', 'max' => 14],
             [['mother_name','father_name'], 'string', 'max' => 150],
@@ -229,7 +221,7 @@ class Person extends ActiveRecord
     }
 
     public function getCurrentAge( $format = '%y' ){
-      return $this->dateDifference($this->adBirth, date('Y-m-d'), $format);
+      return $this->dateDifference($this->getOldAttribute('birth'), date('Y-m-d'), $format);
     }
 
     public function setStandardFormatdate($field){

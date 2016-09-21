@@ -58,8 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'labor',
             'passport',
             'typearea',
-            'd_update',
-            'id',
+            'd_update'
         ],
     ]) ?>
 

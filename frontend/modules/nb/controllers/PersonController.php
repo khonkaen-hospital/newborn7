@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * PersonController implements the CRUD actions for Person model.
  */
@@ -89,7 +90,7 @@ class PersonController extends Controller
         $model->register_date = date('d-m-').(date('Y')+543);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'hospcode' => $model->hospcode, 'pid' => $model->pid]);
+            return $this->redirect(['view', 'id' => $model->newborn_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -109,7 +110,7 @@ class PersonController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'hospcode' => $model->hospcode, 'pid' => $model->pid]);
+            return $this->redirect(['view', 'id' => $model->newborn_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
