@@ -17,12 +17,16 @@ class AddressQuery extends \yii\db\ActiveQuery
 
     public function prepare($builder)
     {
-        if($this->type == Changwat::TYPE){
+        if($this->type == Changwat::TYPE)
+        {
           $this->andWhere('SUBSTRING(code,-4) = "0000"');
-        }elseif($this->type == Amphoe::TYPE){
+        }
+        elseif($this->type == Amphoe::TYPE)
+        {
           $this->andWhere('SUBSTRING(code,-4) != "0000" AND SUBSTRING(code,-2) = "00"');
         }
-        elseif($this->type == Tambon::TYPE){
+        elseif($this->type == Tambon::TYPE)
+        {
           $this->andWhere('substring(code,-4) != "0000" AND substring(code,-2) != "00"');
         }
         return parent::prepare($builder);
@@ -51,27 +55,28 @@ class AddressQuery extends \yii\db\ActiveQuery
         return parent::one($db);
     }
 
-    public function getAmphoeByChangwatID($changwatID){
-      return $this->andWhere('SUBSTRING(code,1,2)=:id',[
-        ':id'=>$changwatID
-      ])
-      ->select(['abbr name','code id'])
-      ->asArray();
+    public function getAmphoeByChangwatID($changwatID)
+    {
+      return $this->andWhere('SUBSTRING(code,1,2) = :id', [':id' => $changwatID])
+             ->select(['abbr name', 'SUBSTRING(code,3,2) id'])
+             ->asArray();
     }
 
-    public function getTambonByAmphoeID($amphoeID){
-      return $this->andWhere('SUBSTRING(code,1,4)=:id',[
-        ':id'=>$amphoeID
-      ])
-      ->select(['abbr name','code id'])
-      ->asArray();
+    public function getTambonByAmphoeID($amphoeID)
+    {
+      return $this->andWhere('SUBSTRING(code,1,4) = :id', [':id' => $amphoeID])
+             ->select(['abbr name', 'SUBSTRING(code,5,2) id'])
+             ->asArray();
     }
 
-    public function loadInit($id){
-      return $this->andWhere('code=:id',[
-        ':id'=>$id
-      ])
-      ->select(['abbr'])
-      ->indexBy('code');
+    public function loadInit($id,$type){
+      if(in_array($type,['ampur','tambon'])){
+        $condition  = ($type == 'ampur') ? 'SUBSTRING(code,1,2) = :id AND SUBSTRING(code,-2) != "00"' : 'SUBSTRING(code,1,4) = :id AND SUBSTRING(code,-2) != "00"';
+        $fieldID    = ($type == 'ampur') ? 'SUBSTRING(code,3,2)' : 'SUBSTRING(code,5,2)';
+        return $this->andWhere($condition, [':id' => $id])
+               ->select(['abbr'])
+               ->indexBy($fieldID);
+      }
+      return [];
     }
 }

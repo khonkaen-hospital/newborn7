@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\MaskedInput;
-
+use kartik\typeahead\Typeahead;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Person */
@@ -28,7 +28,15 @@ use yii\widgets\MaskedInput;
         <?= $form->field($model, 'register_date')->widget(MaskedInput::className(), ['mask' => '99-99-9999']) ?>
       </div>
       <div class="col-sm-2 ">
-        <?= $form->field($model, 'prename')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'prename')->widget(Typeahead::classname(), [
+            'dataset' => [
+                [
+                    'local' => ['ด.ช.','ด.ญ.']
+                ]
+            ],
+            'pluginOptions' => ['highlight' => true],
+            'options' => ['placeholder' => 'Filter as you type ...'],
+        ]); ?>
       </div>
       <div class="col-sm-4 col-xs-6">
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

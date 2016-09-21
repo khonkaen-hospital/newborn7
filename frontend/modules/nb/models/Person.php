@@ -71,16 +71,16 @@ class Person extends ActiveRecord
                     return $this->setThaiFormatdate($attribute);
                 },
             ],
-            // [
-            //     'class' => AttributeValueBehavior::className(),
-            //     'attributes' => [
-            //       ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date'],
-            //       ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date'],
-            //     ],
-            //     'value' => function ($event, $attribute) {
-            //         return $this->setStandardFormatdate($attribute);
-            //     },
-            // ],
+            [
+                'class' => AttributeValueBehavior::className(),
+                'attributes' => [
+                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date'],
+                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date'],
+                ],
+                'value' => function ($event, $attribute) {
+                    return $this->setStandardFormatdate($attribute);
+                },
+            ],
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
@@ -107,12 +107,18 @@ class Person extends ActiveRecord
             [['pid', 'hn', 'passport'], 'string', 'max' => 15],
             [['hid'], 'string', 'max' => 14],
             [['mother_name','father_name'], 'string', 'max' => 150],
-            [['prename', 'occupation_old', 'race', 'nation'], 'string', 'max' => 3],
+            [['occupation_old', 'race', 'nation'], 'string', 'max' => 3],
+            [['prename'], 'string', 'max' => 6],
             [['name', 'lname'], 'string', 'max' => 50],
             [['sex', 'mstatus', 'fstatus', 'vstatus', 'discharge', 'abogroup', 'rhgroup', 'typearea'], 'string', 'max' => 1],
             [['occupation_new'], 'string', 'max' => 4],
             [['religion', 'education', 'labor'], 'string', 'max' => 2],
             [['sex'], 'default', 'value' => 1],
+            [['add_houseno'], 'string', 'max' => 10],
+            [['add_road','add_village','add_soimain'], 'string', 'max' => 255],
+            [['add_changwat','add_ampur','add_tambon'], 'string', 'max' => 2],
+            ['add_zip', 'string', 'max' => 5],
+            ['add_mobile', 'string', 'max' => 15],
         ];
     }
 
@@ -181,8 +187,8 @@ class Person extends ActiveRecord
       return new \frontend\modules\nb\models\query\PersonQuery(get_called_class());
     }
 
-    public function loadInitAddress($id){
-      return Address::find()->loadInit($id)->column();
+    public function loadInitAddress($id,$type){
+      return Address::find()->loadInit($id,$type)->column();
     }
 
     public function getFullName(){

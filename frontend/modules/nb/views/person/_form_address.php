@@ -39,7 +39,7 @@ use frontend\modules\nb\models\Changwat;
     <div class="row">
         <div class="col-sm-4">
             <?= $form->field($model, 'add_changwat')->widget(Select2::classname(), [
-              'data' => Changwat::find()->select(['abbr'])->indexBy('code')->orderBy('abbr ASC')->column(),
+              'data' => Changwat::find()->select(['abbr'])->indexBy('left(code,2)')->orderBy('abbr ASC')->column(),
               'options' => ['id'=>'dd-changwat','placeholder' => 'เลือกจังหวัด ...'],
               'pluginOptions' => [
                   'allowClear' => true
@@ -49,7 +49,8 @@ use frontend\modules\nb\models\Changwat;
         <div class="col-sm-4">
             <?= $form->field($model, 'add_ampur')->widget(DepDrop::classname(), [
                'options' => ['id'=>'dd-ampur'],
-               'data' => $model->isNewRecord ? [] : $model->loadInitAddress($model->add_ampur),
+               'type'=>DepDrop::TYPE_SELECT2,
+               'data' => $model->isNewRecord ? [] : $model->loadInitAddress($model->add_changwat,'ampur'),
                'pluginOptions'=>[
                    'depends'=>['dd-changwat'],
                    'placeholder' => 'เลือกอำเภอ...',
@@ -60,9 +61,10 @@ use frontend\modules\nb\models\Changwat;
         <div class="col-sm-4">
           <?= $form->field($model, 'add_tambon')->widget(DepDrop::classname(), [
              'options' => ['id'=>'dd-tambon'],
-             'data'=>$model->isNewRecord ? [] : $model->loadInitAddress($model->add_tambon),
+             'type'=>DepDrop::TYPE_SELECT2,
+             'data' => $model->isNewRecord ? [] : $model->loadInitAddress($model->add_changwat.$model->add_ampur,'tambon'),
              'pluginOptions'=>[
-                 'depends'=>['dd-ampur'],
+                 'depends'=>['dd-changwat','dd-ampur'],
                  'placeholder' => 'เลือกตำบล...',
                  'url' => Url::to(['/nb/person/get-tambon'])
              ]

@@ -36,7 +36,7 @@
         "yii2assets/yii2-fullscreen-modal": "*",
         "omnilight/yii2-vuejs": "*",
         "yiisoft/yii2-elasticsearch": "~2.0.0",
-        "2amigos/yii2-qrcode-helper" : "~1.0"
+        "kartik-v/yii2-widget-typeahead": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

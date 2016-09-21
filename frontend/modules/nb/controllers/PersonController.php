@@ -39,13 +39,14 @@ class PersonController extends Controller
             'get-ampur' => [
                 'class' => \kartik\depdrop\DepDropAction::className(),
                 'outputCallback' => function ($selectedId, $params) {
-                  return Amphoe::find()->getAmphoeByChangwatID(substr($selectedId,0,2))->all();
+                  return Amphoe::find()->getAmphoeByChangwatID($selectedId)->all();
                 }
             ],
             'get-tambon' => [
                 'class' => \kartik\depdrop\DepDropAction::className(),
+                'otherParam' => 'depdrop_parents',
                 'outputCallback' => function ($selectedId, $params) {
-                  return Tambon::find()->getTambonByAmphoeID(substr($selectedId,0,4))->all();
+                  return Tambon::find()->getTambonByAmphoeID($params[0].$params[1])->all();
                 }
             ]
         ]);
