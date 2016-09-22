@@ -119,6 +119,19 @@ class PersonController extends Controller
         }
     }
 
+    public function actionNewbornBaby($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['newborn-baby', 'id' => $model->newborn_id]);
+        } else {
+            return $this->render('newborn_baby', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * Deletes an existing Person model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

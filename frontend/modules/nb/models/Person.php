@@ -65,20 +65,20 @@ class Person extends ActiveRecord
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date'],
+                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date','admit_datetime'],
                 ],
                 'value' => function ($event, $attribute) {
-                    return $this->setThaiFormatdate($attribute);
+                    return $attribute == 'admit_datetime' ? $this->setThaiFormatdate($attribute,true) : $this->setThaiFormatdate($attribute);
                 },
             ],
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date'],
-                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date'],
+                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date','admit_datetime'],
+                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date','admit_datetime'],
                 ],
                 'value' => function ($event, $attribute) {
-                    return $this->setStandardFormatdate($attribute);
+                    return $attribute == 'admit_datetime' ? $this->setStandardFormatdate($attribute,true) : $this->setStandardFormatdate($attribute);
                 },
             ],
             [
@@ -114,11 +114,18 @@ class Person extends ActiveRecord
             [['occupation_new'], 'string', 'max' => 4],
             [['religion', 'education', 'labor'], 'string', 'max' => 2],
             [['sex'], 'default', 'value' => 1],
+
             [['add_houseno'], 'string', 'max' => 10],
             [['add_road','add_village','add_soimain'], 'string', 'max' => 255],
             [['add_changwat','add_ampur','add_tambon'], 'string', 'max' => 2],
             ['add_zip', 'string', 'max' => 5],
             ['add_mobile', 'string', 'max' => 15],
+
+            [['admit_age','newborn_at'], 'integer'],
+            [['newborn_refer_from','admit_wardname'], 'string', 'max' => 150],
+            [['admit_datetime'],'safe'],
+
+            [['ga','lr_type','birth_weight','height','apgar'], 'string', 'max' => 50]
         ];
     }
 
@@ -174,7 +181,20 @@ class Person extends ActiveRecord
 
             'mother_name' => 'ชื่อ-นามสกุลแม่',
             'father_name' => 'ชื่อ-นามสกุลพ่อ',
-            'register_date' => 'วันที่ลงทะเบียน'
+            'register_date' => 'วันที่ลงทะเบียน',
+
+            'newborn_at' => 'คลอดที่',
+            'newborn_refer_from' => 'รับรีเฟอร์จากสถานพยาบาล',
+            'admit_datetime' => 'วันที่ Admit',
+            'admit_wardname' => 'ชื่อ Ward',
+            'admit_age' => 'อายุ ณ วัน Admit',
+
+            'lr_type' => 'ลักษณะการคลอด',
+            'ga' => 'GA',
+            'birth_weight' => 'Birth Weight',
+            'Height' => 'Height',
+            'apgar' => 'Apgar',
+
         ];
     }
 
@@ -230,15 +250,15 @@ class Person extends ActiveRecord
       return $this->dateDifference($this->getOldAttribute('birth'), date('Y-m-d'), $format);
     }
 
-    public function setStandardFormatdate($field){
-      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field}));
+    public function setStandardFormatdate($field, $isDateTime = false){
+      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field})).($isDateTime==true? ' '.date('H:i:s',strtotime($this->{$field})) : null );
     }
 
-    public function setThaiFormatdate($field){
-      if($this->{$field} == '0000-00-00' || empty($this->{$field}))
+    public function setThaiFormatdate($field, $isDateTime = false){
+      if(in_array($this->{$field},['0000-00-00','0000-00-00 00:00:00']) || empty($this->{$field}))
       {
-        return '00000000';
+        return null;
       }
-      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543);
+      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543).($isDateTime==true? ' '.date('H:i:s',strtotime($this->{$field})) : null );
     }
 }

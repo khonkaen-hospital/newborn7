@@ -13,12 +13,13 @@ use kartik\typeahead\Typeahead;
   'id'=>'person-form'
 ]); ?>
 
-<div class="xpanel" id="personal-data">
+<div class="xpanel-tab" id="personal-data">
 
   <div class="xpanel-heading-sm">
       <span class="xpanel-title">
         ข้อมูลทารกแรกเกิด
       </span>
+      <span class="pull-right"><?= Html::submitButton('บันทึก', ['style'=>'min-width:150px;', 'class' => 'btn btn-primary']) ?></span>
   </div>
 
   <div class="panel-body person-form" >
@@ -104,18 +105,4 @@ use kartik\typeahead\Typeahead;
       <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['style'=>'min-width:150px;', 'class' => ' '.($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')]) ?>
   </div>
 
-    <?php ActiveForm::end(); ?>
-
-    <?php
-    $this->registerJs('
-      $("#person-form input").keyup(function (event) {
-          if (event.keyCode == 13) {
-            var index = $("input").index(this) + 1;
-
-            $("input").eq(index).focus();
-            console.log(index);
-          }
-      });
-
-    ');
-     ?>
+<?php ActiveForm::end(); ?>
