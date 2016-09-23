@@ -65,7 +65,7 @@ class Person extends ActiveRecord
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date','admit_datetime'],
+                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
                 ],
                 'value' => function ($event, $attribute) {
                     return $attribute == 'admit_datetime' ? $this->setThaiFormatdate($attribute,true) : $this->setThaiFormatdate($attribute);
@@ -74,8 +74,8 @@ class Person extends ActiveRecord
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date','admit_datetime'],
-                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date','admit_datetime'],
+                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
+                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
                 ],
                 'value' => function ($event, $attribute) {
                     return $attribute == 'admit_datetime' ? $this->setStandardFormatdate($attribute,true) : $this->setStandardFormatdate($attribute);
@@ -121,11 +121,16 @@ class Person extends ActiveRecord
             ['add_zip', 'string', 'max' => 5],
             ['add_mobile', 'string', 'max' => 15],
 
+
             [['admit_age','newborn_at'], 'integer'],
             [['newborn_refer_from','admit_wardname'], 'string', 'max' => 150],
             [['admit_datetime'],'safe'],
 
-            [['ga','lr_type','birth_weight','height','apgar'], 'string', 'max' => 50]
+            [['ga','lr_type','birth_weight','height','apgar'], 'string', 'max' => 50],
+
+            [['is_resuscitate','cpr','et_tube','position_ettube','uvc'], 'integer'],
+            [['date_of_resuscitate'], 'safe'],
+            [['ppv','day_on_ettube','o2'], 'string', 'max' => 50],
         ];
     }
 
@@ -194,6 +199,16 @@ class Person extends ActiveRecord
             'birth_weight' => 'Birth Weight',
             'Height' => 'Height',
             'apgar' => 'Apgar',
+
+            'is_resuscitate' => 'Resuscitate',
+            'cpr' => 'CPR',
+            'date_of_resuscitate' => 'Date of Resuscitate',
+            'ppv' => 'PPV',
+            'et_tube' => 'ET-Tube',
+            'position_ettube' => 'Position ET-Tube',
+            'uvc'=> 'UVC',
+            'o2'=> 'จำนวนวันที่รับ O2',
+            'day_on_ettube'=> 'จำนวนวันที่ใส่ ET-Tube'
 
         ];
     }

@@ -84,7 +84,41 @@ use kartik\typeahead\Typeahead;
     </div>
 
     <div class="panel-body person-form">
+      <div class="row">
+        <div class="col-md-2">
+            <?= $form->field($model, 'is_resuscitate')->inline()->radioList($model->getItems('yes/no')) ?>
+        </div>
 
+        <div class="col-md-3">
+            <?= $form->field($model, 'date_of_resuscitate')->widget(MaskedInput::className(), ['mask' => '99-99-9999 99:99:00']) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'ppv')->textInput() ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'cpr')->inline()->radioList($model->getItems('yes/no')) ?>
+        </div>
+        <div class="col-md-2">
+          <?= $form->field($model, 'uvc')->inline()->radioList($model->getItems('yes/no')) ?>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <?= $form->field($model, 'et_tube')->inline()->radioList($model->getItems('yes/no')) ?>
+        </div>
+        <div class="col-md-3">
+          <?= $form->field($model, 'position_ettube')->inline()->radioList($model->getItems('position_et_tube')) ?>
+        </div>
+
+        <div class="col-md-3">
+          <?= $form->field($model, 'day_on_ettube')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-2">
+          <?= $form->field($model, 'o2')->textInput(['maxlength' => true]) ?>
+        </div>
+
+      </div>
     </div>
   </div>
 
