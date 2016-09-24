@@ -8,6 +8,7 @@ use kartik\typeahead\Typeahead;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Person */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 <?php $form = ActiveForm::begin([
   'id'=>'person-form'
@@ -117,7 +118,6 @@ use kartik\typeahead\Typeahead;
         <div class="col-md-2">
           <?= $form->field($model, 'o2')->textInput(['maxlength' => true]) ?>
         </div>
-
       </div>
     </div>
   </div>
@@ -130,7 +130,17 @@ use kartik\typeahead\Typeahead;
     </div>
 
     <div class="panel-body person-form">
-
+      <div class="row">
+        <div class="col-md-3">
+            <?= $form->field($model, 'discharge_status')->inline()->radioList($model->getItems('status_discharge')) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'discharge_date')->widget(MaskedInput::className(), ['mask' => '99-99-9999']) ?>
+        </div>
+        <div class="col-md-2">
+          <?= $form->field($model, 'discharge_age')->textInput(['maxlength' => true]) ?>
+        </div>
+      </div>
     </div>
   </div>
 

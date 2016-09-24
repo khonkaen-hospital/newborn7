@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = 'ข้อมูลการคลอด'
 
       <div class="row">
         <div class="col-md-6">
-          <?= $form->field($model, 'type')->inline()->radioList($model->getItems('newborn_type')) ?>
+          <?= $form->field($model, 'type')->inline()->checkBoxList($model->getItems('newborn_type')) ?>
         </div>
         <div class="col-md-6">
               <?= $form->field($model, 'type_refer_from')->widget(Select2::className(),[

@@ -7,7 +7,7 @@ use common\models\Hospitals;
 use yii\behaviors\AttributeBehavior;
 use common\behaviors\AttributeValueBehavior;
 use yii\db\ActiveRecord;
-
+use DateTime;
 /**
  * This is the model class for table "person".
  *
@@ -65,20 +65,20 @@ class Person extends ActiveRecord
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
+                    ActiveRecord::EVENT_AFTER_FIND => ['birth', 'register_date','admit_datetime','date_of_resuscitate','discharge_date'],
                 ],
                 'value' => function ($event, $attribute) {
-                    return $attribute == 'admit_datetime' ? $this->setThaiFormatdate($attribute,true) : $this->setThaiFormatdate($attribute);
+                    return $this->setThaiFormatdate($attribute);
                 },
             ],
             [
                 'class' => AttributeValueBehavior::className(),
                 'attributes' => [
-                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
-                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date','admit_datetime','date_of_resuscitate'],
+                  ActiveRecord::EVENT_BEFORE_INSERT => ['birth', 'register_date','admit_datetime','date_of_resuscitate','discharge_date'],
+                  ActiveRecord::EVENT_BEFORE_UPDATE => ['birth', 'register_date','admit_datetime','date_of_resuscitate','discharge_date'],
                 ],
                 'value' => function ($event, $attribute) {
-                    return $attribute == 'admit_datetime' ? $this->setStandardFormatdate($attribute,true) : $this->setStandardFormatdate($attribute);
+                    return $this->setStandardFormatdate($attribute);
                 },
             ],
             [
@@ -121,7 +121,6 @@ class Person extends ActiveRecord
             ['add_zip', 'string', 'max' => 5],
             ['add_mobile', 'string', 'max' => 15],
 
-
             [['admit_age','newborn_at'], 'integer'],
             [['newborn_refer_from','admit_wardname'], 'string', 'max' => 150],
             [['admit_datetime'],'safe'],
@@ -131,6 +130,9 @@ class Person extends ActiveRecord
             [['is_resuscitate','cpr','et_tube','position_ettube','uvc'], 'integer'],
             [['date_of_resuscitate'], 'safe'],
             [['ppv','day_on_ettube','o2'], 'string', 'max' => 50],
+
+            [['discharge_status','discharge_age'], 'integer'],
+            [['discharge_date'], 'safe'],
         ];
     }
 
@@ -235,7 +237,8 @@ class Person extends ActiveRecord
         return $this->hasOne(Hospitals::className(), ['off_id' => 'hospcode']);
     }
 
-    public function getHospitalName(){
+    public function getHospitalName()
+    {
         return $this->getRelationField('hospital','name');
     }
 
@@ -261,19 +264,30 @@ class Person extends ActiveRecord
         return $interval->format($differenceFormat);
     }
 
-    public function getCurrentAge( $format = '%y' ){
+    public function getCurrentAge( $format = '%y' )
+    {
       return $this->dateDifference($this->getOldAttribute('birth'), date('Y-m-d'), $format);
     }
 
-    public function setStandardFormatdate($field, $isDateTime = false){
-      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field})).($isDateTime==true? ' '.date('H:i:s',strtotime($this->{$field})) : null );
+    public function setStandardFormatdate($field)
+    {
+      if(strlen($this->{$field}) >= 10){
+        return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field})).' '.date('H:i:s',strtotime($this->{$field}));
+      }else{
+        return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field}));
+      }
     }
 
-    public function setThaiFormatdate($field, $isDateTime = false){
+    public function setThaiFormatdate($field){
       if(in_array($this->{$field},['0000-00-00','0000-00-00 00:00:00']) || empty($this->{$field}))
       {
         return null;
       }
-      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543).($isDateTime==true? ' '.date('H:i:s',strtotime($this->{$field})) : null );
+      if(strlen($this->{$field}) >= 10 ){
+        return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543).' '.date('H:i:s',strtotime($this->{$field}));
+      }else{
+        return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543);
+      }
+
     }
 }
