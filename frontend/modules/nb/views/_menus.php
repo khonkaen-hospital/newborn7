@@ -14,7 +14,7 @@ echo Nav::widget([
     'encodeLabels' => false,
     'items' => [
         [
-            'label' => '<i class="glyphicon glyphicon-user"></i> ประวัติผู้ป่วย',
+            'label' => '<i class="glyphicon glyphicon-baby-formula"></i> ประวัติผู้ป่วย',
             'url' => ['/nb/person/update','id'=>$id]
         ],
         [
@@ -22,8 +22,8 @@ echo Nav::widget([
             'url' => ['/nb/person/newborn-baby','id'=>$id],
         ],
         [
-            'label' => 'ประวัติมารดา',
-            'url' => ['/newborn7/patient/parent-history','id'=>$id],
+            'label' => '<i class="glyphicon glyphicon-user"></i> ประวัติมารดา',
+            'url' => ['/nb/person/parent','id'=>$id],
         ],
         [
             'label' => 'ข้อมูลการตรวจ',

@@ -19,7 +19,7 @@ use kartik\typeahead\Typeahead;
       <span class="xpanel-title">
         ข้อมูลทารกแรกเกิด
       </span>
-      <span class="pull-right"><?= Html::submitButton('บันทึก', ['style'=>'min-width:150px;', 'class' => 'btn btn-primary']) ?></span>
+      <span class="pull-right"><?= $submit = Html::submitButton('บันทึก', ['style'=>'min-width:150px;', 'class' => 'btn btn-primary']) ?></span>
   </div>
 
   <div class="panel-body person-form" >
@@ -36,7 +36,7 @@ use kartik\typeahead\Typeahead;
                 ]
             ],
             'pluginOptions' => ['highlight' => true],
-            'options' => ['placeholder' => 'Filter as you type ...'],
+            'options' => ['placeholder' => 'เลือกคำนำหน้า...'],
         ]); ?>
       </div>
       <div class="col-sm-4 col-xs-6">
@@ -102,7 +102,7 @@ use kartik\typeahead\Typeahead;
   </div>
   </div>
   <div class="form-group pull-right">
-      <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['style'=>'min-width:150px;', 'class' => ' '.($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')]) ?>
+      <?= $submit; ?>
   </div>
 
 <?php ActiveForm::end(); ?>

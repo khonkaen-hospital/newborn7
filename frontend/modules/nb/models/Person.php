@@ -133,6 +133,14 @@ class Person extends ActiveRecord
 
             [['discharge_status','discharge_age'], 'integer'],
             [['discharge_date'], 'safe'],
+
+            [['mother_drug_before_born_item','mother_drug_before_born_amount','mother_age','mother_no_of_anc','mother_vdrl','mother_hbsag','mother_congenital_disease','mother_fever','mother_water_break','mother_day_of_water_break','mother_day_of_antibiotic','mother_bloody_show','mother_problem','mother_drug_before_born','mother_amniotic_fluid_type'], 'integer'],
+            [['mother_g','mother_p'], 'string', 'max' => 20],
+            [['mother_hn','mother_an'], 'string', 'max' => 30],
+            [['mother_antibiotic_name','mother_drug_name_before_born'], 'string', 'max' => 150],
+            [['father_name','mother_antibiotic'], 'string', 'max' => 200],
+            [['mother_congenital_disease_name','mother_problem_desc'], 'string', 'max' => 255],
+            [['mother_drug'],'safe']
         ];
     }
 
@@ -210,7 +218,34 @@ class Person extends ActiveRecord
             'position_ettube' => 'Position ET-Tube',
             'uvc'=> 'UVC',
             'o2'=> 'จำนวนวันที่รับ O2',
-            'day_on_ettube'=> 'จำนวนวันที่ใส่ ET-Tube'
+            'day_on_ettube'=> 'จำนวนวันที่ใส่ ET-Tube',
+
+            'mother_age'=> 'อายุ',
+            'mother_an'=> 'AN',
+            'mother_hn'=> 'HN',
+            'mother_vdrl'=>'VDRL',
+            'mother_hbsag'=>'HBSAG',
+            'mother_anti_hiv'=>'Anti HIV',
+            'mother_g'=>'G',
+            'mother_p'=>'P',
+            'mother_no_of_anc'=>'No. of ANC',
+            'mother_congenital_disease' => 'มีโรคประจำตัว',
+            'mother_congenital_disease_name' => 'ถ้ามีระบุ',
+            'mother_drug' => 'ยาที่กินประจำ',
+            'mother_fever'=>'มีไข้',
+            'mother_water_break'=>'น้ำเดิน',
+            'mother_day_of_water_break'=>'จำนวนชั่วโมง',
+            'mother_antibiotic'=>'ได้รับยาปฏิชีวนะ',
+            'mother_antibiotic_name'=>'ชื่อยาปฏิชีวนะ',
+            'mother_day_of_antibiotic'=>'จำนวนวัน',
+            'mother_bloody_show'=>'มีเลือดออกทางช่องคลอด',
+            'mother_problem'=>'ปัญหาอื่นๆ',
+            'mother_problem_desc'=>'ถ้ามีระบุ',
+            'mother_drug_before_born'=>'ได้รับยาก่อนคลอด',
+            'mother_drug_before_born_item'=>'ชื่อยาที่ได้รับ',
+            'mother_drug_name_before_born'=>'ถ้าได้รับระบุ',
+            'mother_drug_before_born_amount'=>'จำนวน (Dose)',
+            'mother_amniotic_fluid_type'=>'ลักษณะน้ำคร่ำ',
 
         ];
     }
@@ -278,7 +313,8 @@ class Person extends ActiveRecord
       }
     }
 
-    public function setThaiFormatdate($field){
+    public function setThaiFormatdate($field)
+    {
       if(in_array($this->{$field},['0000-00-00','0000-00-00 00:00:00']) || empty($this->{$field}))
       {
         return null;
@@ -288,6 +324,5 @@ class Person extends ActiveRecord
       }else{
         return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543);
       }
-
     }
 }

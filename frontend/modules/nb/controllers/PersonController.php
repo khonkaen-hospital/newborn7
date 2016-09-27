@@ -111,7 +111,7 @@ class PersonController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->newborn_id]);
+            return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -124,9 +124,22 @@ class PersonController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['newborn-baby', 'id' => $model->newborn_id]);
+            return $this->refresh();
         } else {
             return $this->render('newborn_baby', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionParent($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->refresh();
+        } else {
+            return $this->render('parent', [
                 'model' => $model,
             ]);
         }
