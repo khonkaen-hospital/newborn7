@@ -1,0 +1,201 @@
+<?php
+
+namespace frontend\modules\nb\models;
+
+use Yii;
+use common\models\Hospitals;
+
+/**
+ * This is the model class for table "{{%patient_visit}}".
+ *
+ * @property integer $visit_id
+ * @property string $seq
+ * @property integer $patient_id
+ * @property string $hospcode
+ * @property string $hn
+ * @property string $date
+ * @property string $clinic
+ * @property string $pttype
+ * @property integer $age
+ * @property string $age_type
+ * @property string $result
+ * @property string $referin
+ * @property string $referout
+ * @property double $head_size
+ * @property double $height
+ * @property double $weight
+ * @property double $waist
+ * @property integer $bp_max
+ * @property integer $bp_min
+ * @property string $inp_id
+ * @property string $tsh_pku
+ * @property string $tsh_pku_date
+ * @property string $tsh_pku_time
+ * @property string $tsh_pku_result
+ * @property string $oae
+ * @property string $oae_date
+ * @property string $oae_abr
+ * @property string $oae_right
+ * @property string $oae_left
+ * @property string $oae_result
+ * @property string $ivh_ult_brain
+ * @property string $ivh_date
+ * @property string $ivh_result
+ * @property string $rop
+ * @property string $rop_date
+ * @property string $rop_result
+ * @property string $rop_hosp_appointment
+ * @property string $lastupdate
+ * @property integer $created_by
+ * @property integer $updated_by
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property string $ga
+ * @property string $hc
+ * @property string $length
+ * @property string $af
+ * @property string $x
+ * @property string $foster_name
+ * @property integer $milk
+ * @property integer $milk_milk_powder
+ * @property integer $milk_powder
+ * @property string $vaccine
+ * @property string $vaccine_other
+ * @property string $disease
+ * @property string $complication
+ * @property string $procedure_code
+ * @property string $summary
+ *
+ * @property PatientVisitClinic $patientVisitClinic
+ * @property PatientVisitDiag[] $patientVisitDiags
+ * @property PatientVisitProcedure[] $patientVisitProcedures
+ */
+class Visit extends \yii\db\ActiveRecord
+{
+    use \frontend\modules\nb\traits\ItemsAliasTrait;
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%patient_visit}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['patient_id', 'hospcode', 'hn'], 'required'],
+            [['patient_id', 'age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at', 'milk', 'milk_milk_powder', 'milk_powder'], 'integer'],
+            [['date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate'], 'safe'],
+            [['age_type', 'tsh_pku_result', 'ivh_result', 'vaccine', 'disease', 'complication', 'procedure_code', 'summary'], 'string'],
+            [['head_size', 'height', 'weight', 'waist'], 'number'],
+            [['seq', 'hn', 'inp_id'], 'string', 'max' => 15],
+            [['hospcode', 'referin', 'referout'], 'string', 'max' => 5],
+            [['clinic', 'pttype'], 'string', 'max' => 6],
+            [['result'], 'string', 'max' => 4],
+            [['tsh_pku', 'oae', 'ivh_ult_brain', 'rop'], 'string', 'max' => 3],
+            [['oae_right', 'oae_left', 'oae_result', 'rop_result', 'rop_hosp_appointment'], 'string', 'max' => 255],
+            [['ga', 'hc', 'length', 'af', 'x'], 'string', 'max' => 20],
+            [['foster_name'], 'string', 'max' => 100],
+            [['vaccine_other'], 'string', 'max' => 200],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'visit_id' => 'Visit ID',
+            'seq' => 'Seq',
+            'patient_id' => 'Patient ID',
+            'hospcode' => 'Hospcode',
+            'hn' => 'Hn',
+            'date' => 'Date',
+            'clinic' => 'Clinic',
+            'pttype' => 'Pttype',
+            'age' => 'Age',
+            'age_type' => 'Age Type',
+            'result' => 'Result',
+            'referin' => 'Referin',
+            'referout' => 'Referout',
+            'head_size' => 'Head Size',
+            'height' => 'Height',
+            'weight' => 'Weight',
+            'waist' => 'Waist',
+            'bp_max' => 'Bp Max',
+            'bp_min' => 'Bp Min',
+            'inp_id' => 'Inp ID',
+            'tsh_pku' => 'Tsh Pku',
+            'tsh_pku_date' => 'Tsh Pku Date',
+            'tsh_pku_time' => 'Tsh Pku Time',
+            'tsh_pku_result' => 'Tsh Pku Result',
+            'oae' => 'Oae',
+            'oae_date' => 'Oae Date',
+            'oae_abr' => 'Oae Abr',
+            'oae_right' => 'Oae Right',
+            'oae_left' => 'Oae Left',
+            'oae_result' => 'Oae Result',
+            'ivh_ult_brain' => 'Ivh Ult Brain',
+            'ivh_date' => 'Ivh Date',
+            'ivh_result' => 'Ivh Result',
+            'rop' => 'Rop',
+            'rop_date' => 'Rop Date',
+            'rop_result' => 'Rop Result',
+            'rop_hosp_appointment' => 'Rop Hosp Appointment',
+            'lastupdate' => 'Lastupdate',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'ga' => 'Ga',
+            'hc' => 'Hc',
+            'length' => 'Length',
+            'af' => 'Af',
+            'x' => 'X',
+            'foster_name' => 'ผู้เลี้ยงดู',
+            'milk' => 'ได้รับนม',
+            'milk_milk_powder' => 'นมแม่ + นมผสม',
+            'milk_powder' => 'นมผสมอย่างเดียว',
+            'vaccine' => 'Vaccine',
+            'vaccine_other' => 'Vaccine Other',
+            'disease' => 'Disease',
+            'complication' => 'Complication',
+            'procedure_code' => 'Procedure Code',
+            'summary' => 'สรุปผลตรวจ',
+        ];
+    }
+
+    public function fieldToArray(Array $fields){
+      foreach ($fields as $key => $field) {
+        $this->{$field} = empty($this->{$field}) ? '' : explode(',',$this->{$field});
+      }
+    }
+
+    /**
+     * @inheritdoc
+     * @return \frontend\modules\nb\models\query\VisitQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new \frontend\modules\nb\models\query\VisitQuery(get_called_class());
+    }
+
+    private function getRelationField($relationName,$fieldName,$defaultValue=''){
+      return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
+    }
+
+    public function getHospital()
+    {
+        return $this->hasOne(Hospitals::className(), ['off_id' => 'hospcode']);
+    }
+
+    public function getHospitalName()
+    {
+        return $this->getRelationField('hospital','name');
+    }
+}

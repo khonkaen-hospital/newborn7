@@ -259,6 +259,10 @@ class Person extends ActiveRecord
       return new \frontend\modules\nb\models\query\PersonQuery(get_called_class());
     }
 
+    private function getRelationField($relationName,$fieldName,$defaultValue=''){
+      return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
+    }
+
     public function loadInitAddress($id,$type){
       return Address::find()->loadInit($id,$type)->column();
     }

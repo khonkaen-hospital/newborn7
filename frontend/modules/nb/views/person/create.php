@@ -11,8 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => [
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="person-create">
-
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
