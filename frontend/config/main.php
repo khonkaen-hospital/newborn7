@@ -40,8 +40,8 @@ return [
             ],
         ],
         'user' => [
-            'identityClass' => 'dektrium\user\models\User',
-            //'identityClass' => 'common\models\user\User',
+            //'identityClass' => 'dektrium\user\models\User',
+            'identityClass' => 'common\models\user\User',
             'enableAutoLogin' => true,
         ],
         'log' => [
@@ -79,7 +79,7 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableFlashMessages' => false,
-            'admins' => [],
+            'admins' => ['admin'],
             'modelMap' => [
               'Profile' => 'common\models\Profile',
               'User' => 'common\models\user\User',

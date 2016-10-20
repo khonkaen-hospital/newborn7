@@ -24,7 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="xpanel-tab">
   <div class="xpanel-heading">
     <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
-    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+    <span class="xpanel-title"><?= Html::encode($this->title) ?> <i>( <?=$model->hospitalName?> )</i></span>
+    <?= $this->render('/_visit-menus',[
+        'personId' => $person->newborn_id,
+        'visitId' => $visit_id
+    ])?>
   </div>
 <div class="xpanel-body patient-visit-create">
 

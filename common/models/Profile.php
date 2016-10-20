@@ -10,7 +10,9 @@
  */
 
 namespace common\models;
+
 use common\models\Hospitals;
+
 /**
  * This is the model class for table "profile".
  *

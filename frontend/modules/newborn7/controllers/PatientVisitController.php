@@ -171,13 +171,13 @@ class PatientVisitController extends Controller
                 'model' => $model,
                 'id'=>$id,
                 'patient'=>$patient,
-                'tskSearchModel' => $tskSearchModel,
+                'tskSearchModel'  => $tskSearchModel,
                 'tskDataprovider' => $tskDataprovider,
-                'oaeSearchModel' => $oaeSearchModel,
+                'oaeSearchModel'  => $oaeSearchModel,
                 'oaeDataprovider' => $oaeDataprovider,
-                'ivhSearchModel' => $ivhSearchModel,
+                'ivhSearchModel'  => $ivhSearchModel,
                 'ivhDataprovider' => $ivhDataprovider,
-                'ropSearchModel' => $ropSearchModel,
+                'ropSearchModel'  => $ropSearchModel,
                 'ropDataprovider' => $ropDataprovider
             ]);
         }

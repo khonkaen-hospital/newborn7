@@ -21,8 +21,9 @@ use yii\widgets\Pjax;
         'id'=>'grid-tsk-pku',
         'dataProvider' => $dataProvider,
         'filterModel'  => $searchModel,
+        'tableOptions'=>['class'=>'table table-striped'],
         'columns'      => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn','options'=>['style'=>'width:30px;']],
             [
               'attribute'=>'check_date',
               'format'=>'dateTime',

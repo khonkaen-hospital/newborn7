@@ -40,7 +40,7 @@ class VisitController extends Controller
     {
         $person = $this->findModelPerson($id);
         $searchModel = new VisitSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$person->newborn_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -54,7 +54,7 @@ class VisitController extends Controller
     {
         $model = $this->findModel($visit_id);
         $person = $this->findModelPerson($id);
-        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+      //  $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->visit_id]);
@@ -64,6 +64,15 @@ class VisitController extends Controller
             list($oaeSearchModel,$oaeDataprovider) = $this->loadScreenDataprovider($visit_id,'oae');
             list($ivhSearchModel,$ivhDataprovider) = $this->loadScreenDataprovider($visit_id,'ivh');
             list($ropSearchModel,$ropDataprovider) = $this->loadScreenDataprovider($visit_id,'rop');
+
+            $tskDataprovider->pagination->pageParam = 'tsk-page';
+            $tskDataprovider->sort->sortParam       = 'tsk-sort';
+            $oaeDataprovider->pagination->pageParam = 'oae-page';
+            $oaeDataprovider->sort->sortParam       = 'oae-sort';
+            $ivhDataprovider->pagination->pageParam = 'ivh-page';
+            $ivhDataprovider->sort->sortParam       = 'ivh-sort';
+            $ropDataprovider->pagination->pageParam = 'rop-page';
+            $ropDataprovider->sort->sortParam       = 'rop-sort';
 
             return $this->render('screening', [
                 'model' => $model,
@@ -78,6 +87,23 @@ class VisitController extends Controller
                 'ivhDataprovider' => $ivhDataprovider,
                 'ropSearchModel' => $ropSearchModel,
                 'ropDataprovider' => $ropDataprovider
+            ]);
+        }
+    }
+
+    public function actionDisease($id,$visit_id)
+    {
+        $model = $this->findModel($visit_id);
+        $person = $this->findModelPerson($id);
+        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['disease', 'id' => $person->newborn_id, 'visit_id'=>$model->visit_id]);
+        } else {
+            return $this->render('disease', [
+                'model' => $model,
+                'id'=> $id,
+                'person'=>$person
             ]);
         }
     }
@@ -102,10 +128,14 @@ class VisitController extends Controller
     public function actionCreate($id)
     {
         $person = $this->findModelPerson($id);
-        $model = new Visit();
+        $model = new Visit([
+          'patient_id' => $person->newborn_id,
+          'hospcode' => Yii::$app->user->identity->profile->hcode,
+          'date' => date('d-m-').(date('Y')+543)
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->visit_id]);
+            return $this->redirect(['update', 'id'=>$person->newborn_id,'visit_id' => $model->visit_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -120,15 +150,18 @@ class VisitController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$visit_id)
     {
-        $model = $this->findModel($id);
+        $person = $this->findModelPerson($id);
+        $model  = $this->findModel($visit_id);
+        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->visit_id]);
+            return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'person' => $person
             ]);
         }
     }

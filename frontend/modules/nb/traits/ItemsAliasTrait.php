@@ -40,4 +40,27 @@ trait ItemsAliasTrait {
   private function getRelationField($relationName, $fieldName, $defaultValue = null){
     return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
   }
+
+
+  public function setStandardFormatdate($field)
+  {
+    if(strlen($this->{$field}) >= 10){
+      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field})).' '.date('H:i:s',strtotime($this->{$field}));
+    }else{
+      return (date('Y',strtotime($this->{$field}))-543).date('-m-d',strtotime($this->{$field}));
+    }
+  }
+
+  public function setThaiFormatdate($field)
+  {
+    if(in_array($this->{$field},['0000-00-00','0000-00-00 00:00:00']) || empty($this->{$field}))
+    {
+      return null;
+    }
+    if(strlen($this->{$field}) >= 10 ){
+      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543).' '.date('H:i:s',strtotime($this->{$field}));
+    }else{
+      return date('d-m-',strtotime($this->{$field})). (date('Y',strtotime($this->{$field}))+543);
+    }
+  }
 }

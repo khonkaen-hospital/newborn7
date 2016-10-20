@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="xpanel-tab visit-index">
 
   <div class="xpanel-heading">
-    
+
       <span class="xpanel-title">
         ข้อมูลการตรวจ
       </span>
@@ -56,12 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'options'=>['style'=>'width:400px;'],
-                    'template' => '<div class="btn-group btn-group-sm text-center" role="group">{clinic} {vaccine} {icd10} {development} {delete}</div>',
+                    'template' => '<div class="btn-group btn-group-sm text-center" role="group">{vaccine} {clinic}  {icd10} {development} {delete}</div>',
                     'buttonOptions'=>['class'=>'btn btn-default'],
                     'buttons' => [
 
                         'vaccine' => function ($url, $model, $key) {
-                            return Html::a('<i class=""></i> การให้วัคซีน', ['/nb/visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
+                            return Html::a('<i class=""></i> ประวัติ', ['/nb/visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                         },
                         'clinic' => function ($url, $model, $key) {
                             return Html::a('<i class=""></i> คัดกรอง', ['/nb/visit/screening', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);

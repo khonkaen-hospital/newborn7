@@ -4,6 +4,9 @@ namespace frontend\modules\nb\models;
 
 use Yii;
 use common\models\Hospitals;
+use yii\behaviors\AttributeBehavior;
+use common\behaviors\AttributeValueBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%patient_visit}}".
@@ -89,8 +92,8 @@ class Visit extends \yii\db\ActiveRecord
         return [
             [['patient_id', 'hospcode', 'hn'], 'required'],
             [['patient_id', 'age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at', 'milk', 'milk_milk_powder', 'milk_powder'], 'integer'],
-            [['date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate'], 'safe'],
-            [['age_type', 'tsh_pku_result', 'ivh_result', 'vaccine', 'disease', 'complication', 'procedure_code', 'summary'], 'string'],
+            [['date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate','vaccine','disease','complication','procedure_code'], 'safe'],
+            [['age_type', 'tsh_pku_result', 'ivh_result', 'summary'], 'string'],
             [['head_size', 'height', 'weight', 'waist'], 'number'],
             [['seq', 'hn', 'inp_id'], 'string', 'max' => 15],
             [['hospcode', 'referin', 'referout'], 'string', 'max' => 5],
@@ -104,6 +107,49 @@ class Visit extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors(){
+      return [
+        [
+            'class' => AttributeValueBehavior::className(),
+            'attributes' => [
+                ActiveRecord::EVENT_AFTER_FIND => ['date'],
+            ],
+            'value' => function ($event, $attribute) {
+                return $this->setThaiFormatdate($attribute);
+            },
+        ],
+        [
+            'class' => AttributeValueBehavior::className(),
+            'attributes' => [
+              ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
+              ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
+            ],
+            'value' => function ($event, $attribute) {
+                return $this->setStandardFormatdate($attribute);
+            },
+        ],
+        // [
+        //     'class' => AttributeValueBehavior::className(),
+        //     'attributes' => [
+        //         ActiveRecord::EVENT_AFTER_FIND => ['vaccine','disease','complication','procedure_code'],
+        //     ],
+        //     'value' => function ($event, $attribute) {
+        //         return empty($this->{$attribute}) ? [] : explode(',',$this->vaccine);
+        //     },
+        // ],
+        [
+            'class' => AttributeValueBehavior::className(),
+            'attributes' => [
+              ActiveRecord::EVENT_BEFORE_INSERT => ['vaccine','disease','complication','procedure_code'],
+              ActiveRecord::EVENT_BEFORE_UPDATE => ['vaccine','disease','complication','procedure_code'],
+            ],
+            'value' => function ($event, $attribute) {
+                return is_array($this->{$attribute}) ? implode(',',$this->{$attribute}) : '';
+            }
+        ],
+      ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -114,8 +160,8 @@ class Visit extends \yii\db\ActiveRecord
             'seq' => 'Seq',
             'patient_id' => 'Patient ID',
             'hospcode' => 'Hospcode',
-            'hn' => 'Hn',
-            'date' => 'Date',
+            'hn' => 'HN',
+            'date' => 'วันที่ตรวจ',
             'clinic' => 'Clinic',
             'pttype' => 'Pttype',
             'age' => 'Age',
@@ -152,7 +198,7 @@ class Visit extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'ga' => 'Ga',
+            'ga' => 'GA',
             'hc' => 'Hc',
             'length' => 'Length',
             'af' => 'Af',
@@ -172,7 +218,7 @@ class Visit extends \yii\db\ActiveRecord
 
     public function fieldToArray(Array $fields){
       foreach ($fields as $key => $field) {
-        $this->{$field} = empty($this->{$field}) ? '' : explode(',',$this->{$field});
+        $this->{$field} = empty($this->{$field}) ? [] : explode(',',$this->{$field});
       }
     }
 

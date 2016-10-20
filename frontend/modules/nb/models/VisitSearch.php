@@ -40,9 +40,9 @@ class VisitSearch extends Visit
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$person_id)
     {
-        $query = Visit::find();
+        $query = Visit::find()->byPersonId($person_id);
 
         // add conditions that should always apply here
 

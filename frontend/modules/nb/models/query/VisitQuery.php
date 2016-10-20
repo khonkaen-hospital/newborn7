@@ -9,10 +9,12 @@ namespace frontend\modules\nb\models\query;
  */
 class VisitQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function byPersonId($patient_id)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere('patient_id = :patient_id',[
+          ':patient_id' => $patient_id
+        ]);
+    }
 
     /**
      * @inheritdoc

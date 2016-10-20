@@ -11,24 +11,30 @@ use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
 
-$this->title = 'ข้อมูลการคัดกรอง';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Patient Visits'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->visit_id, 'url' => ['view', 'id' => $model->visit_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = 'โรคและหัตถการ';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'ข้อมูลการตรวจ ('.$person->fullName.')', 'url' => ['visit/index','id'=>$person->newborn_id]];
+$this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<?=$this->render('/_mainmenu',[
+  <?php $form = ActiveForm::begin(); ?>
+
+<?=$this->render('/_menus',[
     'id'=>$id
 ])?>
 
 <div class="xpanel-tab">
   <div class="xpanel-heading">
-    <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียน', ['create'], ['class' => 'btn btn-primary']) ?>
-    <span class="xpanel-title"><?= Html::encode($this->title) ?></span>
+    <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
+    <span class="xpanel-title"><?= Html::encode($this->title) ?> <i>( <?=$model->hospitalName?> )</i></span>
+    <?= $this->render('/_visit-menus',[
+        'personId' => $person->newborn_id,
+        'visitId' => $model->visit_id
+    ])?>
   </div>
 <div class="xpanel-body patient-visit-create">
 
-    <?php $form = ActiveForm::begin(); ?>
+
 
 
     <fieldset>
@@ -90,7 +96,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     </div>
     </fieldset>
 
-    <?php ActiveForm::end(); ?>
+
 
 </div>
 </div>
+<br>
+
+<div class="form-group">
+    <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => ($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary') .' pull-right']) ?>
+</div>
+    <?php ActiveForm::end(); ?>

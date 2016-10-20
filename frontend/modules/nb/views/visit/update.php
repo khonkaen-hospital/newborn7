@@ -5,17 +5,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Visit */
 
-$this->title = 'Update Visit: ' . $model->visit_id;
-$this->params['breadcrumbs'][] = ['label' => 'Visits', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->visit_id, 'url' => ['view', 'id' => $model->visit_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'แก้ไขทะเบียนตรวจ';
+$this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'ข้อมูลการตรวจ ('.$person->fullName.')', 'url' => ['visit/index','id'=>$person->newborn_id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="visit-update">
+<?= $this->render('/_menus',[
+    'id' => $person->newborn_id
+])?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render('_form', [
+    'model' => $model,
+    'person' =>$person
+]) ?>
