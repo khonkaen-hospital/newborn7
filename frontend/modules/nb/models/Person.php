@@ -281,32 +281,4 @@ class Person extends ActiveRecord
         return $this->getRelationField('hospital','name');
     }
 
-    /** ============================================================================================================
-    * @referent http://php.net/manual/en/function.date-diff.php
-    * PARA: Date Should In YYYY-MM-DD Format
-    * ==============================================================================================================
-    * RESULT FORMAT:
-    *  '%y Year %m Month %d Day %h Hours %i Minute %s Seconds' =>  1 Year 3 Month 14 Day 11 Hours 49 Minute 36 Seconds
-    *  '%y Year %m Month %d Day'                               =>  1 Year 3 Month 14 Days
-    *  '%m Month %d Day'                                       =>  3 Month 14 Day
-    *  '%d Day %h Hours'                                       =>  14 Day 11 Hours
-    *  '%d Day'                                                =>  14 Days
-    *  '%h Hours %i Minute %s Seconds'                         =>  11 Hours 49 Minute 36 Seconds
-    *  '%i Minute %s Seconds'                                  =>  49 Minute 36 Seconds
-    *  '%h Hours                                               =>  11 Hours
-    *  '%a Days                                                =>  468 Days
-    ===========================================================================***/
-
-    public function dateDifference( $birth_date , $current_date, $differenceFormat = '%y' )
-    {
-        $interval  = date_diff(date_create($birth_date), date_create($current_date));
-        return $interval->format($differenceFormat);
-    }
-
-    public function getCurrentAge( $format = '%y' )
-    {
-      return $this->dateDifference($this->getOldAttribute('birth'), date('Y-m-d'), $format);
-    }
-
-
 }

@@ -24,21 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ])?>
 
 <div class="xpanel-tab">
-  <div class="xpanel-heading">
-    <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
-    <span class="xpanel-title"><?= Html::encode($this->title) ?> <i>( <?=$model->hospitalName?> )</i></span>
-    <?= $this->render('/_visit-menus',[
-        'personId' => $person->newborn_id,
-        'visitId' => $model->visit_id
-    ])?>
-  </div>
+  <?= $this->render('_visit-menus',[
+      'personId' => $person->newborn_id,
+      'visitId' => $model->visit_id,
+      'model' => $model,
+      'person' => $person
+  ])?>
 <div class="xpanel-body patient-visit-create">
-
-
-
-
-    <fieldset>
-    <legend><h3>โรคและหัตถการ</h3></legend>
     <div class="row">
       <div class="col-md-6">
         <?= $form->field($model, 'disease')->widget(Select2::className(),[
@@ -94,9 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
       </div>
     </div>
-    </fieldset>
-
-
 
 </div>
 </div>
@@ -105,4 +94,4 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => ($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary') .' pull-right']) ?>
 </div>
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>

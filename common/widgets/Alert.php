@@ -43,6 +43,12 @@ class Alert extends \yii\bootstrap\Widget
         'info'    => 'alert-info',
         'warning' => 'alert-warning'
     ];
+
+    /**
+     * @var integer the options for automatically fade out the alert message.
+     */
+    public $timeOut = 4000;
+
     /**
      * @var array the options for rendering the close button tag.
      */
@@ -77,5 +83,6 @@ class Alert extends \yii\bootstrap\Widget
                 $session->removeFlash($type);
             }
         }
+        $this->getView()->registerJs( '$(".alert").animate({opacity: 1.0}, '.$this->timeOut.').fadeOut("slow");');
     }
 }

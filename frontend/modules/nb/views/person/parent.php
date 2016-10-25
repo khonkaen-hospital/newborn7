@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\nb\models\Person */
 
-$this->title = 'ข้อมูลการคลอด ('.$model->fullName.')';
+$this->title = 'ประวัติมารดา ('.$model->fullName.')';
 $this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

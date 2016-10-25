@@ -75,6 +75,14 @@ h6,
   padding: 30px 34px 32px 33px;
   border-bottom: 1px solid #eceff2;
 }
+.xpanel-heading-info{
+  padding: 6px 20px;
+  border-bottom: 1px solid #eceff2;
+  margin-bottom: 10px;
+}
+.xpanel-heading-info label{
+  padding: 0 10px;
+}
 .xpanel-title{
   font-size: 20px;
   color:#22282B;
@@ -300,8 +308,8 @@ a.desc:after {
 
 /* -----------------------------
 Basic Style
-
 -------------------------------- */
+
 .cd-breadcrumb, .cd-multi-steps {
   width: 90%;
   max-width: 768px;
@@ -603,4 +611,11 @@ legend{
 .table a{
   color:#495d68;
   text-decoration: none;
+}
+
+.breadcrumb a:hover, .breadcrumb a{
+  color: #5d5d5d;
+}
+.breadcrumb li.active, .breadcrumb li.active{
+  color: #337ab7;
 }

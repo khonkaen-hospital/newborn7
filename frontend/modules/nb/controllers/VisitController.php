@@ -131,7 +131,8 @@ class VisitController extends Controller
         $model = new Visit([
           'patient_id' => $person->newborn_id,
           'hospcode' => Yii::$app->user->identity->profile->hcode,
-          'date' => date('d-m-').(date('Y')+543)
+          'date' => date('d-m-').(date('Y')+543),
+          'age' => $person->getCurrentAge('birth')
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

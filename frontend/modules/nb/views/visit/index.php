@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
       </span>
       <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียนตรวจ', ['create','id'=>$person->newborn_id], ['class' => 'btn btn-primary pull-right']) ?>
   </div>
+
   <div class="panel-body person-index">
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
@@ -35,7 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                'date:dateTime',
+                //'date:dateTime',
+                [
+                  'attribute'=>'date',
+                  'format'=>'raw',
+                  'value' => function($model){
+                    return  Html::a(($model->isOwnHospital? '<i class="glyphicon glyphicon-ok-circle"></i> ':null).Yii::$app->formatter->asDate($model->date),['update','id'=> $model->patient_id,'visit_id'=>$model->visit_id],[
+                      'style'=> $model->isOwnHospital?'color:#1799dd;': '',
+                      'data'=>['pjax'=>'0']
+                    ]);
+                  }
+                ],
                 'hospitalName',
                 // 'clinic',
                 // 'pttype',
@@ -58,8 +69,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'options'=>['style'=>'width:400px;'],
                     'template' => '<div class="btn-group btn-group-sm text-center" role="group">{vaccine} {clinic}  {icd10} {development} {delete}</div>',
                     'buttonOptions'=>['class'=>'btn btn-default'],
+                    'visibleButtons'=>[
+                      'delete'=>function ($model, $key, $index) {
+                         return $model->isOwnHospital == true;
+                      }
+                    ],
                     'buttons' => [
-
                         'vaccine' => function ($url, $model, $key) {
                             return Html::a('<i class=""></i> ประวัติ', ['/nb/visit/update', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                         },
@@ -70,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<i class=""></i> โรคและหัตถการ', ['/nb/visit/disease', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                         },
                         'development' => function ($url, $model, $key) {
-                            return Html::a('<i class=""></i> ข้อมูลพัฒนาการ', ['/nb/visit-develop/create', 'id'=>$model->patient_id,'visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
+                            return Html::a('<i class=""></i> ข้อมูลพัฒนาการ', ['/nb/visit-develop/create','visit_id' => $model->visit_id], ['class' => 'btn  btn-default','data'=>['pjax'=>'0']]);
                         }
                     ]
                 ],

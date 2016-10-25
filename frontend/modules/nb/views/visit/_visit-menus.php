@@ -11,19 +11,19 @@ use yii\helpers\Html;
         'items' => [
             [
                 'label' => 'ประวัติ',
-                'url' => ['/nb/visit/update','id'=>$person->newborn_id,'visit_id'=>$visit->visit_id]
+                'url' => ['/nb/visit/update','id'=>$personId,'visit_id'=>$visitId]
             ],
             [
                 'label' => 'การคัดกรอง',
-                'url' => ['/nb/visit/screening','id'=>$person->newborn_id,'visit_id'=>$visit->visit_id],
+                'url' => ['/nb/visit/screening','id'=>$personId,'visit_id'=>$visitId],
             ],
             [
                 'label' => 'โรคและหัตถการ',
-                'url' => ['/nb/visit/disease','id'=>$person->newborn_id,'visit_id'=>$visit->visit_id],
+                'url' => ['/nb/visit/disease','id'=>$personId,'visit_id'=>$visitId],
             ],
             [
                 'label' => 'ข้อมูลพัฒนาการ',
-                'url' => ['/nb/visit-develop/create','visit_id' => $visit->visit_id],
+                'url' => ['/nb/visit-develop/create','visit_id'=>$visitId],
             ]
         ],
         'options' => ['class' =>'nav-pills pull-right','style'=>'margin-top:-10px;'], // set this to nav-tab to get tab-styled navigation
@@ -32,8 +32,7 @@ use yii\helpers\Html;
     <div>
    </div>
  </div>
-
  <?= $this->render('_info',[
-   'visit' => $visit,
-   'person' => $person
+     'model' => $model,
+     'person' => $person
  ])?>

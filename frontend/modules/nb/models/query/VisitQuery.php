@@ -16,6 +16,13 @@ class VisitQuery extends \yii\db\ActiveQuery
         ]);
     }
 
+    public function byHospitalId($hospital_id)
+    {
+        return $this->andWhere('hospcode = :hospcode',[
+          ':hospcode' => $hospital_id
+        ]);
+    }
+
     /**
      * @inheritdoc
      * @return \frontend\modules\nb\models\Visit[]|array

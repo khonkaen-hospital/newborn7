@@ -16,43 +16,36 @@ use yii\bootstrap\Modal;
 <?php $form = ActiveForm::begin(); ?>
 
 <div class="xpanel-tab visit-index">
+  <?= $this->render('_visit-menus',[
+      'personId' => $person->newborn_id,
+      'visitId' => $model->visit_id,
+      'model' => $model,
+      'person' => $person
+  ])?>
+</div>
 
-  <div class="xpanel-heading">
-    <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
-      <span class="xpanel-title">
-        <?=$model->isNewRecord ? 'ลงทะเบียนตรวจ' : 'ทะเบียนตรวจ'?>
-        <i>( <?= $model->isNewRecord ? Yii::$app->user->identity->profile->hospitalName : $model->hospitalName?> )</i>
-      </span>
-
-      <?php if(!$model->isNewRecord) {
-          echo $this->render('/_visit-menus',[
-          'personId' => $person->newborn_id,
-          'visitId' => $model->visit_id
-        ]);
-      }?>
+<div class="xpanel visit-index">
+  <div class="xpanel-heading-sm">
+      <span class="xpanel-title"> <i class="fa fa-user-md"></i> ซักประวัติ </span>
   </div>
   <div class="panel-body visit-create">
-
-<div class="patient-visit-form">
-
-<?= $form->errorSummary($model)?>
-
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model, 'hn')->textInput(['maxlength' => true]); ?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <?= $form->field($model, 'date')->widget(MaskedInput::className(), ['mask' => '99-99-9999']) ?>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <?= $form->field($model, 'foster_name')->textInput(['maxlength' => true]) ?>
         </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
+        </div>
     </div>
-
-</div>
-</div>
+  </div>
 </div>
 
 
@@ -83,13 +76,12 @@ use yii\bootstrap\Modal;
         <div class="col-md-2">
             <?= $form->field($model, 'x',[
               'template' => '{label} <div class="input-group">
-        <div class="input-group-addon">x</div>
-        {input}
-        {error} {hint}
-      </div>'
+                <div class="input-group-addon">x</div>
+                {input}
+                {error} {hint}
+              </div>'
             ])->textInput(['maxlength' => true])->label('&nbsp;') ?>
         </div>
-
       </div>
 
       <div class="row">
@@ -152,7 +144,9 @@ use yii\bootstrap\Modal;
 </div>
 
 <div class="form-group">
+    <?php if($model->isOwnHospital): ?>
     <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => ($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'). ' pull-right']) ?>
+  <?php endif; ?>
 </div>
 
 

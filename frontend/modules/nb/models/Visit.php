@@ -164,7 +164,7 @@ class Visit extends \yii\db\ActiveRecord
             'date' => 'วันที่ตรวจ',
             'clinic' => 'Clinic',
             'pttype' => 'Pttype',
-            'age' => 'Age',
+            'age' => 'อายุปัจจุบัน',
             'age_type' => 'Age Type',
             'result' => 'Result',
             'referin' => 'Referin',
@@ -213,6 +213,7 @@ class Visit extends \yii\db\ActiveRecord
             'complication' => 'Complication',
             'procedure_code' => 'Procedure Code',
             'summary' => 'สรุปผลตรวจ',
+            'hospitalName' => 'ชื่อสถานพยาบาล',
         ];
     }
 
@@ -243,5 +244,9 @@ class Visit extends \yii\db\ActiveRecord
     public function getHospitalName()
     {
         return $this->getRelationField('hospital','name');
+    }
+
+    public function getIsOwnHospital(){
+      return $this->hospcode == Yii::$app->user->identity->profile->hcode;
     }
 }

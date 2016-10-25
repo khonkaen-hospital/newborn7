@@ -52,7 +52,7 @@ use kartik\typeahead\Typeahead;
         <?= $form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9']) ?>
       </div>
       <div class="col-sm-3">
-        <?= $form->field($model, 'birth')->widget(MaskedInput::className(), ['mask' => '99-99-9999'])->label($model->isNewRecord ? $model->getAttributeLabel('birth') : $model->getAttributeLabel('birth'). ': '.$model->currentAge.' ปี') ?>
+        <?= $form->field($model, 'birth')->widget(MaskedInput::className(), ['mask' => '99-99-9999'])->label($model->isNewRecord ? $model->getAttributeLabel('birth') : $model->getAttributeLabel('birth'). ': '.$model->getCurrentAge('birth').' ปี') ?>
       </div>
       <div class="col-sm-3">
         <?= $form->field($model, 'hn')->textInput(['maxlength' => true]) ?>

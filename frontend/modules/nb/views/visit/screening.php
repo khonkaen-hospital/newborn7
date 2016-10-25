@@ -22,75 +22,66 @@ $this->params['breadcrumbs'][] = $this->title;
 ])?>
 
 <div class="xpanel-tab">
-  <div class="xpanel-heading">
-    <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
-    <span class="xpanel-title"><?= Html::encode($this->title) ?> <i>( <?=$model->hospitalName?> )</i></span>
-    <?= $this->render('/_visit-menus',[
-        'personId' => $person->newborn_id,
-        'visitId' => $visit_id
-    ])?>
-  </div>
-<div class="xpanel-body patient-visit-create">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-
-    <!-- =============== TSK PKU Screening=========================== -->
-    <?php if(!$model->isNewRecord): ?>
-    <?= $this->render('_form_tsk_pku',[
-      'model'   => $model,
-      'patient' => $patient,
-      'id'      => $id,
-      'form'    => $form,
-      'searchModel' => $tskSearchModel,
-      'dataProvider' => $tskDataprovider
-    ]); ?>
-    <?php endif; ?>
-    <!-- =============== END TSK PKU Screening======================= -->
-
-    <!-- =============== OAE Screening=========================== -->
-    <?php if(!$model->isNewRecord): ?>
-    <?= $this->render('_form_oae',[
-      'model'   => $model,
-      'patient' => $patient,
-      'id'      => $id,
-      'form'    => $form,
-      'searchModel' => $oaeSearchModel,
-      'dataProvider' => $oaeDataprovider
-    ]); ?>
-    <?php endif; ?>
-    <!-- =============== END OAE Screening======================= -->
-
-    <!-- =============== IVH Screening=========================== -->
-    <?php if(!$model->isNewRecord): ?>
-    <?= $this->render('_form_ivh',[
-      'model'   => $model,
-      'patient' => $patient,
-      'id'      => $id,
-      'form'    => $form,
-      'searchModel' => $ivhSearchModel,
-      'dataProvider' => $ivhDataprovider
-    ]); ?>
-    <?php endif; ?>
-    <!-- =============== END IVH Screening======================= -->
-
-    <!-- =============== ROP Screening=========================== -->
-    <?php if(!$model->isNewRecord): ?>
-    <?= $this->render('_form_rop',[
-      'model'   => $model,
-      'patient' => $patient,
-      'id'      => $id,
-      'form'    => $form,
-      'searchModel' => $ropSearchModel,
-      'dataProvider' => $ropDataprovider
-    ]); ?>
-    <?php endif; ?>
-    <!-- =============== END ROP Screening======================= -->
-
-    <?php ActiveForm::end(); ?>
-
+  <?= $this->render('_visit-menus',[
+      'personId' => $person->newborn_id,
+      'visitId' => $model->visit_id,
+      'model' => $model,
+      'person' => $person
+  ])?>
 </div>
-</div>
+
+<!-- =============== TSK PKU Screening=========================== -->
+<?php if(!$model->isNewRecord): ?>
+<?= $this->render('_form_tsk_pku',[
+  'model'   => $model,
+  'patient' => $patient,
+  'id'      => $id,
+  'form'    => $form,
+  'searchModel' => $tskSearchModel,
+  'dataProvider' => $tskDataprovider
+]); ?>
+<?php endif; ?>
+<!-- =============== END TSK PKU Screening======================= -->
+
+<!-- =============== OAE Screening=========================== -->
+<?php if(!$model->isNewRecord): ?>
+<?= $this->render('_form_oae',[
+  'model'   => $model,
+  'patient' => $patient,
+  'id'      => $id,
+  'form'    => $form,
+  'searchModel' => $oaeSearchModel,
+  'dataProvider' => $oaeDataprovider
+]); ?>
+<?php endif; ?>
+<!-- =============== END OAE Screening======================= -->
+
+<!-- =============== IVH Screening=========================== -->
+<?php if(!$model->isNewRecord): ?>
+<?= $this->render('_form_ivh',[
+  'model'   => $model,
+  'patient' => $patient,
+  'id'      => $id,
+  'form'    => $form,
+  'searchModel' => $ivhSearchModel,
+  'dataProvider' => $ivhDataprovider
+]); ?>
+<?php endif; ?>
+<!-- =============== END IVH Screening======================= -->
+
+<!-- =============== ROP Screening=========================== -->
+<?php if(!$model->isNewRecord): ?>
+<?= $this->render('_form_rop',[
+  'model'   => $model,
+  'patient' => $patient,
+  'id'      => $id,
+  'form'    => $form,
+  'searchModel' => $ropSearchModel,
+  'dataProvider' => $ropDataprovider
+]); ?>
+<?php endif; ?>
+<!-- =============== END ROP Screening======================= -->
+
 
 <?php
 $Js = <<<JS
