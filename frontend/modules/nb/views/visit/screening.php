@@ -22,11 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ])?>
 
 <div class="xpanel-tab">
-  <?= $this->render('_visit-menus',[
-      'personId' => $person->newborn_id,
-      'visitId' => $model->visit_id,
-      'model' => $model,
-      'person' => $person
+  <?= $this->render('/_visit-menus', [
+      'visit' => $model,
+      'person' => $person,
   ])?>
 </div>
 

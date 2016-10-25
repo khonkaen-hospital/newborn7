@@ -16,11 +16,9 @@ use yii\bootstrap\Modal;
 <?php $form = ActiveForm::begin(); ?>
 
 <div class="xpanel-tab visit-index">
-  <?= $this->render('_visit-menus',[
-      'personId' => $person->newborn_id,
-      'visitId' => $model->visit_id,
-      'model' => $model,
-      'person' => $person
+  <?= $this->render('/_visit-menus', [
+      'visit' => $model,
+      'person' => $person,
   ])?>
 </div>
 
