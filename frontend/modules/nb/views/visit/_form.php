@@ -1,13 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\widgets\TimePicker;
 use yii\widgets\MaskedInput;
 use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
 use yii\bootstrap\Modal;
-
+use common\models\Hospital;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
@@ -137,6 +139,34 @@ use yii\bootstrap\Modal;
   <div class="panel-body visit-create">
     <div class="patient-visit-form">
       <?= $form->field($model, 'summary')->textarea(['rows' => 5]) ?>
+    </div>
+  </div>
+</div>
+
+<div class="xpanel visit-index">
+  <div class="xpanel-heading-sm">
+      <span class="xpanel-title"> <i class="fa fa-ambulance"></i> ส่ง Refer </span>
+  </div>
+  <div class="panel-body visit-create">
+    <div class="row">
+      <div class="col-md-6">
+          <?= $form->field($model, 'refer_province_code')->dropdownList($model->getItemProvince(),[
+                    'id'=>'ddl-province',
+                    'prompt'=>'เลือกจังหวัด'
+           ]) ?>
+      </div>
+      <div class="col-md-6">
+        <?= $form->field($model, 'refer_hospcode')->widget(DepDrop::classname(), [
+           'options'=>['id'=>'ddl-hcode'],
+           'type'=>DepDrop::TYPE_SELECT2,
+           'data'=> $initReferHospital,
+           'pluginOptions'=>[
+               'depends'=>['ddl-province'],
+               'placeholder'=>'เลือกสถานพยาบาล...',
+               'url'=>Url::to(['/nb/visit/get-hospital'])
+           ]
+       ]); ?>
+      </div>
     </div>
   </div>
 </div>

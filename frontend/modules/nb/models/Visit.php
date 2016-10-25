@@ -104,6 +104,7 @@ class Visit extends \yii\db\ActiveRecord
             [['ga', 'hc', 'length', 'af', 'x'], 'string', 'max' => 20],
             [['foster_name'], 'string', 'max' => 100],
             [['vaccine_other'], 'string', 'max' => 200],
+            [['refer_province_code', 'refer_hospcode','refer_from_hospcode'], 'string', 'max' => 6],
         ];
     }
 
@@ -214,6 +215,8 @@ class Visit extends \yii\db\ActiveRecord
             'procedure_code' => 'Procedure Code',
             'summary' => 'สรุปผลตรวจ',
             'hospitalName' => 'ชื่อสถานพยาบาล',
+            'refer_province_code' => 'จังหวัด',
+            'refer_hospcode' => 'ชื่อสถานพยาบาล',
         ];
     }
 
@@ -248,5 +251,34 @@ class Visit extends \yii\db\ActiveRecord
 
     public function getIsOwnHospital(){
       return $this->hospcode == Yii::$app->user->identity->profile->hcode;
+    }
+
+    public function getItemAilas($key){
+      $items = [
+        'province' => [
+          '40' => 'ขอนแก่น',
+          '44' => 'มหาสารคาม',
+          '45' => 'ร้อยเอ็ด',
+          '46' => 'กาฬสินธุ์'
+        ]
+      ];
+      return array_key_exists($key, $items) ? $items[$key] : [];
+    }
+
+    public function getItemProvince(){
+      return $this->getItemAilas('province');
+    }
+
+    public function getProvinceName(){
+      $items = $this->getItemAilas('province');
+      return array_key_exists($this->refer_province_code, $items) ? $items[$this->refer_province_code] : '';
+    }
+
+    public function getHospitalRefer(){
+      return $this->hasOne(Hospitals::className(),['off_id'=>'refer_hospcode']);
+    }
+
+    public function getHospitalReferName(){
+      return isset($this->hospital) ? $this->hospital->name : '';
     }
 }

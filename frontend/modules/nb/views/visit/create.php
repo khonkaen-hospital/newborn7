@@ -18,5 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('_form', [
     'model' => $model,
-    'person' =>$person
+    'person' => $person,
+    'initReferHospital' => $initReferHospital
 ]) ?>

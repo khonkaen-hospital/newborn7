@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                        'data'=> $hospital,
                        'pluginOptions'=>[
                            'depends'=>['ddl-province'],
-                           'placeholder'=>'เลือกจังหวัด...',
+                           'placeholder'=>'เลือกสถานพยาบาล...',
                            'url'=>Url::to(['/user/settings/get-hospital'])
                        ]
                    ]); ?>

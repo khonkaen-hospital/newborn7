@@ -6,11 +6,13 @@ use Yii;
 use frontend\modules\nb\models\Person;
 use frontend\modules\nb\models\Visit;
 use frontend\modules\nb\models\VisitSearch;
-use frontend\modules\nb\models\VisitScreening;
 use frontend\modules\nb\models\VisitScreeningSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Hospitals;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * VisitController implements the CRUD actions for Visit model.
@@ -18,7 +20,7 @@ use yii\filters\VerbFilter;
 class VisitController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -34,23 +36,23 @@ class VisitController extends Controller
 
     /**
      * Lists all Visit models.
+     *
      * @return mixed
      */
     public function actionIndex($id)
     {
         $person = $this->findModelPerson($id);
         $searchModel = new VisitSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$person->newborn_id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $person->newborn_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'person' => $person
+            'person' => $person,
         ]);
     }
 
-
-    public function actionScreening($id,$visit_id)
+    public function actionScreening($id, $visit_id)
     {
         $model = $this->findModel($visit_id);
         $person = $this->findModelPerson($id);
@@ -59,20 +61,19 @@ class VisitController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->visit_id]);
         } else {
-
-            list($tskSearchModel,$tskDataprovider) = $this->loadScreenDataprovider($visit_id,'tshpku');
-            list($oaeSearchModel,$oaeDataprovider) = $this->loadScreenDataprovider($visit_id,'oae');
-            list($ivhSearchModel,$ivhDataprovider) = $this->loadScreenDataprovider($visit_id,'ivh');
-            list($ropSearchModel,$ropDataprovider) = $this->loadScreenDataprovider($visit_id,'rop');
+            list($tskSearchModel, $tskDataprovider) = $this->loadScreenDataprovider($visit_id, 'tshpku');
+            list($oaeSearchModel, $oaeDataprovider) = $this->loadScreenDataprovider($visit_id, 'oae');
+            list($ivhSearchModel, $ivhDataprovider) = $this->loadScreenDataprovider($visit_id, 'ivh');
+            list($ropSearchModel, $ropDataprovider) = $this->loadScreenDataprovider($visit_id, 'rop');
 
             $tskDataprovider->pagination->pageParam = 'tsk-page';
-            $tskDataprovider->sort->sortParam       = 'tsk-sort';
+            $tskDataprovider->sort->sortParam = 'tsk-sort';
             $oaeDataprovider->pagination->pageParam = 'oae-page';
-            $oaeDataprovider->sort->sortParam       = 'oae-sort';
+            $oaeDataprovider->sort->sortParam = 'oae-sort';
             $ivhDataprovider->pagination->pageParam = 'ivh-page';
-            $ivhDataprovider->sort->sortParam       = 'ivh-sort';
+            $ivhDataprovider->sort->sortParam = 'ivh-sort';
             $ropDataprovider->pagination->pageParam = 'rop-page';
-            $ropDataprovider->sort->sortParam       = 'rop-sort';
+            $ropDataprovider->sort->sortParam = 'rop-sort';
 
             return $this->render('screening', [
                 'model' => $model,
@@ -86,31 +87,33 @@ class VisitController extends Controller
                 'ivhSearchModel' => $ivhSearchModel,
                 'ivhDataprovider' => $ivhDataprovider,
                 'ropSearchModel' => $ropSearchModel,
-                'ropDataprovider' => $ropDataprovider
+                'ropDataprovider' => $ropDataprovider,
             ]);
         }
     }
 
-    public function actionDisease($id,$visit_id)
+    public function actionDisease($id, $visit_id)
     {
         $model = $this->findModel($visit_id);
         $person = $this->findModelPerson($id);
-        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+        $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['disease', 'id' => $person->newborn_id, 'visit_id'=>$model->visit_id]);
+            return $this->redirect(['disease', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {
             return $this->render('disease', [
                 'model' => $model,
-                'id'=> $id,
-                'person'=>$person
+                'id' => $id,
+                'person' => $person,
             ]);
         }
     }
 
     /**
      * Displays a single Visit model.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionView($id)
@@ -123,6 +126,7 @@ class VisitController extends Controller
     /**
      * Creates a new Visit model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate($id)
@@ -131,16 +135,17 @@ class VisitController extends Controller
         $model = new Visit([
           'patient_id' => $person->newborn_id,
           'hospcode' => Yii::$app->user->identity->profile->hcode,
-          'date' => date('d-m-').(date('Y')+543),
-          'age' => $person->getCurrentAge('birth')
+          'date' => date('d-m-').(date('Y') + 543),
+          'age' => $person->getCurrentAge('birth'),
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id'=>$person->newborn_id,'visit_id' => $model->visit_id]);
+            return $this->redirect(['update', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'person' => $person
+                'person' => $person,
+                'initReferHospital' => [],
             ]);
         }
     }
@@ -148,21 +153,24 @@ class VisitController extends Controller
     /**
      * Updates an existing Visit model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
-    public function actionUpdate($id,$visit_id)
+    public function actionUpdate($id, $visit_id)
     {
         $person = $this->findModelPerson($id);
-        $model  = $this->findModel($visit_id);
-        $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
+        $model = $this->findModel($visit_id);
+        $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'person' => $person
+                'person' => $person,
+                'initReferHospital' => ArrayHelper::map($this->getHospitalsByCode($model->refer_hospcode), 'id', 'name'),
             ]);
         }
     }
@@ -170,7 +178,9 @@ class VisitController extends Controller
     /**
      * Deletes an existing Visit model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -180,18 +190,62 @@ class VisitController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function loadScreenDataprovider($visit_id,$type)
+    public function loadScreenDataprovider($visit_id, $type)
     {
         $searchModel = new VisitScreeningSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$visit_id,$type);
-        return [$searchModel,$dataProvider];
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $visit_id, $type);
+
+        return [$searchModel, $dataProvider];
+    }
+
+    public function actionGetHospital()
+    {
+        $out = [];
+        if (($parents = Yii::$app->request->post('depdrop_parents')) != null) {
+            if ($parents != null) {
+                $province_id = $parents[0];
+                if ($province_id == 'R7') {
+                    $province_id = ['40', '44', '45', '46'];
+                }
+                $out = $this->getHospitalsByProvince($province_id);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
+
+    protected function getHospitalsByProvince($id)
+    {
+        $datas = Hospitals::find()->where(['provcode' => $id])->all();
+        return $this->MapData($datas, 'off_id', 'name');
+    }
+
+    protected function getHospitalsByCode($id)
+    {
+        $datas = Hospitals::find()->where(['Off_id' => $id])->all();
+        return $this->MapData($datas, 'off_id', 'name');
+    }
+
+    protected function MapData($datas, $fieldId, $fieldName)
+    {
+        $obj = [];
+        foreach ($datas as $key => $value) {
+            array_push($obj, ['id' => $value->{$fieldId}, 'name' => $value->{$fieldName}]);
+        }
+
+        return $obj;
     }
 
     /**
      * Finds the Visit model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     *
+     * @param int $id
+     *
      * @return Visit the loaded model
+     *
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
