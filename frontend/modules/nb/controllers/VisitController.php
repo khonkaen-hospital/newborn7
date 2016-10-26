@@ -4,6 +4,8 @@ namespace frontend\modules\nb\controllers;
 
 use Yii;
 use frontend\modules\nb\models\Person;
+use frontend\modules\nb\models\Icd10;
+use frontend\modules\nb\models\Refer;
 use frontend\modules\nb\models\Visit;
 use frontend\modules\nb\models\VisitSearch;
 use frontend\modules\nb\models\VisitScreeningSearch;
@@ -59,6 +61,7 @@ class VisitController extends Controller
       //  $model->fieldToArray(['vaccine','disease','complication','procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['index', 'id' => $model->visit_id]);
         } else {
             list($tskSearchModel, $tskDataprovider) = $this->loadScreenDataprovider($visit_id, 'tshpku');
@@ -94,33 +97,39 @@ class VisitController extends Controller
 
     public function actionDisease($id, $visit_id)
     {
-        $model = $this->findModel($visit_id);
-        $person = $this->findModelPerson($id);
+        $model   = $this->findModel($visit_id);
+        $person  = $this->findModelPerson($id);
+        //$icdcode = Icdcode::find()->select(['code'])->indexBy('code')->column();
         $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['disease', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {
             return $this->render('disease', [
                 'model' => $model,
                 'id' => $id,
                 'person' => $person,
+                //'icdcode' => $icdcode
             ]);
         }
     }
 
-    /**
-     * Displays a single Visit model.
-     *
-     * @param int $id
-     *
-     * @return mixed
-     */
-    public function actionView($id)
+    public function actionDischarge($visit_id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model  = $this->findModel($visit_id);
+        $person = $this->findModelPerson($model->patient_id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
+            return $this->redirect(['discharge', 'visit_id' => $model->visit_id]);
+        } else {
+            return $this->render('discharge', [
+                'model' => $model,
+                'person' => $person,
+                'initReferHospital' => ArrayHelper::map($this->getHospitalsByCode($model->refer_hospcode), 'id', 'name'),
+            ]);
+        }
     }
 
     /**
@@ -140,12 +149,13 @@ class VisitController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->addRefer($model);
+            Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['update', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'person' => $person,
-                'initReferHospital' => [],
+                'person' => $person
             ]);
         }
     }
@@ -165,14 +175,33 @@ class VisitController extends Controller
         $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->addRefer($model);
+            Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->refresh();
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'person' => $person,
-                'initReferHospital' => ArrayHelper::map($this->getHospitalsByCode($model->refer_hospcode), 'id', 'name'),
+                'person' => $person
+
             ]);
         }
+    }
+
+    private function addRefer($visit){
+      if(isset($visit->refer)){
+        $model = $visit->refer;
+
+      }else{
+        $model = new Refer([
+          'hospcode' => $visit->hospcode,
+          'patient_id' => $visit->patient_id,
+          'visit_id' => $visit->visit_id,
+          'refer_to' => $visit->refer_hospcode,
+          'status' => Refer::STATUS_REFER
+        ]);
+        $model->save();
+      }
+
     }
 
     /**

@@ -3,22 +3,26 @@
 namespace frontend\modules\nb;
 
 /**
- * nb module definition class
+ * nb module definition class.
  */
 class Module extends \yii\base\Module
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $controllerNamespace = 'frontend\modules\nb\controllers';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
         parent::init();
 
-        // custom initialization code goes here
+        $this->modules = [
+          'api' => [
+            'class' => 'frontend\modules\nb\modules\api\Module',
+          ]
+        ];
     }
 }

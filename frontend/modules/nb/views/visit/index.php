@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <span class="xpanel-title">
         ข้อมูลการตรวจ
       </span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียนตรวจ', ['create','id'=>$person->newborn_id], ['class' => 'btn btn-primary pull-right']) ?>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียนตรวจ', ['create','id'=>$person->newborn_id], ['class' => 'btn btn-success pull-right']) ?>
   </div>
 
   <div class="panel-body person-index">

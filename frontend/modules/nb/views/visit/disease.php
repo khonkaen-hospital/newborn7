@@ -1,12 +1,13 @@
 <?php
 
-
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use kartik\date\DatePicker;
-use kartik\widgets\TimePicker;
-use kartik\select2\Select2;
+use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use kartik\select2\Select2;
+use kartik\date\DatePicker;
+use yii\bootstrap\ActiveForm;
+use kartik\widgets\TimePicker;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\newborn7\models\PatientVisit */
@@ -15,14 +16,46 @@ $this->title = 'โรคและหัตถการ';
 $this->params['breadcrumbs'][] = ['label' => 'ทะเบียน', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'ข้อมูลการตรวจ ('.$person->fullName.')', 'url' => ['visit/index','id'=>$person->newborn_id]];
 $this->params['breadcrumbs'][] = $this->title;
+$pluginOptions = [
+            'language' => [
+                     'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
+            ],
+            'ajax' => [
+                'url' => Url::to(['/nb/api/icdcodes/search']),
+                'dataType' => 'json',
+                'cache'=>true,
+                //'data' => new JsExpression('function(params) { return {q:params.term}; }'),
+                'templateSelection' => new JsExpression('function (data) { return data.code; }'),
+                'data' => new JsExpression('function(params) { return {q:params.term,page:params.page}; }'),
+                'processResults' => new JsExpression("function (data, params) {
 
+                         var datas = $.map(data.items, function (obj) {
+                          obj.id = obj.code;
+                          obj.text =  ('('+obj.code+') '+obj.description);
+                          return obj;
+                         });
+
+                         params.page = params.page || 1;
+
+                         return {
+                           results: datas,
+                           pagination: {
+                             more: (params.page * data._meta.perPage) < data._meta.totalCount
+                           }
+                         };
+                       },
+                   ")
+            ],
+            'tags' => true,
+            //'maximumInputLength' => 10
+        ];
 ?>
-  <?php $form = ActiveForm::begin(); ?>
+
+<?php $form = ActiveForm::begin(); ?>
 
 <?=$this->render('/_menus',[
     'id'=>$id
 ])?>
-
 
 <div class="xpanel-tab">
   <?= $this->render('/_visit-menus', [
@@ -32,8 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="xpanel-body patient-visit-create">
     <div class="row">
       <div class="col-md-6">
-        <?= $form->field($model, 'disease')->widget(Select2::className(),[
 
+        <?= $form->field($model, 'disease')->widget(Select2::className(),[
           'maintainOrder' => true,
           'toggleAllSettings' => [
               'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
@@ -42,15 +75,11 @@ $this->params['breadcrumbs'][] = $this->title;
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก disease..', 'multiple' => true],
-          'pluginOptions' => [
-              'tags' => true,
-              'maximumInputLength' => 10
-          ],
+          'pluginOptions' => $pluginOptions
         ]) ?>
       </div>
       <div class="col-md-6">
         <?= $form->field($model, 'complication')->widget(Select2::className(),[
-
           'maintainOrder' => true,
           'toggleAllSettings' => [
               'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
@@ -59,10 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก complication..', 'multiple' => true],
-          'pluginOptions' => [
-              'tags' => true,
-              'maximumInputLength' => 10
-          ],
+          'pluginOptions' => $pluginOptions
         ]) ?>
       </div>
     </div>

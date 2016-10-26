@@ -23,6 +23,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Refer extends \yii\db\ActiveRecord
 {
+    const STATUS_REFER = 1;
+    const STATUS_ACCEPT = 2;
     /**
      * @inheritdoc
      */
@@ -45,7 +47,7 @@ class Refer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hospcode', 'patient_id', 'visit_id', 'refer_to', 'status', 'irefer_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
+            [['hospcode', 'patient_id', 'visit_id', 'refer_to'], 'required'],
             [['hospcode', 'patient_id', 'visit_id', 'refer_to', 'status', 'irefer_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
         ];
     }

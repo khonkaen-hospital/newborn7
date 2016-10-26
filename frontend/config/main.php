@@ -1,9 +1,10 @@
 <?php
+
 $params = array_merge(
-    require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__.'/../../common/config/params.php'),
+    require(__DIR__.'/../../common/config/params-local.php'),
+    require(__DIR__.'/params.php'),
+    require(__DIR__.'/params-local.php')
 );
 
 return [
@@ -24,7 +25,7 @@ return [
             'web_path' => '@web', // path alias to web base
             'base_path' => '@webroot', // path alias to web base
             'minify_path' => '@webroot/minify', // path alias to save minify result
-            'js_position' => [ \yii\web\View::POS_END ], // positions of js files to be minified
+            'js_position' => [\yii\web\View::POS_END], // positions of js files to be minified
             'force_charset' => 'UTF-8', // charset forcibly assign, otherwise will use all of the files found charset
             'expand_imports' => true, // whether to change @import on content
             'compress_output' => true, // compress result html page
@@ -56,14 +57,26 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                 [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                      'nb/api/icdcode'
+                    ],
+                    'extraPatterns' => [
+                      'GET search' => 'search',
+                      'GET ajax' => 'ajax',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\w+>',
+                    ],
+                ],
             ],
         ],
-        */
     ],
     'params' => $params,
     'modules' => [
@@ -89,11 +102,11 @@ return [
                 'welcomeSubject' => 'ยินดีต้อนรับสู่ระบบข้อมูลสุขภาพที่ 7',
                 'confirmationSubject' => 'ยืนยันการลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
                 'reconfirmationSubject' => 'ส่งข้อมูลรหัสยืนยันเพื่อลงทะเบียนระบบข้อมูลสุขภาพที่ 7',
-                'recoverySubject' => 'กู้คืนระหัสผ่านระบบข้อมูลสุขภาพที่ 7'
+                'recoverySubject' => 'กู้คืนระหัสผ่านระบบข้อมูลสุขภาพที่ 7',
             ],
             'controllerMap' => [
-                'settings' => 'frontend\controllers\user\SettingsController'
+                'settings' => 'frontend\controllers\user\SettingsController',
             ],
-        ]
-    ]
+        ],
+    ],
 ];

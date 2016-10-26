@@ -4,32 +4,31 @@ namespace frontend\modules\nb\models;
 
 use Yii;
 use common\models\Hospitals;
-use yii\behaviors\AttributeBehavior;
 use common\behaviors\AttributeValueBehavior;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%patient_visit}}".
  *
- * @property integer $visit_id
+ * @property int $visit_id
  * @property string $seq
- * @property integer $patient_id
+ * @property int $patient_id
  * @property string $hospcode
  * @property string $hn
  * @property string $date
  * @property string $clinic
  * @property string $pttype
- * @property integer $age
+ * @property int $age
  * @property string $age_type
  * @property string $result
  * @property string $referin
  * @property string $referout
- * @property double $head_size
- * @property double $height
- * @property double $weight
- * @property double $waist
- * @property integer $bp_max
- * @property integer $bp_min
+ * @property float $head_size
+ * @property float $height
+ * @property float $weight
+ * @property float $waist
+ * @property int $bp_max
+ * @property int $bp_min
  * @property string $inp_id
  * @property string $tsh_pku
  * @property string $tsh_pku_date
@@ -49,26 +48,25 @@ use yii\db\ActiveRecord;
  * @property string $rop_result
  * @property string $rop_hosp_appointment
  * @property string $lastupdate
- * @property integer $created_by
- * @property integer $updated_by
- * @property integer $created_at
- * @property integer $updated_at
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int $created_at
+ * @property int $updated_at
  * @property string $ga
  * @property string $hc
  * @property string $length
  * @property string $af
  * @property string $x
  * @property string $foster_name
- * @property integer $milk
- * @property integer $milk_milk_powder
- * @property integer $milk_powder
+ * @property int $milk
+ * @property int $milk_milk_powder
+ * @property int $milk_powder
  * @property string $vaccine
  * @property string $vaccine_other
  * @property string $disease
  * @property string $complication
  * @property string $procedure_code
  * @property string $summary
- *
  * @property PatientVisitClinic $patientVisitClinic
  * @property PatientVisitDiag[] $patientVisitDiags
  * @property PatientVisitProcedure[] $patientVisitProcedures
@@ -77,7 +75,7 @@ class Visit extends \yii\db\ActiveRecord
 {
     use \frontend\modules\nb\traits\ItemsAliasTrait;
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -85,14 +83,14 @@ class Visit extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['patient_id', 'hospcode', 'hn'], 'required'],
-            [['patient_id', 'age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at', 'milk', 'milk_milk_powder', 'milk_powder'], 'integer'],
-            [['date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate','vaccine','disease','complication','procedure_code'], 'safe'],
+            [['patient_id', 'age', 'bp_max', 'bp_min', 'created_by', 'updated_by', 'created_at', 'updated_at', 'milk', 'milk_milk_powder', 'milk_powder', 'discharge_status'], 'integer'],
+            [['date', 'discharge_date', 'tsh_pku_date', 'tsh_pku_time', 'oae_date', 'oae_abr', 'ivh_date', 'rop_date', 'lastupdate', 'vaccine', 'disease', 'complication', 'procedure_code'], 'safe'],
             [['age_type', 'tsh_pku_result', 'ivh_result', 'summary'], 'string'],
             [['head_size', 'height', 'weight', 'waist'], 'number'],
             [['seq', 'hn', 'inp_id'], 'string', 'max' => 15],
@@ -104,16 +102,17 @@ class Visit extends \yii\db\ActiveRecord
             [['ga', 'hc', 'length', 'af', 'x'], 'string', 'max' => 20],
             [['foster_name'], 'string', 'max' => 100],
             [['vaccine_other'], 'string', 'max' => 200],
-            [['refer_province_code', 'refer_hospcode','refer_from_hospcode'], 'string', 'max' => 6],
+            [['refer_province_code', 'refer_hospcode', 'refer_from_hospcode'], 'string', 'max' => 6],
         ];
     }
 
-    public function behaviors(){
-      return [
+    public function behaviors()
+    {
+        return [
         [
             'class' => AttributeValueBehavior::className(),
             'attributes' => [
-                ActiveRecord::EVENT_AFTER_FIND => ['date'],
+                ActiveRecord::EVENT_AFTER_FIND => ['date', 'discharge_date'],
             ],
             'value' => function ($event, $attribute) {
                 return $this->setThaiFormatdate($attribute);
@@ -122,8 +121,8 @@ class Visit extends \yii\db\ActiveRecord
         [
             'class' => AttributeValueBehavior::className(),
             'attributes' => [
-              ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
-              ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
+              ActiveRecord::EVENT_BEFORE_INSERT => ['date', 'discharge_date'],
+              ActiveRecord::EVENT_BEFORE_UPDATE => ['date', 'discharge_date'],
             ],
             'value' => function ($event, $attribute) {
                 return $this->setStandardFormatdate($attribute);
@@ -141,18 +140,18 @@ class Visit extends \yii\db\ActiveRecord
         [
             'class' => AttributeValueBehavior::className(),
             'attributes' => [
-              ActiveRecord::EVENT_BEFORE_INSERT => ['vaccine','disease','complication','procedure_code'],
-              ActiveRecord::EVENT_BEFORE_UPDATE => ['vaccine','disease','complication','procedure_code'],
+              ActiveRecord::EVENT_BEFORE_INSERT => ['vaccine', 'disease', 'complication', 'procedure_code'],
+              ActiveRecord::EVENT_BEFORE_UPDATE => ['vaccine', 'disease', 'complication', 'procedure_code'],
             ],
             'value' => function ($event, $attribute) {
-                return is_array($this->{$attribute}) ? implode(',',$this->{$attribute}) : '';
-            }
+                return is_array($this->{$attribute}) ? implode(',', $this->{$attribute}) : '';
+            },
         ],
       ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -216,27 +215,32 @@ class Visit extends \yii\db\ActiveRecord
             'summary' => 'สรุปผลตรวจ',
             'hospitalName' => 'ชื่อสถานพยาบาล',
             'refer_province_code' => 'จังหวัด',
-            'refer_hospcode' => 'ชื่อสถานพยาบาล',
+            'refer_hospcode' => 'สถานพยาบาลที่ส่ง Refer',
+            'discharge_date' => 'วันที่จำหน่าย',
+            'discharge_status' => 'สถานะการจำหน่าย',
         ];
     }
 
-    public function fieldToArray(Array $fields){
-      foreach ($fields as $key => $field) {
-        $this->{$field} = empty($this->{$field}) ? [] : explode(',',$this->{$field});
-      }
+    public function fieldToArray(array $fields)
+    {
+        foreach ($fields as $key => $field) {
+            $this->{$field} = empty($this->{$field}) ? [] : explode(',', $this->{$field});
+        }
     }
 
     /**
-     * @inheritdoc
-     * @return \frontend\modules\nb\models\query\VisitQuery the active query used by this AR class.
+     * {@inheritdoc}
+     *
+     * @return \frontend\modules\nb\models\query\VisitQuery the active query used by this AR class
      */
     public static function find()
     {
         return new \frontend\modules\nb\models\query\VisitQuery(get_called_class());
     }
 
-    private function getRelationField($relationName,$fieldName,$defaultValue=''){
-      return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
+    private function getRelationField($relationName, $fieldName, $defaultValue = '')
+    {
+        return isset($this->{$relationName}) ? $this->{$relationName}->{$fieldName} : $defaultValue;
     }
 
     public function getHospital()
@@ -246,39 +250,52 @@ class Visit extends \yii\db\ActiveRecord
 
     public function getHospitalName()
     {
-        return $this->getRelationField('hospital','name');
+        return $this->getRelationField('hospital', 'name');
     }
 
-    public function getIsOwnHospital(){
-      return $this->hospcode == Yii::$app->user->identity->profile->hcode;
+    public function getIsOwnHospital()
+    {
+        return $this->hospcode == Yii::$app->user->identity->profile->hcode;
     }
 
-    public function getItemAilas($key){
-      $items = [
+    public function getItemAilas($key)
+    {
+        $items = [
         'province' => [
           '40' => 'ขอนแก่น',
           '44' => 'มหาสารคาม',
           '45' => 'ร้อยเอ็ด',
-          '46' => 'กาฬสินธุ์'
-        ]
+          '46' => 'กาฬสินธุ์',
+          '0' => 'อื่นๆ',
+        ],
       ];
-      return array_key_exists($key, $items) ? $items[$key] : [];
+
+        return array_key_exists($key, $items) ? $items[$key] : [];
     }
 
-    public function getItemProvince(){
-      return $this->getItemAilas('province');
+    public function getItemProvince()
+    {
+        return $this->getItemAilas('province');
     }
 
-    public function getProvinceName(){
-      $items = $this->getItemAilas('province');
-      return array_key_exists($this->refer_province_code, $items) ? $items[$this->refer_province_code] : '';
+    public function getProvinceName()
+    {
+        $items = $this->getItemAilas('province');
+        return array_key_exists($this->refer_province_code, $items) ? $items[$this->refer_province_code] : '';
     }
 
-    public function getHospitalRefer(){
-      return $this->hasOne(Hospitals::className(),['off_id'=>'refer_hospcode']);
+    public function getHospitalRefer()
+    {
+        return $this->hasOne(Hospitals::className(), ['off_id' => 'refer_hospcode']);
     }
 
-    public function getHospitalReferName(){
-      return isset($this->hospital) ? $this->hospital->name : '';
+    public function getHospitalReferName()
+    {
+        return isset($this->hospital) ? $this->hospital->name : '';
+    }
+
+    public function getRefer()
+    {
+        return $this->hasOne(Refer::className(), ['visit_id' => 'visit_id']);
     }
 }

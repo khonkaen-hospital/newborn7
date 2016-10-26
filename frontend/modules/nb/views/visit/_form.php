@@ -143,34 +143,6 @@ use common\models\Hospital;
   </div>
 </div>
 
-<div class="xpanel visit-index">
-  <div class="xpanel-heading-sm">
-      <span class="xpanel-title"> <i class="fa fa-ambulance"></i> ส่ง Refer </span>
-  </div>
-  <div class="panel-body visit-create">
-    <div class="row">
-      <div class="col-md-6">
-          <?= $form->field($model, 'refer_province_code')->dropdownList($model->getItemProvince(),[
-                    'id'=>'ddl-province',
-                    'prompt'=>'เลือกจังหวัด'
-           ]) ?>
-      </div>
-      <div class="col-md-6">
-        <?= $form->field($model, 'refer_hospcode')->widget(DepDrop::classname(), [
-           'options'=>['id'=>'ddl-hcode'],
-           'type'=>DepDrop::TYPE_SELECT2,
-           'data'=> $initReferHospital,
-           'pluginOptions'=>[
-               'depends'=>['ddl-province'],
-               'placeholder'=>'เลือกสถานพยาบาล...',
-               'url'=>Url::to(['/nb/visit/get-hospital'])
-           ]
-       ]); ?>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="form-group">
     <?php if($model->isOwnHospital): ?>
     <?= Html::submitButton($model->isNewRecord ? '<i class=""></i> บันทึก' : 'บันทึก', ['class' => ($model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'). ' pull-right']) ?>

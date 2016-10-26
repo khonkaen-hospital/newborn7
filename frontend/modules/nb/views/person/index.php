@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="xpanel-heading">
       <span class="xpanel-title">
-        <?= Html::encode($this->title) ?>
+        <i class="fa fa-child"></i> <?= Html::encode($this->title) ?>
       </span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียน', ['create'], ['class' => 'btn btn-primary pull-right']) ?>
+      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียน', ['create'], ['class' => 'btn btn-success pull-right']) ?>
   </div>
 
   <div class="panel-body person-index">

@@ -4,7 +4,7 @@ use yii\helpers\Html;
  ?>
 
  <div class="xpanel-heading">
-   <?= Html::a('<i class="glyphicon glyphicon-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
+   <?= Html::a('<i style="font-size:18px;" class="fa fa-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
    <span class="xpanel-title"><?= Html::encode($this->title) ?> </span>
       <?php if(!$model->isNewRecord): ?>
       <?= Nav::widget([
@@ -24,6 +24,10 @@ use yii\helpers\Html;
             [
                 'label' => 'ข้อมูลพัฒนาการ',
                 'url' => ['/nb/visit-develop/create','visit_id' => $visit->visit_id],
+            ],
+            [
+                'label' => 'การจำหน่าย',
+                'url' => ['/nb/visit/discharge','visit_id' => $visit->visit_id],
             ]
         ],
         'options' => ['class' =>'nav-pills pull-right','style'=>'margin-top:-10px;'], // set this to nav-tab to get tab-styled navigation
