@@ -3,6 +3,7 @@
 namespace frontend\modules\nb\models\query;
 
 use Yii;
+use frontend\modules\nb\models\Refer;
 /**
  * This is the ActiveQuery class for [[\frontend\modules\nb\models\Refer]].
  *
@@ -21,6 +22,20 @@ class ReferQuery extends \yii\db\ActiveQuery
     {
         return $this->andWhere([
           'refer_to' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
+        ]);
+    }
+
+    public function isNotAccept($code=null)
+    {
+        return $this->andWhere([
+          'status' => Refer::STATUS_SEND
+        ]);
+    }
+
+    public function isAccept($code=null)
+    {
+        return $this->andWhere([
+          'status' => Refer::STATUS_ACCEPT
         ]);
     }
 

@@ -126,6 +126,7 @@ class VisitController extends Controller
         $person = $this->findModelPerson($model->patient_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->addRefer($model);
             Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['discharge', 'visit_id' => $model->visit_id]);
         } else {
@@ -143,7 +144,7 @@ class VisitController extends Controller
      *
      * @return mixed
      */
-    public function actionCreate($id)
+    public function actionCreate($id,$refer_id=null)
     {
         $person = $this->findModelPerson($id);
         $model = new Visit([
@@ -156,7 +157,15 @@ class VisitController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->addRefer($model);
+            if($refer_id!==null){
+              $refer = Refer::findOne($refer_id);
+              if($refer != null){
+                $refer->updateAttributes([
+                  'visit_id_accept'=>$model->visit_id,
+                  'status' => Refer::STATUS_ACCEPT
+                ]);
+              }
+            }
             Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['update', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {
@@ -182,7 +191,6 @@ class VisitController extends Controller
         $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->addRefer($model);
             Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->refresh();
         } else {
@@ -195,20 +203,22 @@ class VisitController extends Controller
     }
 
     private function addRefer($visit){
+
       if(isset($visit->refer)){
         $model = $visit->refer;
-
+        $model->refer_to = $visit->refer_hospcode;
+        $model->refer_date  = $visit->refer_date;
       }else{
         $model = new Refer([
           'hospcode' => $visit->hospcode,
           'patient_id' => $visit->patient_id,
           'visit_id' => $visit->visit_id,
           'refer_to' => $visit->refer_hospcode,
-          'status' => Refer::STATUS_REFER
+          'refer_date' => $visit->refer_date,
+          'status' => Refer::STATUS_SEND
         ]);
-        $model->save();
       }
-
+      $model->save();
     }
 
     /**

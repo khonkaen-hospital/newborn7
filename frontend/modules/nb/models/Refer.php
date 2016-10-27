@@ -24,7 +24,7 @@ use yii\behaviors\TimestampBehavior;
 class Refer extends \yii\db\ActiveRecord
 {
     use \frontend\modules\nb\traits\ItemsAliasTrait;
-    const STATUS_REFER = 1;
+    const STATUS_SEND = 1;
     const STATUS_ACCEPT = 2;
     /**
      * @inheritdoc
@@ -70,6 +70,9 @@ class Refer extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
+            'refer_date' => 'วันที่ส่ง',
+            'personFullname' => 'ชื่อ-นามสกุล',
+            'hospitalName' => 'จากโรงพยาบาล',
         ];
     }
 

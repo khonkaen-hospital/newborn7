@@ -18,7 +18,7 @@ $hospitalName = '';
 $countRefer='';
 if(!Yii::$app->user->isGuest) {
   $hospitalName = isset(Yii::$app->user->identity->profile->hospital) ? Yii::$app->user->identity->profile->hospitalName : '';
-  $countRefer = Refer::find()->byReferToHospcode()->count();
+  $countRefer = Refer::find()->byReferToHospcode()->isNotAccept()->count();
   $countRefer = $countRefer==0? '':'<span style="background-color:#FF9800;" class="badge">'.$countRefer.'</span>';
 }
 ?>
