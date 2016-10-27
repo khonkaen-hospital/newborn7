@@ -23,6 +23,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Refer extends \yii\db\ActiveRecord
 {
+    use \frontend\modules\nb\traits\ItemsAliasTrait;
     const STATUS_REFER = 1;
     const STATUS_ACCEPT = 2;
     /**
@@ -79,5 +80,30 @@ class Refer extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \frontend\modules\nb\models\query\ReferQuery(get_called_class());
+    }
+
+    public function getVisit()
+    {
+        return $this->hasOne(Visit::className(), ['visit_id' => 'visit_id']);
+    }
+
+    public function getPerson()
+    {
+        return $this->hasOne(Person::className(), ['newborn_id' => 'patient_id']);
+    }
+
+    public function getPersonFullname()
+    {
+          return $this->getRelationField('person','fullName');
+    }
+
+    public function getHospital()
+    {
+        return $this->hasOne(Hospital::className(), ['off_id' => 'hospcode']);
+    }
+
+    public function getHospitalName()
+    {
+        return $this->getRelationField('hospital','name');
     }
 }

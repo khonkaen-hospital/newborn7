@@ -41,7 +41,9 @@ class ReferSearch extends Refer
      */
     public function search($params)
     {
-        $query = Refer::find()->byReferToHospcode();
+        $query = Refer::find()
+        ->joinWith(['person','hospital'])
+        ->byReferToHospcode();
 
         // add conditions that should always apply here
 

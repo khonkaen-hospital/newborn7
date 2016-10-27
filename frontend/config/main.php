@@ -65,7 +65,8 @@ return [
                  [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
-                      'nb/api/icdcode'
+                      'nb/api/icdcode',
+                      'nb/api/hospital'
                     ],
                     'extraPatterns' => [
                       'GET search' => 'search',

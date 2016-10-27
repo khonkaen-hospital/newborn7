@@ -58,23 +58,44 @@ $this->params['breadcrumbs'][] = $this->title;
   </div>
   <div class="panel-body visit-create">
     <div class="row">
-      <div class="col-md-6">
-          <?= $form->field($model, 'refer_province_code')->dropdownList($model->getItemProvince(),[
-                    'id'=>'ddl-province',
-                    'prompt'=>'เลือกจังหวัด'
-           ]) ?>
+      <div class="col-md-4">
+            <?= $form->field($model, 'refer_date')->widget(MaskedInput::className(), ['mask' => '99-99-9999']) ?>
       </div>
-      <div class="col-md-6">
-        <?= $form->field($model, 'refer_hospcode')->widget(DepDrop::classname(), [
-           'options'=>['id'=>'ddl-hcode'],
-           'type'=>DepDrop::TYPE_SELECT2,
-           'data'=> $initReferHospital,
-           'pluginOptions'=>[
-               'depends'=>['ddl-province'],
-               'placeholder'=>'เลือกสถานพยาบาล...',
-               'url'=>Url::to(['/nb/visit/get-hospital'])
+      <div class="col-md-8">
+       <?= $form->field($model, 'refer_hospcode')->widget(Select2::className(),[
+         'initValueText'=> $initReferHospital,
+         'options' => ['placeholder' => 'เลือกสถานพยาบาล..'],
+         'pluginOptions' => [
+           'allowClear' => true,
+           'language' => [
+                    'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
+           ],
+           'ajax' => [
+               'url' => Url::to(['/nb/api/hospital/find']),
+               'dataType' => 'json',
+               'cache'=>true,
+               'data' => new JsExpression('function(params) { return {q:params.term,page:params.page}; }'),
+               'processResults' => new JsExpression("function (data, params) {
+
+                        var datas = $.map(data.items, function (obj) {
+                         obj.id = obj.off_id;
+                         obj.text =  ('('+obj.off_id+') '+obj.name);
+                         return obj;
+                        });
+
+                        params.page = params.page || 1;
+
+                        return {
+                          results: datas,
+                          pagination: {
+                            more: (params.page * data._meta.perPage) < data._meta.totalCount
+                          }
+                        };
+                      },
+                  ")
            ]
-       ]); ?>
+         ]
+       ]) ?>
       </div>
     </div>
   </div>

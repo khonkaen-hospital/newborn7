@@ -151,7 +151,8 @@ class VisitController extends Controller
           'hospcode' => Yii::$app->user->identity->profile->hcode,
           'date' => date('d-m-').(date('Y') + 543),
           'age' => $person->getCurrentAge('birth'),
-          'discharge_date' => '0000-00-00'
+          'discharge_date' => '0000-00-00',
+          'refer_date' => '0000-00-00'
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

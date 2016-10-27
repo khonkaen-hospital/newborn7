@@ -29,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions' => ['class'=>'table table-striped'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'hospcode',
-            'patient_id',
+            'hospitalName',
+            'personFullname',
             'visit_id',
-            'refer_to',
+
             // 'status',
             // 'irefer_id',
             // 'created_at',
