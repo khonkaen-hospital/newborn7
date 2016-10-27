@@ -2,6 +2,7 @@
 
 namespace frontend\modules\nb\models\query;
 
+use Yii;
 /**
  * This is the ActiveQuery class for [[\frontend\modules\nb\models\Refer]].
  *
@@ -9,10 +10,19 @@ namespace frontend\modules\nb\models\query;
  */
 class ReferQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function byHospcode($code=null)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere([
+          'hospcode' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
+        ]);
+    }
+
+    public function byReferToHospcode($code=null)
+    {
+        return $this->andWhere([
+          'refer_to' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
+        ]);
+    }
 
     /**
      * @inheritdoc

@@ -9,10 +9,18 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use frontend\modules\nb\models\Refer;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\Growl;
 
 AppAsset::register($this);
+$hospitalName = '';
+$countRefer='';
+if(!Yii::$app->user->isGuest) {
+  $hospitalName = isset(Yii::$app->user->identity->profile->hospital) ? Yii::$app->user->identity->profile->hospitalName : '';
+  $countRefer = Refer::find()->byReferToHospcode()->count();
+  $countRefer = $countRefer==0? '':'<span style="background-color:#FF9800;" class="badge">'.$countRefer.'</span>';
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,6 +37,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
     NavBar::begin([
         'brandLabel' => Yii::$app->params['app.brandLabel'],
         'brandUrl' => Yii::$app->homeUrl,
@@ -51,9 +60,10 @@ AppAsset::register($this);
       //   ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
       //   ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
       // ]];
-       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียน', 'url' => ['/nb/person/index']];
-       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-save-file"></i> '.'นำเข้าทะเบียน', 'url' => ['/nb/person/import']];
-       $menuItems[] = ['label' => 'บัญชี ('.Yii::$app->user->identity->username .')', 'items' => [
+       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียนเด็กทารก', 'url' => ['/nb/person/index']];
+       $menuItems[] = ['label' => '<i class="fa fa-ambulance"></i> '.'ทะเบียน Refer '.$countRefer, 'url' => ['/nb/refer/index']];
+       //$menuItems[] = ['label' => '<i class="glyphicon glyphicon-save-file"></i> '.'นำเข้าทะเบียน', 'url' => ['/nb/person/import']];
+       $menuItems[] = ['label' => 'บัญชี ('.strtoupper(Yii::$app->user->identity->username) .' : '.$hospitalName.')', 'items' => [
             ['label' => 'Profile', 'url' => ['/user/settings/profile']],
             ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
             '<li>'
