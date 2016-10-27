@@ -69,7 +69,8 @@ return [
                     ],
                     'extraPatterns' => [
                       'GET search' => 'search',
-                      'GET ajax' => 'ajax',
+                      'GET icdnine' => 'icdnine',
+                      'GET icdten' => 'icdten'
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\w+>',

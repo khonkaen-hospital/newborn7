@@ -3,6 +3,7 @@
 namespace frontend\modules\nb\modules\api\controllers;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 class IcdcodeController extends \yii\rest\ActiveController
 {
@@ -19,11 +20,34 @@ class IcdcodeController extends \yii\rest\ActiveController
                 'class'       => 'frontend\modules\nb\modules\api\actions\SearchAction',
                 'modelClass'  => $this->modelClass,
                 'params'      => Yii::$app->request->get(),
-                'likeField' => ['code','description'],
-                'queryCondition' => function($query, $q){
-                  $query->andWhere(' code LIKE :q OR description LIKE :q ', [
-                    ':q' => '%'.$q.'%',
+                'likeField' => ['code','description']
+            ],
+            'icdten' => [
+                'class'       => 'frontend\modules\nb\modules\api\actions\SearchAction',
+                'modelClass'  => $this->modelClass,
+                'params'      => Yii::$app->request->get(),
+                'prepareDataProvider' => function($action, $model, $query, $modelClass){
+                  $dataProvider = new ActiveDataProvider([
+                    'query' => $query
                   ]);
+                  $query->icd10()->andWhere(' code LIKE :q OR description LIKE :q ', [
+                          ':q' => '%'.Yii::$app->request->get('q').'%',
+                  ]);
+                  return $dataProvider;
+                }
+            ],
+            'icdnine' => [
+                'class'       => 'frontend\modules\nb\modules\api\actions\SearchAction',
+                'modelClass'  => $this->modelClass,
+                'params'      => Yii::$app->request->get(),
+                'prepareDataProvider' => function($action, $model, $query, $modelClass){
+                  $dataProvider = new ActiveDataProvider([
+                    'query' => $query
+                  ]);
+                  $query->icd9()->andWhere(' code LIKE :q OR description LIKE :q ', [
+                          ':q' => '%'.Yii::$app->request->get('q').'%',
+                  ]);
+                  return $dataProvider;
                 }
             ],
         ];

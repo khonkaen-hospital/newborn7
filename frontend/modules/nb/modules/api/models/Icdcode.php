@@ -15,8 +15,9 @@ use Yii;
  */
 class Icdcode extends \yii\db\ActiveRecord
 {
-   public $q;
-   
+  const TYPE_ICD10 = 'icd10';
+  const TYPE_ICD9 = 'icd9';
+
     /**
      * @inheritdoc
      */

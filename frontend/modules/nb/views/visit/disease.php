@@ -21,7 +21,7 @@ $pluginOptions = [
                      'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
             ],
             'ajax' => [
-                'url' => Url::to(['/nb/api/icdcodes/search']),
+                'url' => Url::to(['/nb/api/icdcodes/icdten']),
                 'dataType' => 'json',
                 'cache'=>true,
                 //'data' => new JsExpression('function(params) { return {q:params.term}; }'),
@@ -49,6 +49,12 @@ $pluginOptions = [
             'tags' => true,
             //'maximumInputLength' => 10
         ];
+
+$pluginOptionsIcdten = $pluginOptions;
+$pluginOptionsIcdten['ajax']['url'] = Url::to(['/nb/api/icdcodes/icdten']);
+
+$pluginOptionsIcdnine = $pluginOptions;
+$pluginOptionsIcdnine['ajax']['url'] = Url::to(['/nb/api/icdcodes/icdnine']);
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -76,7 +82,7 @@ $pluginOptions = [
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก disease..', 'multiple' => true],
-          'pluginOptions' => $pluginOptions
+          'pluginOptions' => $pluginOptionsIcdten
         ]) ?>
       </div>
       <div class="col-md-6">
@@ -90,7 +96,7 @@ $pluginOptions = [
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก complication..', 'multiple' => true],
-          'pluginOptions' => $pluginOptions
+          'pluginOptions' => $pluginOptionsIcdten
         ]) ?>
       </div>
     </div>
@@ -106,7 +112,7 @@ $pluginOptions = [
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก Procedure..', 'multiple' => true],
-          'pluginOptions' => $pluginOptions
+          'pluginOptions' => $pluginOptionsIcdnine
         ]) ?>
       </div>
     </div>

@@ -51,17 +51,18 @@ class SearchAction extends Action {
      * @return ActiveDataProvider
      */
     protected function prepareDataProvider() {
+
+        $modelClass = $this->modelClass;
+        $model      = new $this->modelClass();
+        $query      = $modelClass::find();
+
         if ($this->prepareDataProvider !== null) {
-            return call_user_func($this->prepareDataProvider, $this);
+            return call_user_func($this->prepareDataProvider, $this, $model, $query, $modelClass);
         }
 
         if(!$this->params){
-          //throw new \yii\web\HttpException(400, 'There are no query string');
+          throw new \yii\web\HttpException(400, 'There are no query string');
         }
-
-        $modelClass     = $this->modelClass;
-        $model          = new $this->modelClass();
-        $query          = $modelClass::find();
 
         $this->removeConflictParams([
           'access-token',
@@ -71,11 +72,6 @@ class SearchAction extends Action {
         $dataProvider = new ActiveDataProvider([
           'query' => $query
         ]);
-
-        if ($this->queryCondition !== null && ($q = Yii::$app->request->get($this->queryParamsName)) !== null) {
-            call_user_func($this->queryCondition, $query, $q);
-            return $dataProvider;
-        }
 
         $params = $this->getSearchParams($model);
         if (empty($params)) {

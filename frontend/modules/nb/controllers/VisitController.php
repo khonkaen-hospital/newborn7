@@ -151,6 +151,7 @@ class VisitController extends Controller
           'hospcode' => Yii::$app->user->identity->profile->hcode,
           'date' => date('d-m-').(date('Y') + 543),
           'age' => $person->getCurrentAge('birth'),
+          'discharge_date' => '0000-00-00'
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -219,9 +220,9 @@ class VisitController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $model->delete();
+        return $this->redirect(['index','id'=>$model->patient_id]);
     }
 
     public function loadScreenDataprovider($visit_id, $type)

@@ -9,10 +9,15 @@ namespace frontend\modules\nb\modules\api\models;
  */
 class IcdcodeQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function icd10()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere(['type'=>Icdcode::TYPE_ICD10]);
+    }
+
+    public function icd9()
+    {
+        return $this->andWhere(['type'=>Icdcode::TYPE_ICD9]);
+    }
 
     /**
      * @inheritdoc

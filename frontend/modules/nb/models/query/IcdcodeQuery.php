@@ -2,6 +2,8 @@
 
 namespace frontend\modules\nb\models\query;
 
+use frontend\modules\nb\models\Icdcode; 
+
 /**
  * This is the ActiveQuery class for [[\frontend\modules\nb\models\Icdcode]].
  *
