@@ -67,6 +67,7 @@ $pluginOptions = [
       <div class="col-md-6">
 
         <?= $form->field($model, 'disease')->widget(Select2::className(),[
+          'data'=> $initDisease,
           'maintainOrder' => true,
           'toggleAllSettings' => [
               'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
@@ -80,6 +81,7 @@ $pluginOptions = [
       </div>
       <div class="col-md-6">
         <?= $form->field($model, 'complication')->widget(Select2::className(),[
+          'data'=>$initComplication,
           'maintainOrder' => true,
           'toggleAllSettings' => [
               'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
@@ -95,7 +97,7 @@ $pluginOptions = [
     <div class="row">
       <div class="col-md-6">
         <?= $form->field($model, 'procedure_code')->widget(Select2::className(),[
-
+          'data'=>$initProcedureCode,
           'maintainOrder' => true,
           'toggleAllSettings' => [
               'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> Tag All',
@@ -104,10 +106,7 @@ $pluginOptions = [
               'unselectOptions' => ['class' => 'text-danger'],
           ],
           'options' => ['placeholder' => 'กรอก Procedure..', 'multiple' => true],
-          'pluginOptions' => [
-              'tags' => true,
-              'maximumInputLength' => 10
-          ],
+          'pluginOptions' => $pluginOptions
         ]) ?>
       </div>
     </div>

@@ -4,7 +4,7 @@ namespace frontend\modules\nb\controllers;
 
 use Yii;
 use frontend\modules\nb\models\Person;
-use frontend\modules\nb\models\Icd10;
+use frontend\modules\nb\models\Icdcode;
 use frontend\modules\nb\models\Refer;
 use frontend\modules\nb\models\Visit;
 use frontend\modules\nb\models\VisitSearch;
@@ -98,9 +98,12 @@ class VisitController extends Controller
     public function actionDisease($id, $visit_id)
     {
         $model   = $this->findModel($visit_id);
-        $person  = $this->findModelPerson($id);
-        //$icdcode = Icdcode::find()->select(['code'])->indexBy('code')->column();
+        $person  = $this->findModelPerson($model);
         $model->fieldToArray(['vaccine', 'disease', 'complication', 'procedure_code']);
+
+        $initDisease = Icdcode::find()->findAllByCode($model->disease)->select(['CONCAT("(",`code`,") ",`description`)'])->indexBy('code')->column();
+        $initComplication = Icdcode::find()->findAllByCode($model->complication)->select(['CONCAT("(",`code`,") ",`description`)'])->indexBy('code')->column();
+        $initProcedureCode = Icdcode::find()->findAllByCode($model->procedure_code)->select(['CONCAT("(",`code`,") ",`description`)'])->indexBy('code')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -110,7 +113,9 @@ class VisitController extends Controller
                 'model' => $model,
                 'id' => $id,
                 'person' => $person,
-                //'icdcode' => $icdcode
+                'initDisease' => $initDisease,
+                'initComplication' => $initComplication,
+                'initProcedureCode'=> $initProcedureCode
             ]);
         }
     }
