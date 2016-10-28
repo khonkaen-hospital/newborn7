@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c3e253110b0fcac095537c1080dcf31",
-    "content-hash": "e30b2668e2f53abf5c04c40ac2a524e8",
+    "hash": "8ab2442bfe9970c1a91eb421d9c81cb5",
+    "content-hash": "ff094c16bf06e30442bd8f993c6f721a",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -393,25 +393,28 @@
         },
         {
             "name": "dektrium/yii2-rbac",
-            "version": "0.3.0",
+            "version": "1.0.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dektrium/yii2-rbac.git",
-                "reference": "4c5c383f577256d34cbc37ed26809a8ff109b2ec"
+                "reference": "0943e66c450132b306584a37caefc2aa04258372"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dektrium/yii2-rbac/zipball/4c5c383f577256d34cbc37ed26809a8ff109b2ec",
-                "reference": "4c5c383f577256d34cbc37ed26809a8ff109b2ec",
+                "url": "https://api.github.com/repos/dektrium/yii2-rbac/zipball/0943e66c450132b306584a37caefc2aa04258372",
+                "reference": "0943e66c450132b306584a37caefc2aa04258372",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-widget-select2": "*",
-                "yiisoft/yii2": "2.0.*"
+                "kartik-v/yii2-widget-select2": "^2.0",
+                "yiisoft/yii2": "^2.0.8"
             },
             "type": "yii2-extension",
             "extra": {
-                "bootstrap": "dektrium\\rbac\\Bootstrap"
+                "bootstrap": "dektrium\\rbac\\Bootstrap",
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -439,7 +442,7 @@
                 "yii2",
                 "yii2-rbac"
             ],
-            "time": "2016-03-30 12:19:16"
+            "time": "2016-08-15 15:49:54"
         },
         {
             "name": "dektrium/yii2-user",
@@ -3039,6 +3042,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dektrium/yii2-user": 20,
+        "dektrium/yii2-rbac": 20,
         "kartik-v/yii2-widget-select2": 20,
         "kartik-v/yii2-widget-depdrop": 20,
         "kartik-v/yii2-widget-datepicker": 20,

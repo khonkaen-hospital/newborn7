@@ -22,7 +22,7 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "dektrium/yii2-user": "0.9.*@dev",
-        "dektrium/yii2-rbac": "0.3.0",
+        "dektrium/yii2-rbac": "1.0.0-alpha@dev",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-depdrop": "@dev",
         "kartik-v/yii2-widget-typeahead": "*",

@@ -65,9 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                   ],['class'=>'btn btn-default btn-sm','data'=>['pjax'=>'0']]);
                 }
               }
-            ]
-
-            //['class' => 'yii\grid\ActionColumn'],
+            ],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 <?php Pjax::end(); ?>

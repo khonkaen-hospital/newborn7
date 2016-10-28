@@ -14,8 +14,8 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'authManager' => [
-                'class' => 'yii\rbac\DbManager',
-         ],
+             'class' => 'dektrium\rbac\components\DbManager',
+        ],
         'assetManager' => [
           'appendTimestamp' => true,
         ],

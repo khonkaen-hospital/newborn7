@@ -56,14 +56,13 @@ if(!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     } else {
-      // $menuItems[] = ['label' => 'ข้อมูล New Born', 'items' => [
-      //   ['label' => 'บันทึก KPI', 'url' => ['/newborn7/patient/create']],
-      //   ['label' => 'ข้อมูล New Born', 'url' => ['/newborn7/patient/index']],
-      // ]];
-       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus"></i> '.'ทะเบียนเด็กทารก', 'url' => ['/nb/person/index']];
-       $menuItems[] = ['label' => '<i class="fa fa-ambulance"></i> '.'ทะเบียน Refer '.$countRefer, 'url' => ['/nb/refer/index']];
-       //$menuItems[] = ['label' => '<i class="glyphicon glyphicon-save-file"></i> '.'นำเข้าทะเบียน', 'url' => ['/nb/person/import']];
-       $menuItems[] = ['label' => 'บัญชี ('.strtoupper(Yii::$app->user->identity->username) .' : '.$hospitalName.')', 'items' => [
+     
+       $menuItems[] = ['label' => '<i class="glyphicon glyphicon-th-list"></i> '.'ทะเบียนเด็กทารก', 'url' => ['/nb/person/index']];
+       $menuItems[] = ['label' => '<i class="fa fa-ambulance"></i> ทะเบียน Refer'.$countRefer, 'items' => [
+        ['label' => 'รับ Refer', 'url' => ['/nb/refer/in']],
+        ['label' => 'ส่งต่อ Refer', 'url' => ['/nb/refer/out']],
+       ]];
+       $menuItems[] = ['label' => ' <i class="glyphicon glyphicon-user"></i> '.strtoupper(Yii::$app->user->identity->username) .' : '.$hospitalName.'', 'items' => [
             ['label' => 'Profile', 'url' => ['/user/settings/profile']],
             ['label' => 'Api Setting', 'url' => ['/api-settings/index']],
             '<li>'
