@@ -16,12 +16,14 @@ use common\models\Hospital;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php $form = ActiveForm::begin(); ?>
+<?= $form->errorSummary($model) ?>
 
 <div class="xpanel-tab visit-index">
   <?= $this->render('/_visit-menus', [
       'visit' => $model,
       'person' => $person,
-  ])?>
+      ]); 
+  ?>
 </div>
 
 <div class="xpanel visit-index">

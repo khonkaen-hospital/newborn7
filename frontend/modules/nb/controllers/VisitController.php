@@ -147,25 +147,24 @@ class VisitController extends Controller
     public function actionCreate($id,$refer_id=null)
     {
         $person = $this->findModelPerson($id);
+        $refer = Refer::findOne($refer_id);
         $model = new Visit([
           'patient_id' => $person->newborn_id,
           'hospcode' => Yii::$app->user->identity->profile->hcode,
           'date' => date('d-m-').(date('Y') + 543),
           'age' => $person->getCurrentAge('birth'),
           'discharge_date' => '0000-00-00',
-          'refer_date' => '0000-00-00'
+          'refer_date' => '0000-00-00',
+          'refer_from_hospcode' => $refer !== null ? $refer->hospcode : null
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if($refer_id!==null){
-              $refer = Refer::findOne($refer_id);
               if($refer != null){
                 $refer->updateAttributes([
                   'visit_id_accept'=>$model->visit_id,
-                  'status' => Refer::STATUS_ACCEPT
+                  'status' => Refer::STATUS_ACCEPT 
                 ]);
               }
-            }
             Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อยแล้ว');
             return $this->redirect(['update', 'id' => $person->newborn_id, 'visit_id' => $model->visit_id]);
         } else {

@@ -24,6 +24,7 @@ use yii\behaviors\TimestampBehavior;
 class Refer extends \yii\db\ActiveRecord
 {
     use \frontend\modules\nb\traits\ItemsAliasTrait;
+
     const STATUS_SEND = 1;
     const STATUS_ACCEPT = 2;
     /**
@@ -49,7 +50,8 @@ class Refer extends \yii\db\ActiveRecord
     {
         return [
             [['hospcode', 'patient_id', 'visit_id', 'refer_to'], 'required'],
-            [['hospcode', 'patient_id', 'visit_id', 'refer_to', 'status', 'irefer_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['hospcode','refer_to'],'string','max'=>6],
+            [['patient_id', 'visit_id', 'status', 'irefer_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
         ];
     }
 
@@ -73,6 +75,7 @@ class Refer extends \yii\db\ActiveRecord
             'refer_date' => 'วันที่ส่ง',
             'personFullname' => 'ชื่อ-นามสกุล',
             'hospitalName' => 'จากโรงพยาบาล',
+            'hospitalOutName' => 'ส่งต่อไปที่โรงพยาบาล',
         ];
     }
 
@@ -108,5 +111,15 @@ class Refer extends \yii\db\ActiveRecord
     public function getHospitalName()
     {
         return $this->getRelationField('hospital','name');
+    }
+
+    public function getHospitalOut()
+    {
+        return $this->hasOne(Hospital::className(), ['off_id' => 'refer_to']);
+    }
+
+    public function getHospitalOutName()
+    {
+        return $this->getRelationField('hospitalOut','name');
     }
 }

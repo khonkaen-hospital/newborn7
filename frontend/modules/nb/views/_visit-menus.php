@@ -6,7 +6,7 @@ use yii\helpers\Html;
  <div class="xpanel-heading">
    <?= Html::a('<i style="font-size:18px;" class="fa fa-chevron-left"></i> '.' ', ['visit/index','id'=>$person->newborn_id]) ?>
    <span class="xpanel-title"><?= Html::encode($this->title) ?> </span>
-      <?php if(!$model->isNewRecord): ?>
+      <?php if(!$visit->isNewRecord): ?>
       <?= Nav::widget([
         'items' => [
             [

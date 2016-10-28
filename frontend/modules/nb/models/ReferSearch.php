@@ -39,11 +39,15 @@ class ReferSearch extends Refer
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$type='in')
     {
-        $query = Refer::find()
-        ->joinWith(['person','hospital'])
-        ->byReferToHospcode();
+        $query = Refer::find()->joinWith(['person','hospital']);
+
+        if($type=='in') {
+            $query->byReferToHospcode();
+        }else{
+            $query->byHospcode();
+        }
 
         // add conditions that should always apply here
 

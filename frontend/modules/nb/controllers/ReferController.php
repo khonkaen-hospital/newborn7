@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class ReferController extends Controller
 {
+    public $defaultAction = 'in';
+
     /**
      * @inheritdoc
      */
@@ -33,16 +35,32 @@ class ReferController extends Controller
      * Lists all Refer models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIn()
     {
         $searchModel = new ReferSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'in');
 
-        return $this->render('index', [
+        return $this->render('in', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    /**
+     * Lists all Refer models.
+     * @return mixed
+     */
+    public function actionOut()
+    {
+        $searchModel = new ReferSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'out');
+
+        return $this->render('out', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
 
     /**
      * Displays a single Refer model.

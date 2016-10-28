@@ -13,7 +13,7 @@ use kartik\typeahead\Typeahead;
   'id'=>'person-form'
 ]); ?>
 
-<div class="xpanel" id="personal-data">
+<div class="<?=$model->isNewRecord ? 'xpanel' : 'xpanel-tab' ?>" id="personal-data">
 
   <div class="xpanel-heading-sm">
       <span class="xpanel-title">

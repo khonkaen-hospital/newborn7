@@ -22,12 +22,18 @@ trait ItemsAliasTrait {
     return $this->_itemsModel;
   }
 
-  public function getItems( String $key ): array
+  public function getItems( $key )
   {
     return $this->getItemsAlias()->load($key);
   }
 
-  public function getItemsNumber( int $start = 1, int $end = 5 ): array
+  public function getItemsLabel( $group, $key )
+  {
+    $items =  $this->getItemsAlias()->load($group);
+    return array_key_exists($key,$items) ? $items[$key] : '';
+  }
+
+  public function getItemsNumber( $start = 1, $end = 5 )
   {
     $rang  =  range($start,$end);
     $items = [];

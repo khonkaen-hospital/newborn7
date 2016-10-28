@@ -14,14 +14,14 @@ class ReferQuery extends \yii\db\ActiveQuery
     public function byHospcode($code=null)
     {
         return $this->andWhere([
-          'hospcode' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
+          'refer.hospcode' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
         ]);
     }
 
     public function byReferToHospcode($code=null)
     {
         return $this->andWhere([
-          'refer_to' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
+          'refer.refer_to' => $code == null ? Yii::$app->user->identity->profile->hcode : $code
         ]);
     }
 
@@ -38,6 +38,8 @@ class ReferQuery extends \yii\db\ActiveQuery
           'status' => Refer::STATUS_ACCEPT
         ]);
     }
+
+    
 
     /**
      * @inheritdoc

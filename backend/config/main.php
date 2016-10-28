@@ -26,7 +26,7 @@ return [
     ],
     'components' => [
       'authManager' => [
-              'class' => 'yii\rbac\DbManager',
+        'class' => 'dektrium\rbac\components\DbManager',
        ],
         'user' => [
             // 'identityClass' => 'dektrium\user\models\User',

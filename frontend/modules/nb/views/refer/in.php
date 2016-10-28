@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\modules\nb\models\ReferSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Refers';
+$this->title = 'ทะเบียนรับผู้ป่วย (Refer In)';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="xpanel-heading">
       <span class="xpanel-title">
-        <i class="fa fa-child"></i> <?= Html::encode($this->title) ?>
+        <i class="glyphicon glyphicon-import"></i> <?= Html::encode($this->title) ?>
       </span>
-      <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.' ลงทะเบียน', ['create'], ['class' => 'btn btn-success pull-right']) ?>
+      
   </div>
 
   <div class="panel-body refer-index">

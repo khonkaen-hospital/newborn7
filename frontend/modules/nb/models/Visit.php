@@ -286,14 +286,24 @@ class Visit extends \yii\db\ActiveRecord
         return array_key_exists($this->refer_province_code, $items) ? $items[$this->refer_province_code] : '';
     }
 
-    public function getHospitalRefer()
+    public function getHospitalReferTo()
     {
-        return $this->hasOne(Hospitals::className(), ['off_id' => 'refer_hospcode']);
+        return $this->hasOne(Hospital::className(), ['off_id' => 'refer_hospcode']);
     }
 
-    public function getHospitalReferName()
+    public function getHospitalReferToName()
     {
-        return isset($this->hospital) ? $this->hospital->name : '';
+        return $this->getRelationField('hospitalReferTo','name');
+    }
+
+    public function getHospitalReferFrom()
+    {
+        return $this->hasOne(Hospital::className(), ['off_id' => 'refer_from_hospcode']);
+    }
+
+    public function getHospitalReferFromName()
+    {
+        return $this->getRelationField('hospitalReferFrom','name');
     }
 
     public function getRefer()
